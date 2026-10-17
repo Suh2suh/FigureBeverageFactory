@@ -5,9 +5,33 @@ namespace FBFactory
 {
     public abstract class UnitBase : MonoBehaviour
     {
+        [SerializeField, ReadOnly] private PackMLMode _mode = PackMLMode.Production;
         [SerializeField, ReadOnly] private PackMLState _state;
+        [SerializeField, ReadOnly] private UnitIssueType _issue = UnitIssueType.None;
 
         public PackMLState State => _state;
+
+
+        private void Update()
+        {
+            if (_mode != PackMLMode.Production ||
+                _state != PackMLState.Execute)
+            {
+                return;
+            }
+
+            ExecuteProduction();
+        }
+
+        protected abstract void ExecuteProduction();
+
+
+        public void SetMode(PackMLMode to)
+        {
+            _mode = to;
+
+            Stop_PackML();
+        }
 
 
         /// <summary>
@@ -61,8 +85,10 @@ namespace FBFactory
         /// <summary>
         /// 작동 정지 {비정상 정지(비정상 상황 감지)}
         /// </summary>
-        public bool Abort_PackML()
+        public bool Abort_PackML(UnitIssueType issueType)
         {
+            _issue = issueType;
+
             // pending for stateComplete
             _state = PackMLState.Aborting;  // -> Aborted
             OnAborting_PackML();
@@ -107,6 +133,7 @@ namespace FBFactory
                     break;
                 case PackMLState.Clearing:
                     _state = PackMLState.Stopped;
+                    _issue = UnitIssueType.None;
                     break;
                 default:
                     break;

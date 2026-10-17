@@ -1,0 +1,40 @@
+using UnityEditor;
+using UnityEngine;
+
+namespace FBFactory
+{
+    [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
+    public class ReadOnlyDrawer : PropertyDrawer
+    {
+        public override void OnGUI(
+            Rect position,
+            SerializedProperty property,
+            GUIContent label)
+        {
+            EditorGUI.BeginProperty(position, label, property);
+
+            bool previousEnabled = GUI.enabled;
+            GUI.enabled = false;
+
+            EditorGUI.PropertyField(
+                position,
+                property,
+                label,
+                includeChildren: true);
+
+            GUI.enabled = previousEnabled;
+
+            EditorGUI.EndProperty();
+        }
+
+        public override float GetPropertyHeight(
+            SerializedProperty property,
+            GUIContent label)
+        {
+            return EditorGUI.GetPropertyHeight(
+                property,
+                label,
+                includeChildren: true);
+        }
+    }
+}
