@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6cba1a2c7e79eb42a732ed123ea2388, type: 3}
-  m_Name: 500ML_Crocodile
+  m_Name: 500ML_Apple_Rabbit
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.BeverageDefinition
   _petDefinition: {fileID: 11400000, guid: f63ac6704849f01419ac7fedfbfdf409, type: 2}
-  _figureType: 3
+  _fillingDefinition: {fileID: 11400000, guid: 5ea39981039fb214fb518cdefef7d873, type: 2}
+  _figureType: 5

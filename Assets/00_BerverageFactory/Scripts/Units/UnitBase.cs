@@ -33,6 +33,11 @@ namespace FBFactory
             Stop_PackML();
         }
 
+        protected void SetIssue(UnitIssueType to)
+        {
+            _issue = to;
+        }
+
 
         /// <summary>
         /// 초기화 - 운전 준비

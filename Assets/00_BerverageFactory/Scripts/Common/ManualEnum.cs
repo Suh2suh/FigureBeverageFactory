@@ -26,7 +26,7 @@ namespace FBFactory
     }
 
     // 현재는 Apple만 사용
-    public enum FillingType
+    public enum FlavorType
     {
         None,
         Apple,

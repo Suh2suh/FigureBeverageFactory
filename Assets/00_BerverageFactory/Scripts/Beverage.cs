@@ -6,13 +6,21 @@ namespace FBFactory
 {
     public class Beverage : MonoBehaviour
     {
-        [SerializeField, ReadOnly] private FillingType _filling;
         [SerializeField, ReadOnly] private int _maxML = -1;
         [SerializeField, ReadOnly] private int _filledML = 0;
+        [SerializeField, ReadOnly] private FlavorType _fillingFalvor;
         [SerializeField, ReadOnly] private Material _label = null;
         [SerializeField, ReadOnly] private string _code = string.Empty;
 
         [SerializeField] MeshRenderer _meshRenderer;
+        [SerializeField] GameObject _lid;
+
+        public int MaxML => _maxML;
+        public int FilledML => _filledML;
+        public FlavorType Flavor => _fillingFalvor;
+        public bool HasCap => _lid.gameObject.activeSelf;
+        public Material Label => _label;
+        public string Code => _code;
 
 
         public void SetMaxML(int maxML)
@@ -20,10 +28,15 @@ namespace FBFactory
             _maxML = maxML;
         }
 
-        public void SetFilling(FillingType filling, int ML)
+        public void SetFilling(FlavorType filling, int ML)
         {
-            _filling = filling; 
+            _fillingFalvor = filling; 
             _filledML = ML;
+        }
+
+        public void SetCapping(Quaternion rotation /*추후 Cap Inspection 사용*/)
+        {
+            _lid.gameObject.SetActive(true);
         }
 
         public void SetLabel(Material label)

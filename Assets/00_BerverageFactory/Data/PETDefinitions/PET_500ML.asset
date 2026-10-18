@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8c036bac16440b41b3b199e7de3b69e, type: 3}
-  m_Name: PET_500ML_Round
+  m_Name: PET_500ML
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.PETDefinition
   _ml: 500
   _color: {r: 1, g: 1, b: 1, a: 1}
