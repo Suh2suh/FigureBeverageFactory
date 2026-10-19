@@ -34,7 +34,10 @@ namespace FBFactory
             BeveragePack beveragePack = other.GetComponentInChildren<BeveragePack>();
 
             if (beveragePack != null && !_beveragePacks.Contains(beveragePack))
+            {
+                beveragePack.gameObject.SetActive(false);
                 _beveragePacks.Add(beveragePack);
+            }
         }
 
 

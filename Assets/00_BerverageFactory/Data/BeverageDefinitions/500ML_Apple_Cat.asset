@@ -15,3 +15,4 @@ MonoBehaviour:
   _petDefinition: {fileID: 11400000, guid: f63ac6704849f01419ac7fedfbfdf409, type: 2}
   _fillingDefinition: {fileID: 11400000, guid: 5ea39981039fb214fb518cdefef7d873, type: 2}
   _figureType: 1
+  _label: {fileID: 2100000, guid: dc70996a4efd91745890b8e2cecbb306, type: 2}

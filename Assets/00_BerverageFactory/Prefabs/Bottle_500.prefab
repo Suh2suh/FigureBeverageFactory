@@ -87,6 +87,7 @@ MonoBehaviour:
   _code: 
   _meshRenderer: {fileID: 4412507735074667950}
   _lid: {fileID: 7486341301879311122}
+  _figureSocket: {fileID: 1784026236064624055}
 --- !u!65 &6099238664804126301
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -133,7 +134,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1001 &3755860111161792081
 PrefabInstance:

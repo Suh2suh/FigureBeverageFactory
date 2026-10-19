@@ -3,11 +3,12 @@ using UnityEngine;
 
 namespace FBFactory
 {
-    public class ContainerBelt : UnitBase
+    public class ConveyerBelt : UnitBase
     {
         [SerializeField] private Vector3 _moveDirection = Vector3.right;
         [SerializeField] private float _velocityCmPerSecond = 1f;
 
+        private LayerMask _conveyerBeltMask = 1 << 7;
         private readonly List<Rigidbody> _thingsOnBelt = new();
         private float _elapsedTime;
 
@@ -45,8 +46,10 @@ namespace FBFactory
 
         private void OnTriggerEnter(Collider other)
         {
-            Rigidbody thingOnBelt = other.attachedRigidbody;
+            if (other.gameObject.layer == _conveyerBeltMask)
+                return;
 
+            Rigidbody thingOnBelt = other.GetComponent<Rigidbody>(); // root에 직접 붙은 rigidbody만 이동
             if (thingOnBelt != null && !_thingsOnBelt.Contains(thingOnBelt))
                 _thingsOnBelt.Add(thingOnBelt);
         }

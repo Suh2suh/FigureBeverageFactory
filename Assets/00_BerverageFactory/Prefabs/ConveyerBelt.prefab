@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6022893281814862253}
   - component: {fileID: 5139107124990817166}
   - component: {fileID: 5244293696884520400}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 6090440370070039242}
   - component: {fileID: 5898928070785224428}
   - component: {fileID: 7962240359564973844}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 5313425376846743669}
   - component: {fileID: 6190431391302825585}
   - component: {fileID: 8373849972471133821}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ConveyerBelt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 4859608731073209379}
   - component: {fileID: 7271559031551030213}
   - component: {fileID: 7761700593950742712}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
