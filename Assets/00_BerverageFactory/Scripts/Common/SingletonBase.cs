@@ -1,0 +1,34 @@
+using UnityEngine;
+
+namespace FBFactory
+{
+    public abstract class SingletonBase<T> : MonoBehaviour
+        where T : MonoBehaviour
+    {
+        [SerializeField] private bool _lastOnSceneChange;
+
+        public static T Instance { get; private set; }
+
+
+        protected virtual void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this as T;
+
+            if (_lastOnSceneChange)
+                DontDestroyOnLoad(gameObject);
+        }
+
+
+        protected virtual void OnDestroy()
+        {
+            if (Instance == this)
+                Instance = null;
+        }
+    }
+}

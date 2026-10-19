@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f10a4b0b2860f740b715dc8dbbd1c84, type: 3}
+  m_Name: FigureTable
+  m_EditorClassIdentifier: 
+  _entries:
+  - _figureType: 1
+    _prefab: {fileID: 8469409643818181143, guid: 911f071151ab81c49b33e96b844d4112, type: 3}
+  - _figureType: 2
+    _prefab: {fileID: 8649045540583071830, guid: abf76a42cf7d9ea49833ee194f0d11e4, type: 3}
+  - _figureType: 3
+    _prefab: {fileID: 7313294794221945950, guid: b8ada766c3b6c824b801f823a24e1e9c, type: 3}
+  - _figureType: 4
+    _prefab: {fileID: 8492552370367559986, guid: 6423121d18b5e314a84d530ced2bc4f7, type: 3}
+  - _figureType: 5
+    _prefab: {fileID: 8519505179265298642, guid: 45b5eb6a70f9e404aac2c5be0f2bba63, type: 3}

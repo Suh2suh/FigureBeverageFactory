@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -13,7 +12,7 @@ namespace FBFactory
     {
         [SerializeField] private FillingDefinition _fillingDefinition;
         [SerializeField] private float _inspectionIntervalSec = 1.0f;
-        [SerializeField] private Transform _inspectionRejectPoint;
+        [SerializeField] private Transform _point_bottleDiscard;
 
         private List<Beverage> _targetBottles = new();
         private float _nextInspectionTime = 0f;
@@ -32,7 +31,7 @@ namespace FBFactory
                 bool isPassed = Inspect(target);
                 if (!isPassed)
                 {
-                    target.transform.position = _inspectionRejectPoint.position;
+                    target.transform.position = _point_bottleDiscard.position;
                 }
 
                 _nextInspectionTime = Time.time + _inspectionIntervalSec;

@@ -11,9 +11,11 @@ namespace FBFactory
         [SerializeField] private PETDefinition _petDefinition;
         [SerializeField] private FillingDefinition _fillingDefinition;
         [SerializeField] private FigureType _figureType = FigureType.None;
+        [SerializeField] private Material _label;
 
         public PETDefinition PET => _petDefinition;
         public FillingDefinition Filling => _fillingDefinition;
-        public FigureType Figure => _figureType;
+        public FigureType FigureType => _figureType;
+        public Material Label => _label;
     }
 }

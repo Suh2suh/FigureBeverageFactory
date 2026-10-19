@@ -14,6 +14,7 @@ namespace FBFactory
 
         [SerializeField] MeshRenderer _meshRenderer;
         [SerializeField] GameObject _lid;
+        [SerializeField] Transform _figureSocket;
 
         public int MaxML => _maxML;
         public int FilledML => _filledML;
@@ -21,6 +22,7 @@ namespace FBFactory
         public bool HasCap => _lid.gameObject.activeSelf;
         public Material Label => _label;
         public string Code => _code;
+        public Transform FigureSocket => _figureSocket;
 
 
         public void SetMaxML(int maxML)
