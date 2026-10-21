@@ -1,5 +1,15 @@
 # 🏭 Figure Beverage Factory
 
+## Current Status
+
+🚧 Work in Progress
+
+Current Working Version: V2 — DES
+
+This project is being developed incrementally from a simple
+production-flow model toward DES, analytics, automation,
+virtual control integration, and optimization.
+
 ## Why this project?
 
 **제가 하고 싶은 일을 직관적으로 보여주기 위해 작은 Factory를 직접 만들기로 했습니다.**
