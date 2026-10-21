@@ -8,8 +8,12 @@ namespace FBFactory
         [SerializeField, ReadOnly] private PackMLMode _mode = PackMLMode.Production;
         [SerializeField, ReadOnly] private PackMLState _state;
         [SerializeField, ReadOnly] private UnitIssueType _issue = UnitIssueType.None;
+        [SerializeField] private Unit_ConveyerBelt _upstreamBelt;
+        [SerializeField] private Unit_ConveyerBelt _downstreamBelt;
 
         public PackMLState State => _state;
+        public Unit_ConveyerBelt UpstreamBelt => _upstreamBelt;
+        public Unit_ConveyerBelt DownstreamBelt => _downstreamBelt;
 
 
         private void Update()

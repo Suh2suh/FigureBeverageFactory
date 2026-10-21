@@ -34,6 +34,14 @@ namespace FBFactory
         Orange,
     }
 
+    public enum CapacityState
+    {
+        Empty,
+        Normal,
+        High,
+        Full,
+    }
+
 
 
 }
