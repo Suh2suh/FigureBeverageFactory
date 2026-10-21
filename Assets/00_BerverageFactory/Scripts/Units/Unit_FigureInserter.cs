@@ -7,34 +7,62 @@ namespace FBFactory
     public class Unit_FigureInserter : UnitBase
     {
         [SerializeField] private BeverageDefinition _beverageRecipe;
-        [SerializeField] private float _insertIntervalSec = 1.0f;
+        [SerializeField] private float _processTime = 1.0f;
+        [SerializeField, ReadOnly] private bool _isProcessing;
 
-        private List<Beverage> _targetBottles = new();
-        private float _nextInsertTime = 0f;
+        private List<Beverage> _infeedMaterials = new();
+        private float _processCompleteTime = 0f;
+        private GameObject _producedProduct;
 
 
         protected override void ExecuteProduction()
         {
-            if (Time.time < _nextInsertTime)
-                return;
-
-            Beverage target = (_targetBottles.Count > 0 ? _targetBottles[0] : null);
-            if (target)
+            // 가공 중일 시 대기
+            if (_isProcessing)
             {
-                _targetBottles.Remove(target);
+                if (Time.time >= _processCompleteTime)
+                    _isProcessing = false;
+                else
+                    return;
+            }
 
-                InsertFigure(target);
-                _nextInsertTime = Time.time + _insertIntervalSec;
+            // 완제품 출하 시도
+            if (_producedProduct != null)
+            {
+                if (_downstreamBelt.GetCapacityStatus() == CapacityState.Full)
+                {
+                    AddIssue(UnitIssueType.DownstreamUnavailable);
+                    return;
+                }
+                RemoveIssue(UnitIssueType.DownstreamUnavailable);
+
+                _downstreamBelt.InsertMaterial(_producedProduct.transform);
+                _producedProduct = null;
+            }
+
+            // 다음 제품 가공 시작
+            Beverage bottle = (_infeedMaterials.Count > 0 ? _infeedMaterials[0] : null);
+            if (bottle)
+            {
+                RemoveIssue(UnitIssueType.UpstreamUnavailable);
+                _infeedMaterials.Remove(bottle);
+
+                InsertFigure(bottle);
+
+                _producedProduct = bottle.gameObject;
+                _producedProduct.SetActive(false);
+                _isProcessing = true;
+                _processCompleteTime = Time.time + _processTime;
             }
             else
             {
-                SetIssue(UnitIssueType.UpstreamUnavailable);
+                AddIssue(UnitIssueType.UpstreamUnavailable);
             }
         }
 
         private void InsertFigure(Beverage bottle)
         {
-            // TODO : v2에서, figure은 ERP에 따라 유동적으로 붙일 것. (하나의 arm이 여러 피규어 중 하나를 선택 후 부착)
+            // TODO : v4(what-if)에서 Develop
             var figure = Instantiate(FactoryDTO.Instance.FigureTable.GetFigurePrefab(_beverageRecipe.FigureType));
             figure.transform.parent = bottle.FigureSocket;
             figure.transform.localPosition = Vector3.zero;
@@ -45,7 +73,7 @@ namespace FBFactory
             var beverage = other.transform.GetComponentInChildren<Beverage>();
             if (beverage != null)
             {
-                _targetBottles.Add(beverage);
+                _infeedMaterials.Add(beverage);
             }
         }
 
@@ -54,14 +82,14 @@ namespace FBFactory
             var beverage = other.transform.GetComponentInChildren<Beverage>();
             if (beverage != null)
             {
-                _targetBottles.Remove(beverage);
+                _infeedMaterials.Remove(beverage);
             }
         }
 
 
         protected override void OnResetting_PackML()
         {
-            _nextInsertTime = Time.time;
+            _processCompleteTime = Time.time;
             StateComplete();
         }
 

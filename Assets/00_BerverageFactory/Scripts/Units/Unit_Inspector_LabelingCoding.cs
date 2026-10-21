@@ -11,34 +11,65 @@ namespace FBFactory
     public class Unit_Inspector_LabelingCoding : UnitBase
     {
         [SerializeField] private BeverageDefinition _beverageRecipe;
-        [SerializeField] private float _inspectionIntervalSec = 1.0f;
+        [SerializeField] private float _processTime = 1.0f;
+        [SerializeField, ReadOnly] private bool _isProcessing;
         [SerializeField] private Transform _point_bottleDiscard;
 
-        private List<Beverage> _targetBottles = new();
-        private float _nextInspectionTime = 0f;
+        private List<Beverage> _infeedMaterials = new();
+        private float _processCompleteTime = 0f;
+        private (GameObject bottle, bool pass) _inspection;
 
 
         protected override void ExecuteProduction()
         {
-            if (Time.time < _nextInspectionTime)
-                return;
-
-            Beverage target = (_targetBottles.Count > 0 ? _targetBottles[0] : null);
-            if (target)
+            // 가공 중일 시 대기
+            if (_isProcessing)
             {
-                _targetBottles.Remove(target);
+                if (Time.time >= _processCompleteTime)
+                    _isProcessing = false;
+                else
+                    return;
+            }
 
-                bool isPassed = Inspect(target);
-                if (!isPassed)
+            // 완제품 출하 시도
+            if (_inspection.bottle != null)
+            {
+                if (_inspection.pass)
                 {
-                    target.transform.position = _point_bottleDiscard.position;
+                    if (_downstreamBelt.GetCapacityStatus() == CapacityState.Full)
+                    {
+                        AddIssue(UnitIssueType.DownstreamUnavailable);
+                        return;
+                    }
+                    RemoveIssue(UnitIssueType.DownstreamUnavailable);
+                    _downstreamBelt.InsertMaterial(_inspection.bottle.transform);
                 }
+                else
+                {
+                    _inspection.bottle.SetActive(true);
+                    _inspection.bottle.transform.position = _point_bottleDiscard.position;
+                }
+                _inspection.bottle = null;
+            }
 
-                _nextInspectionTime = Time.time + _inspectionIntervalSec;
+            // 다음 제품 가공 시작
+            Beverage bottle = (_infeedMaterials.Count > 0 ? _infeedMaterials[0] : null);
+            if (bottle)
+            {
+                RemoveIssue(UnitIssueType.UpstreamUnavailable);
+                _infeedMaterials.Remove(bottle);
+
+                bool pass = Inspect(bottle);
+                _inspection = (bottle.gameObject, pass);
+
+                _inspection.bottle = bottle.gameObject;
+                _inspection.bottle.SetActive(false);
+                _isProcessing = true;
+                _processCompleteTime = Time.time + _processTime;
             }
             else
             {
-                SetIssue(UnitIssueType.UpstreamUnavailable);
+                AddIssue(UnitIssueType.UpstreamUnavailable);
             }
         }
 
@@ -57,7 +88,7 @@ namespace FBFactory
             var beverage = other.transform.GetComponentInChildren<Beverage>();
             if (beverage != null)
             {
-                _targetBottles.Add(beverage);
+                _infeedMaterials.Add(beverage);
             }
         }
 
@@ -66,7 +97,7 @@ namespace FBFactory
             var beverage = other.transform.GetComponentInChildren<Beverage>();
             if (beverage != null)
             {
-                _targetBottles.Remove(beverage);
+                _infeedMaterials.Remove(beverage);
             }
         }
 

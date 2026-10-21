@@ -11934,7 +11934,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39bbb1a5be727594dbfa173accdf5090, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.BlowModular
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.Unit_BlowModular
   _mode: 1
   _state: 0
   _issue: 0

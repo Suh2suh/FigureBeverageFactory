@@ -8,8 +8,8 @@ namespace FBFactory
         [SerializeField, ReadOnly] private PackMLMode _mode = PackMLMode.Production;
         [SerializeField, ReadOnly] private PackMLState _state;
         [SerializeField, ReadOnly] private UnitIssueType _issue = UnitIssueType.None;
-        [SerializeField] private Unit_ConveyerBelt _upstreamBelt;
-        [SerializeField] private Unit_ConveyerBelt _downstreamBelt;
+        [SerializeField] protected Unit_ConveyerBelt _upstreamBelt;
+        [SerializeField] protected Unit_ConveyerBelt _downstreamBelt;
 
         public PackMLState State => _state;
         public Unit_ConveyerBelt UpstreamBelt => _upstreamBelt;
@@ -37,9 +37,19 @@ namespace FBFactory
             Stop_PackML();
         }
 
-        protected void SetIssue(UnitIssueType to)
+        public void AddIssue(UnitIssueType issueType)
         {
-            _issue = to;
+            _issue |= issueType;
+        }
+
+        public void RemoveIssue(UnitIssueType issueType)
+        {
+            _issue &= ~issueType;
+        }
+
+        public void ClearIssue()
+        {
+            _issue = UnitIssueType.None;
         }
 
 
@@ -96,7 +106,7 @@ namespace FBFactory
         /// </summary>
         public bool Abort_PackML(UnitIssueType issueType)
         {
-            _issue = issueType;
+            AddIssue(issueType);
 
             // pending for stateComplete
             _state = PackMLState.Aborting;  // -> Aborted
@@ -142,7 +152,7 @@ namespace FBFactory
                     break;
                 case PackMLState.Clearing:
                     _state = PackMLState.Stopped;
-                    _issue = UnitIssueType.None;
+                    ClearIssue();
                     break;
                 default:
                     break;

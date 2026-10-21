@@ -7,28 +7,56 @@ namespace FBFactory
 {
     public class Unit_Capper : UnitBase
     {
-        [SerializeField] private float _fillingIntervalSec = 1.0f;
+        [SerializeField] private float _processTime = 1.0f;
+        [SerializeField, ReadOnly] private bool _isProcessing;
 
-        private List<Beverage> _targetBottles = new();
-        private float _nextCappingTime = 0f;
+        private List<Beverage> _infeedMaterials = new();
+        private float _processCompleteTime = 0f;
+        private GameObject _producedProduct;
 
 
         protected override void ExecuteProduction()
         {
-            if (Time.time < _nextCappingTime)
-                return;
-
-            Beverage target = (_targetBottles.Count > 0 ? _targetBottles[0] : null);
-            if (target)
+            // 가공 중일 시 대기
+            if (_isProcessing)
             {
-                _targetBottles.Remove(target);
+                if (Time.time >= _processCompleteTime)
+                    _isProcessing = false;
+                else
+                    return;
+            }
 
-                Cap(target);
-                _nextCappingTime = Time.time + _fillingIntervalSec;
+            // 완제품 출하 시도
+            if (_producedProduct != null)
+            {
+                if (_downstreamBelt.GetCapacityStatus() == CapacityState.Full)
+                {
+                    AddIssue(UnitIssueType.DownstreamUnavailable);
+                    return;
+                }
+                RemoveIssue(UnitIssueType.DownstreamUnavailable);
+
+                _downstreamBelt.InsertMaterial(_producedProduct.transform);
+                _producedProduct = null;
+            }
+
+            // 다음 제품 가공 시작
+            Beverage bottle = (_infeedMaterials.Count > 0 ? _infeedMaterials[0] : null);
+            if (bottle)
+            {
+                RemoveIssue(UnitIssueType.UpstreamUnavailable);
+                _infeedMaterials.Remove(bottle);
+
+                Cap(bottle);
+
+                _producedProduct = bottle.gameObject;
+                _producedProduct.SetActive(false);
+                _isProcessing = true;
+                _processCompleteTime = Time.time + _processTime;
             }
             else
             {
-                SetIssue(UnitIssueType.UpstreamUnavailable);
+                AddIssue(UnitIssueType.UpstreamUnavailable);
             }
         }
 
@@ -42,7 +70,7 @@ namespace FBFactory
             var beverage = other.transform.GetComponentInChildren<Beverage>();
             if (beverage != null)
             {
-                _targetBottles.Add(beverage);
+                _infeedMaterials.Add(beverage);
             }
         }
 
@@ -51,7 +79,7 @@ namespace FBFactory
             var beverage = other.transform.GetComponentInChildren<Beverage>();
             if (beverage != null)
             {
-                _targetBottles.Remove(beverage);
+                _infeedMaterials.Remove(beverage);
             }
         }
 

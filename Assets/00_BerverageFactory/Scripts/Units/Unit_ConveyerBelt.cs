@@ -17,9 +17,6 @@ namespace FBFactory
         private readonly List<Transform> _materials = new();
         private float _elapsedTime;
 
-        public float Capacity => _capacity;
-        public CapacityState Status => _status;
-
 
         protected override void OnResetting_PackML()
         {
@@ -82,54 +79,51 @@ namespace FBFactory
             }
         }
 
-        public bool AddMaterial(Transform material)
+        private void OnTriggerEnter(Collider other)
+        {
+            if ((_conveyerBeltMask.value & (1 << other.gameObject.layer)) != 0)
+                return;
+
+            Rigidbody materialRigidbody = other.attachedRigidbody;
+
+            if (materialRigidbody != null && !_materials.Contains(materialRigidbody.transform))
+            {
+                _materials.Add(materialRigidbody.transform);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            Rigidbody materialRigidbody = other.attachedRigidbody;
+
+            if (materialRigidbody != null)
+            {
+                _materials.Remove(materialRigidbody.transform);
+            }
+        }
+
+
+        public bool InsertMaterial(Transform material)
         {
             if (_status == CapacityState.Full)
                 return false;
 
+            material.gameObject.SetActive(true);
             material.position = _inputPoint.position;
             _materials.Add(material);
-            UpdateStatus();
 
             return true;
         }
 
-        public Transform GetMaterial()
-        {
-            Transform closestMaterial = null;
-            float closestDistance = float.MaxValue;
-
-            for (int i = _materials.Count - 1; i >= 0; i--)
-            {
-                Transform material = _materials[i];
-
-                if (material == null)
-                {
-                    _materials.RemoveAt(i);
-                    continue;
-                }
-
-                float distance = (material.position - _outputPoint.position).sqrMagnitude;
-
-                if (distance >= closestDistance)
-                    continue;
-
-                closestMaterial = material;
-                closestDistance = distance;
-            }
-
-            if (closestMaterial != null)
-            {
-                _materials.Remove(closestMaterial);
-                UpdateStatus();
-            }
-
-            return closestMaterial;
-        }
-
-        public CapacityState GetStatus()
+        public CapacityState GetCapacityStatus()
         {
             return _status;
+        }
+
+
+        private void FixedUpdate()
+        {
+            UpdateStatus();
         }
 
         private void UpdateStatus()
@@ -155,33 +149,6 @@ namespace FBFactory
             }
 
             _status = CapacityState.Full;
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if ((_conveyerBeltMask.value & (1 << other.gameObject.layer)) != 0)
-                return;
-
-            Rigidbody materialRigidbody = other.attachedRigidbody;
-
-            if (materialRigidbody != null && !_materials.Contains(materialRigidbody.transform))
-            {
-                _materials.Add(materialRigidbody.transform);
-            }
-
-            UpdateStatus();
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            Rigidbody materialRigidbody = other.attachedRigidbody;
-
-            if (materialRigidbody != null)
-            {
-                _materials.Remove(materialRigidbody.transform);
-            }
-
-            UpdateStatus();
         }
 
         #region ConveyerBelt Capacity Sensing

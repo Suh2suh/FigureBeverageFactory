@@ -5,30 +5,76 @@ namespace FBFactory
 {
     public class Unit_Packager : UnitBase
     {
+        [SerializeField] private float _processTime = 0.5f;
+        [SerializeField, ReadOnly] private bool _isProcessing;
         [SerializeField] private int _beveragePerPack = 6;
         [SerializeField] private GameObject _beveragePackPrefab;
-        [SerializeField] private Transform _pointPackedBottle;
 
-        private readonly List<Beverage> _beverages = new();
+        private readonly List<Beverage> _infeedMaterials = new();
+        private float _processCompleteTime = 0f;
+        private GameObject _producedProduct;
 
 
         protected override void ExecuteProduction()
         {
-            if (_beverages.Count < _beveragePerPack)
-                return;
-
-            var beveragePack = Instantiate(_beveragePackPrefab, _pointPackedBottle.position, Quaternion.identity)
-                               .GetComponent<BeveragePack>();
-            for (int i = 0; i < _beveragePerPack; i++)
+            // 가공 중일 시 대기
+            if (_isProcessing)
             {
-                Beverage beverage = _beverages[0];
-
-                beveragePack.AddToPack(beverage);
-                _beverages.RemoveAt(0);
-                Destroy(beverage.gameObject);
+                if (Time.time >= _processCompleteTime)
+                    _isProcessing = false;
+                else
+                    return;
             }
 
-            beveragePack.transform.position = _pointPackedBottle.position;
+            // 완제품 출하 시도
+            if (_producedProduct != null)
+            {
+                if (_downstreamBelt.GetCapacityStatus() == CapacityState.Full)
+                {
+                    AddIssue(UnitIssueType.DownstreamUnavailable);
+                    return;
+                }
+                RemoveIssue(UnitIssueType.DownstreamUnavailable);
+
+                _downstreamBelt.InsertMaterial(_producedProduct.transform);
+                _producedProduct = null;
+            }
+
+            // 다음 제품 가공 시작
+            bool hasEnoughMaterials = (_infeedMaterials.Count >= _beveragePerPack);
+            if (hasEnoughMaterials)
+            {
+                RemoveIssue(UnitIssueType.UpstreamUnavailable);
+
+                var package = Package(_infeedMaterials.GetRange(0, _beveragePerPack));
+
+                _producedProduct = package.gameObject;
+                _producedProduct.SetActive(false);
+                _isProcessing = true;
+                _processCompleteTime = Time.time + _processTime;
+            }
+            else
+            {
+                AddIssue(UnitIssueType.UpstreamUnavailable);
+            }
+        }
+
+        private BeveragePack Package(List<Beverage> materials)
+        {
+            if (materials.Count < _beveragePerPack)
+                return null;
+
+            var beveragePack = Instantiate(_beveragePackPrefab, transform.position, Quaternion.identity)
+                   .GetComponent<BeveragePack>();
+            for (int i = 0; i < _beveragePerPack; i++)
+            {
+                Beverage beverage = materials[i];
+                beveragePack.AddToPack(beverage);
+
+                _infeedMaterials.Remove(beverage);
+                Destroy(beverage.gameObject);
+            }
+            return beveragePack;
         }
 
 
@@ -36,8 +82,8 @@ namespace FBFactory
         {
             Beverage beverage = other.GetComponentInChildren<Beverage>();
 
-            if (beverage != null && !_beverages.Contains(beverage))
-                _beverages.Add(beverage);
+            if (beverage != null && !_infeedMaterials.Contains(beverage))
+                _infeedMaterials.Add(beverage);
         }
 
 
@@ -46,7 +92,7 @@ namespace FBFactory
             Beverage beverage = other.GetComponentInChildren<Beverage>();
 
             if (beverage != null)
-                _beverages.Remove(beverage);
+                _infeedMaterials.Remove(beverage);
         }
 
 
