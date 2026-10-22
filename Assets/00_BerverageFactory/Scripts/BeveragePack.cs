@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FBFactory
 {
-    public class BeveragePack : MonoBehaviour
+    public class BeveragePack : FactoryMaterial
     {
         [SerializeField] private List<BeverageData> _beverages = new();
 

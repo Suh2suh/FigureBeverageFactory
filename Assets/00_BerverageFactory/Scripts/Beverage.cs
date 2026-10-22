@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FBFactory
 {
-    public class Beverage : MonoBehaviour
+    public class Beverage : FactoryMaterial
     {
         [SerializeField, ReadOnly] private int _maxML = -1;
         [SerializeField, ReadOnly] private int _filledML = 0;

@@ -42,7 +42,7 @@ namespace FBFactory
             }
 
             // 다음 제품 가공 시작
-            if (!_rawPETContainer.TryConsume(out var rawPET))
+            if (_rawPETContainer.TryConsume(out var rawPET))
             {
                 RemoveIssue(UnitIssueType.UpstreamUnavailable);
 

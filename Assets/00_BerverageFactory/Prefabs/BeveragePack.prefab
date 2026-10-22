@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9106060d7ee04844daa706e193096688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.BeveragePack
+  _rigidbody: {fileID: -821765185420279924}
   _beverages: []
 --- !u!54 &-821765185420279924
 Rigidbody:

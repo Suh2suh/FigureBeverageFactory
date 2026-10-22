@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FBFactory
 {
-    public class BeveragePallet : MonoBehaviour
+    public class BeveragePallet : FactoryMaterial
     {
         [SerializeField] private List<BeveragePackData> _packs = new();
         [SerializeField, ReadOnly] private bool _isStretched;

@@ -903,7 +903,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
   m_LocalPosition: {x: -0.49412075, y: -0.5000001, z: -0.0028661068}
-  m_LocalScale: {x: 0.015287632, y: 2, z: 1.4724802}
+  m_LocalScale: {x: 0.015287632, y: 5, z: 1.4724802}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6885623920570599560}
@@ -2401,7 +2401,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.48451895, y: -0.5000001, z: -0}
-  m_LocalScale: {x: 0.032513686, y: 2, z: 1.1627302}
+  m_LocalScale: {x: 0.032513686, y: 5, z: 1.1627302}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1712263013}
@@ -3227,9 +3227,10 @@ MonoBehaviour:
   _issue: 0
   _upstreamBelt: {fileID: 1086476179}
   _downstreamBelt: {fileID: 8373849970597904060}
+  _processTime: 0.5
+  _isProcessing: 0
   _beveragePerPack: 6
   _beveragePackPrefab: {fileID: 3411840705180234272, guid: 3ecd8d1d2024b794fbbd128a23633a21, type: 3}
-  _pointPackedBottle: {fileID: 811231749}
 --- !u!54 &633835887
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3286,7 +3287,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
   m_LocalPosition: {x: -0.483, y: -0.5000002, z: -0.0028661105}
-  m_LocalScale: {x: 0.038990535, y: 2, z: 1.4724807}
+  m_LocalScale: {x: 0.038990535, y: 5, z: 1.4724807}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2020810212}
@@ -3398,7 +3399,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.4967, y: -0.5, z: -0.0115}
-  m_LocalScale: {x: 0.01073218, y: 2, z: 1.1627256}
+  m_LocalScale: {x: 0.01073218, y: 5, z: 1.1627256}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1787381751}
@@ -3592,7 +3593,8 @@ MonoBehaviour:
   _upstreamBelt: {fileID: 1606962558}
   _downstreamBelt: {fileID: 1634428617}
   _code: LOT001
-  _codingIntervalSec: 0.5
+  _processTime: 1
+  _isProcessing: 0
 --- !u!1 &711322714
 GameObject:
   m_ObjectHideFlags: 0
@@ -4515,7 +4517,8 @@ MonoBehaviour:
   _upstreamBelt: {fileID: 1242207434}
   _downstreamBelt: {fileID: 171391664}
   _beverageRecipe: {fileID: 11400000, guid: 91e610a9ee40fe840afe0d82be2adfde, type: 2}
-  _insertIntervalSec: 2
+  _processTime: 1
+  _isProcessing: 0
 --- !u!1 &922954428
 GameObject:
   m_ObjectHideFlags: 0
@@ -4596,7 +4599,8 @@ MonoBehaviour:
   _upstreamBelt: {fileID: 545530310}
   _downstreamBelt: {fileID: 1485514582}
   _fillingDefinition: {fileID: 11400000, guid: 5ea39981039fb214fb518cdefef7d873, type: 2}
-  _fillingIntervalSec: 1
+  _processTime: 1
+  _isProcessing: 0
 --- !u!1 &928456411
 GameObject:
   m_ObjectHideFlags: 0
@@ -4762,7 +4766,8 @@ MonoBehaviour:
   _upstreamBelt: {fileID: 0}
   _downstreamBelt: {fileID: 0}
   _beverageRecipe: {fileID: 11400000, guid: 91e610a9ee40fe840afe0d82be2adfde, type: 2}
-  _inspectionIntervalSec: 1
+  _processTime: 1
+  _isProcessing: 0
   _point_bottleDiscard: {fileID: 373302255}
 --- !u!1 &957223960
 GameObject:
@@ -5051,7 +5056,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.4935, y: -0.5000001, z: -0.01}
-  m_LocalScale: {x: 0.016696384, y: 2, z: 1.16273}
+  m_LocalScale: {x: 0.016696384, y: 5, z: 1.16273}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1242207433}
@@ -5214,9 +5219,10 @@ MonoBehaviour:
   _upstreamBelt: {fileID: 472480126}
   _downstreamBelt: {fileID: 2143481633}
   _beverageRecipe: {fileID: 11400000, guid: 91e610a9ee40fe840afe0d82be2adfde, type: 2}
-  _inspectionIntervalSec: 1
+  _processTime: 1
+  _isProcessing: 0
   _point_bottleDiscard: {fileID: 493037142}
-  _point_bottleRollback: {fileID: 962743350}
+  _rollbackConveyer: {fileID: 0}
 --- !u!1 &988770180
 GameObject:
   m_ObjectHideFlags: 0
@@ -5596,7 +5602,8 @@ MonoBehaviour:
   _issue: 0
   _upstreamBelt: {fileID: 1485514582}
   _downstreamBelt: {fileID: 1054105124}
-  _fillingIntervalSec: 1
+  _processTime: 1
+  _isProcessing: 0
 --- !u!1001 &1037860429
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5857,7 +5864,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.48706564, y: -0.5000001, z: 0.006000519}
-  m_LocalScale: {x: 0.030964939, y: 2, z: 1.16273}
+  m_LocalScale: {x: 0.030964939, y: 5, z: 1.16273}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1482092108}
@@ -5980,7 +5987,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.49769056, y: -0.5000001, z: -0.013999939}
-  m_LocalScale: {x: 0.022687128, y: 2, z: 1.1627302}
+  m_LocalScale: {x: 0.022687128, y: 5, z: 1.1627302}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2143481634}
@@ -6691,6 +6698,18 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 78b79631e349a4180a8dcfe25447518a, type: 2}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Size.x
+      value: 0.99826545
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Center.x
+      value: 0.0008673142
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Center.z
+      value: 1.9918817e-17
+      objectReference: {fileID: 0}
     - target: {fileID: 5898928070785224428, guid: 707ec94fb9617874a9034268febf718d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -6854,30 +6873,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.LineController
   _units:
   - {fileID: 443626625}
+  - {fileID: 472480126}
   - {fileID: 545530310}
+  - {fileID: 562452155}
+  - {fileID: 633835886}
+  - {fileID: 698632457}
   - {fileID: 903201676}
   - {fileID: 922954431}
+  - {fileID: 936160105}
+  - {fileID: 980455973}
   - {fileID: 1026410128}
   - {fileID: 1054105124}
-  - {fileID: 1640799416}
-  - {fileID: 2085133059}
-  - {fileID: 171391664}
-  - {fileID: 213616195}
-  - {fileID: 472480126}
-  - {fileID: 1242207434}
-  - {fileID: 562452155}
-  - {fileID: 1899001343}
   - {fileID: 1086476179}
-  - {fileID: 936160105}
-  - {fileID: 633835886}
-  - {fileID: 1606962558}
+  - {fileID: 1242207434}
   - {fileID: 1310662228}
-  - {fileID: 698632457}
-  - {fileID: 8373849970597904060}
-  - {fileID: 2065919201}
+  - {fileID: 1341925380}
+  - {fileID: 1485514582}
+  - {fileID: 1606962558}
+  - {fileID: 1634428617}
+  - {fileID: 1640799416}
+  - {fileID: 1709117761}
+  - {fileID: 1899001343}
   - {fileID: 1928308710}
   - {fileID: 2020810209}
-  - {fileID: 980455973}
+  - {fileID: 2065919201}
+  - {fileID: 2085133059}
+  - {fileID: 2143481633}
+  - {fileID: 8373849970597904060}
+  - {fileID: 213616195}
+  - {fileID: 171391664}
 --- !u!1 &1254702774
 GameObject:
   m_ObjectHideFlags: 0
@@ -7161,6 +7185,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CB_FigureRollback
       objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Size.x
+      value: 0.99204284
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Center.x
+      value: 0.003978649
+      objectReference: {fileID: 0}
     - target: {fileID: 6190431391302825585, guid: 707ec94fb9617874a9034268febf718d, type: 3}
       propertyPath: m_UseGravity
       value: 0
@@ -7316,7 +7348,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.49198413, y: -0.5000001, z: -0.009998083}
-  m_LocalScale: {x: 0.015968896, y: 2, z: 1.16273}
+  m_LocalScale: {x: 0.015968896, y: 5, z: 1.16273}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1054105127}
@@ -7514,7 +7546,8 @@ MonoBehaviour:
   _upstreamBelt: {fileID: 2143481633}
   _downstreamBelt: {fileID: 1606962558}
   _beverageRecipe: {fileID: 11400000, guid: 91e610a9ee40fe840afe0d82be2adfde, type: 2}
-  _labelingIntervalSec: 0.5
+  _processTime: 0.5
+  _isProcessing: 0
 --- !u!1001 &1322135430
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8461,7 +8494,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.49361718, y: -0.5000001, z: 0.0040016174}
-  m_LocalScale: {x: 0.016102131, y: 2, z: 1.1627303}
+  m_LocalScale: {x: 0.016102131, y: 5, z: 1.1627303}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1485514583}
@@ -8971,7 +9004,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.492, y: -0.5000001, z: -0}
-  m_LocalScale: {x: 0.015151507, y: 2, z: 1.1627302}
+  m_LocalScale: {x: 0.015151507, y: 5, z: 1.1627302}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1634428618}
@@ -9505,7 +9538,8 @@ MonoBehaviour:
   _upstreamBelt: {fileID: 1054105124}
   _downstreamBelt: {fileID: 443626625}
   _fillingDefinition: {fileID: 11400000, guid: 5ea39981039fb214fb518cdefef7d873, type: 2}
-  _inspectionIntervalSec: 1
+  _processTime: 1
+  _isProcessing: 0
   _point_bottleDiscard: {fileID: 526228756}
 --- !u!1 &1681855289
 GameObject:
@@ -9549,6 +9583,18 @@ PrefabInstance:
     - target: {fileID: 4779228489343318281, guid: 707ec94fb9617874a9034268febf718d, type: 3}
       propertyPath: m_Name
       value: CB_Inspector(Label/Code)-)Packager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Size.x
+      value: 0.997524
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Center.x
+      value: 0.0012379827
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Center.z
+      value: 6.352576e-17
       objectReference: {fileID: 0}
     - target: {fileID: 6190431391302825585, guid: 707ec94fb9617874a9034268febf718d, type: 3}
       propertyPath: m_UseGravity
@@ -10521,6 +10567,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CB_Inspector(Fill/Cap)-)FigureInsert
       objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Size.x
+      value: 0.998145
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Center.x
+      value: -0.0009275662
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Center.z
+      value: 6.7267135e-17
+      objectReference: {fileID: 0}
     - target: {fileID: 6190431391302825585, guid: 707ec94fb9617874a9034268febf718d, type: 3}
       propertyPath: m_UseGravity
       value: 0
@@ -10762,7 +10820,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.491, y: -0.5000001, z: -0.013999939}
-  m_LocalScale: {x: 0.01989303, y: 2, z: 1.1627302}
+  m_LocalScale: {x: 0.01989303, y: 5, z: 1.1627302}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 820806876}
@@ -10951,7 +11009,8 @@ MonoBehaviour:
   _upstreamBelt: {fileID: 1634428617}
   _downstreamBelt: {fileID: 1709117761}
   _fillingDefinition: {fileID: 11400000, guid: 5ea39981039fb214fb518cdefef7d873, type: 2}
-  _inspectionIntervalSec: 1
+  _processTime: 1
+  _isProcessing: 0
   _point_bottleDiscard: {fileID: 373302255}
 --- !u!54 &1899001344
 Rigidbody:
@@ -11300,6 +11359,8 @@ MonoBehaviour:
   _issue: 0
   _upstreamBelt: {fileID: 2020810209}
   _downstreamBelt: {fileID: 1341925380}
+  _processTime: 0.5
+  _isProcessing: 0
 --- !u!1001 &1945455927
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11311,6 +11372,18 @@ PrefabInstance:
     - target: {fileID: 4779228489343318281, guid: 707ec94fb9617874a9034268febf718d, type: 3}
       propertyPath: m_Name
       value: CB_FigureInsert-)Inspector(Figure)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9960261
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Center.x
+      value: -0.0019870598
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313425376846743669, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+      propertyPath: m_Center.z
+      value: 1.707621e-17
       objectReference: {fileID: 0}
     - target: {fileID: 6190431391302825585, guid: 707ec94fb9617874a9034268febf718d, type: 3}
       propertyPath: m_UseGravity
@@ -11885,6 +11958,8 @@ MonoBehaviour:
   _issue: 0
   _upstreamBelt: {fileID: 8373849970597904060}
   _downstreamBelt: {fileID: 2020810209}
+  _processTime: 0.5
+  _isProcessing: 0
   _packPerPallet: 8
   _beveragePalletPrefab: {fileID: 6757564274897248289, guid: 585712bae0c821c40827e96c59971927, type: 3}
 --- !u!1 &2085133057
@@ -11940,9 +12015,9 @@ MonoBehaviour:
   _issue: 0
   _upstreamBelt: {fileID: 0}
   _downstreamBelt: {fileID: 545530310}
-  _blowInterval: 2.5
+  _processTime: 1
   _rawPETContainer: {fileID: 1378403857}
-  _blowPosition: {fileID: 319639643}
+  _isProcessing: 0
 --- !u!1 &2093438084
 GameObject:
   m_ObjectHideFlags: 0

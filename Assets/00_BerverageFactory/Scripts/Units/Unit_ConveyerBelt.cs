@@ -14,7 +14,7 @@ namespace FBFactory
         [SerializeField, ReadOnly] private CapacityState _status;
 
         private readonly LayerMask _conveyerBeltMask = 1 << 7;
-        private readonly List<Transform> _materials = new();
+        private readonly List<FactoryMaterial> _materials = new();
         private float _elapsedTime;
 
 
@@ -64,7 +64,7 @@ namespace FBFactory
 
             for (int i = _materials.Count - 1; i >= 0; i--)
             {
-                Transform material = _materials[i];
+                FactoryMaterial material = _materials[i];
 
                 if (material == null)
                 {
@@ -72,10 +72,7 @@ namespace FBFactory
                     continue;
                 }
 
-                Rigidbody materialRigidbody = material.GetComponent<Rigidbody>();
-
-                if (materialRigidbody != null)
-                    materialRigidbody.MovePosition(materialRigidbody.position + movement);
+                material.Rigidbody.MovePosition(material.Rigidbody.position + movement);
             }
         }
 
@@ -86,9 +83,14 @@ namespace FBFactory
 
             Rigidbody materialRigidbody = other.attachedRigidbody;
 
-            if (materialRigidbody != null && !_materials.Contains(materialRigidbody.transform))
+            if (materialRigidbody == null)
+                return;
+
+            FactoryMaterial material = materialRigidbody.GetComponent<FactoryMaterial>();
+
+            if (material != null && !_materials.Contains(material))
             {
-                _materials.Add(materialRigidbody.transform);
+                _materials.Add(material);
             }
         }
 
@@ -96,9 +98,14 @@ namespace FBFactory
         {
             Rigidbody materialRigidbody = other.attachedRigidbody;
 
-            if (materialRigidbody != null)
+            if (materialRigidbody == null)
+                return;
+
+            FactoryMaterial material = materialRigidbody.GetComponent<FactoryMaterial>();
+
+            if (material != null)
             {
-                _materials.Remove(materialRigidbody.transform);
+                _materials.Remove(material);
             }
         }
 
@@ -109,8 +116,9 @@ namespace FBFactory
                 return false;
 
             material.gameObject.SetActive(true);
-            material.position = _inputPoint.position;
-            _materials.Add(material);
+            FactoryMaterial factoryMaterial = material.GetComponent<FactoryMaterial>();
+            factoryMaterial.Rigidbody.position = _inputPoint.position;
+            _materials.Add(factoryMaterial);
 
             return true;
         }
@@ -164,7 +172,7 @@ namespace FBFactory
 
                 for (int i = _materials.Count - 1; i >= 0; i--)
                 {
-                    Transform material = _materials[i];
+                    FactoryMaterial material = _materials[i];
 
                     if (material == null)
                     {

@@ -40,9 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6660274747260644443}
-  - component: {fileID: 97318460330757425}
   - component: {fileID: 6099238664804126301}
   - component: {fileID: 3592794838018002715}
+  - component: {fileID: 97318460330757425}
   m_Layer: 0
   m_Name: Bottle_500
   m_TagString: Untagged
@@ -68,26 +68,6 @@ Transform:
   - {fileID: 1784026236064624055}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &97318460330757425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7924478854106924536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190523b228e46424b9efb836c01a24a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Beverage
-  _maxML: -1
-  _filledML: 0
-  _fillingFalvor: 0
-  _label: {fileID: 0}
-  _code: 
-  _meshRenderer: {fileID: 4412507735074667950}
-  _lid: {fileID: 7486341301879311122}
-  _figureSocket: {fileID: 1784026236064624055}
 --- !u!65 &6099238664804126301
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -135,7 +115,28 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
+--- !u!114 &97318460330757425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924478854106924536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 190523b228e46424b9efb836c01a24a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Beverage
+  _rigidbody: {fileID: 3592794838018002715}
+  _maxML: -1
+  _filledML: 0
+  _fillingFalvor: 0
+  _label: {fileID: 0}
+  _code: 
+  _meshRenderer: {fileID: 4412507735074667950}
+  _lid: {fileID: 7486341301879311122}
+  _figureSocket: {fileID: 1784026236064624055}
 --- !u!1001 &3755860111161792081
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -126,7 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3441cdf87b96c8d4989ab325d76bcd99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.PackPallet
+  _rigidbody: {fileID: -8902861088906234952}
   _packs: []
+  _isStretched: 0
 --- !u!54 &-8902861088906234952
 Rigidbody:
   m_ObjectHideFlags: 0
