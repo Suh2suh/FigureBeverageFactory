@@ -41,7 +41,8 @@ namespace FBFactory
                 _producedProduct = null;
             }
 
-            // 다음 제품 가공 시작
+            // 다음 제품 가공 시작 - 현재는 맨 앞 걸 가져오지만, 추후에는 infeed에서 unit이랑 제일 가까운 걸로 가져올 수 있다)
+            //                     ㄴ 다만 시뮬레이션은 unit 기준이기에, 딱히 필요없을 것 같기도 함
             Beverage bottle = (_infeedMaterials.Count > 0 ? _infeedMaterials[0] : null);
             if (bottle)
             {
@@ -73,7 +74,7 @@ namespace FBFactory
         private void OnTriggerEnter(Collider other)
         {
             var beverage = other.transform.GetComponentInChildren<Beverage>();
-            if (beverage != null)
+            if (beverage != null && !_infeedMaterials.Contains(beverage))
             {
                 beverage.Own(this);
                 _infeedMaterials.Add(beverage);

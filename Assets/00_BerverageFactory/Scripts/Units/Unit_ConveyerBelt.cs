@@ -122,9 +122,10 @@ namespace FBFactory
             if (_status == CapacityState.Full)
                 return false;
 
-            material.gameObject.SetActive(true);
             material.Own(this);
-            material.Rigidbody.position = _inputPoint.position;
+            // material.Rigidbody.position = _inputPoint.position;
+            material.transform.position = _inputPoint.position;
+            material.gameObject.SetActive(true);
 
             if (!_materials.Contains(material))
                 _materials.Add(material);

@@ -71,7 +71,7 @@ namespace FBFactory
         private void OnTriggerEnter(Collider other)
         {
             var beverage = other.transform.GetComponentInChildren<Beverage>();
-            if (beverage != null)
+            if (beverage != null && !_infeedMaterials.Contains(beverage))
             {
                 beverage.Own(this);
                 _infeedMaterials.Add(beverage);
