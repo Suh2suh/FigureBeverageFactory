@@ -12,7 +12,7 @@ namespace FBFactory
 
         private readonly List<Beverage> _infeedMaterials = new();
         private float _processCompleteTime = 0f;
-        private GameObject _producedProduct;
+        private FactoryMaterial _producedProduct;
 
 
         protected override void ExecuteProduction()
@@ -36,7 +36,7 @@ namespace FBFactory
                 }
                 RemoveIssue(UnitIssueType.DownstreamUnavailable);
 
-                _downstreamBelt.InsertMaterial(_producedProduct.transform);
+                _downstreamBelt.InsertMaterial(_producedProduct);
                 _producedProduct = null;
             }
 
@@ -48,8 +48,8 @@ namespace FBFactory
 
                 var package = Package(_infeedMaterials.GetRange(0, _beveragePerPack));
 
-                _producedProduct = package.gameObject;
-                _producedProduct.SetActive(false);
+                _producedProduct = package;
+                _producedProduct.gameObject.SetActive(false);
                 _isProcessing = true;
                 _processCompleteTime = Time.time + _processTime;
             }
@@ -66,6 +66,7 @@ namespace FBFactory
 
             var beveragePack = Instantiate(_beveragePackPrefab, transform.position, Quaternion.identity)
                    .GetComponent<BeveragePack>();
+            beveragePack.Own(this);
             for (int i = 0; i < _beveragePerPack; i++)
             {
                 Beverage beverage = materials[i];
@@ -83,7 +84,9 @@ namespace FBFactory
             Beverage beverage = other.GetComponentInChildren<Beverage>();
 
             if (beverage != null && !_infeedMaterials.Contains(beverage))
+            {
                 _infeedMaterials.Add(beverage);
+            }
         }
 
 

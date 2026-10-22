@@ -12,7 +12,7 @@ namespace FBFactory
 
         private readonly List<BeveragePack> _infeedMaterials = new();
         private float _processCompleteTime = 0f;
-        private GameObject _producedProduct;
+        private FactoryMaterial _producedProduct;
 
 
         protected override void ExecuteProduction()
@@ -36,7 +36,7 @@ namespace FBFactory
                 }
                 RemoveIssue(UnitIssueType.DownstreamUnavailable);
 
-                _downstreamBelt.InsertMaterial(_producedProduct.transform);
+                _downstreamBelt.InsertMaterial(_producedProduct);
                 _producedProduct = null;
             }
 
@@ -48,8 +48,8 @@ namespace FBFactory
 
                 var package = Palletize(_infeedMaterials.GetRange(0, _packPerPallet));
 
-                _producedProduct = package.gameObject;
-                _producedProduct.SetActive(false);
+                _producedProduct = package;
+                _producedProduct.gameObject.SetActive(false);
                 _isProcessing = true;
                 _processCompleteTime = Time.time + _processTime;
             }
@@ -65,7 +65,8 @@ namespace FBFactory
                 return null;
 
             BeveragePallet beveragePallet = Instantiate(_beveragePalletPrefab, transform.position, Quaternion.identity)
-                                            .GetComponent<BeveragePallet>();
+                .GetComponent<BeveragePallet>();
+            beveragePallet.Own(this);
             for (int i = 0; i < _packPerPallet; i++)
             {
                 BeveragePack beveragePack = materials[i];
@@ -83,7 +84,6 @@ namespace FBFactory
 
             if (beveragePack != null && !_infeedMaterials.Contains(beveragePack))
             {
-                beveragePack.gameObject.SetActive(false);
                 _infeedMaterials.Add(beveragePack);
             }
         }

@@ -17,7 +17,7 @@ namespace FBFactory
 
         private List<Beverage> _infeedMaterials = new();
         private float _processCompleteTime = 0f;
-        private (GameObject bottle, bool pass) _inspection;
+        private (Beverage bottle, bool pass) _inspection;
 
 
         protected override void ExecuteProduction()
@@ -42,12 +42,12 @@ namespace FBFactory
                         return;
                     }
                     RemoveIssue(UnitIssueType.DownstreamUnavailable);
-                    _downstreamBelt.InsertMaterial(_inspection.bottle.transform);
+                    _downstreamBelt.InsertMaterial(_inspection.bottle);
                 }
                 else
                 {
-                    _inspection.bottle.SetActive(true);
-                    _inspection.bottle.transform.position = _point_bottleDiscard.position;
+                    _inspection.bottle.gameObject.SetActive(true);
+                    _inspection.bottle.Rigidbody.position = _point_bottleDiscard.position;
                 }
                 _inspection.bottle = null;
             }
@@ -60,10 +60,10 @@ namespace FBFactory
                 _infeedMaterials.Remove(bottle);
 
                 bool pass = Inspect(bottle);
-                _inspection = (bottle.gameObject, pass);
+                _inspection = (bottle, pass);
 
-                _inspection.bottle = bottle.gameObject;
-                _inspection.bottle.SetActive(false);
+                _inspection.bottle = bottle;
+                _inspection.bottle.gameObject.SetActive(false);
                 _isProcessing = true;
                 _processCompleteTime = Time.time + _processTime;
             }
@@ -88,6 +88,7 @@ namespace FBFactory
             var beverage = other.transform.GetComponentInChildren<Beverage>();
             if (beverage != null)
             {
+                beverage.Own(this);
                 _infeedMaterials.Add(beverage);
             }
         }

@@ -5,9 +5,9 @@ namespace FBFactory
 {
     public abstract class UnitBase : MonoBehaviour
     {
-        [SerializeField, ReadOnly] private PackMLMode _mode = PackMLMode.Production;
-        [SerializeField, ReadOnly] private PackMLState _state;
-        [SerializeField, ReadOnly] private UnitIssueType _issue = UnitIssueType.None;
+        [SerializeField, ReadOnly] protected PackMLMode _mode = PackMLMode.Production;
+        [SerializeField, ReadOnly] protected PackMLState _state = PackMLState.Stopped;
+        [SerializeField, ReadOnly] protected UnitIssueType _issue = UnitIssueType.None;
         [SerializeField] protected Unit_ConveyerBelt _upstreamBelt;
         [SerializeField] protected Unit_ConveyerBelt _downstreamBelt;
 
@@ -15,6 +15,11 @@ namespace FBFactory
         public Unit_ConveyerBelt UpstreamBelt => _upstreamBelt;
         public Unit_ConveyerBelt DownstreamBelt => _downstreamBelt;
 
+
+        private void Awake()
+        {
+            _state = PackMLState.Stopped;
+        }
 
         private void Update()
         {

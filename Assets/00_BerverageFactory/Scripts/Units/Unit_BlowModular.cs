@@ -13,7 +13,7 @@ namespace FBFactory
         [SerializeField, ReadOnly] private bool _isProcessing;
 
         private float _processCompleteTime = 0f;
-        private GameObject _producedProduct = null;
+        private FactoryMaterial _producedProduct = null;
 
 
         protected override void ExecuteProduction()
@@ -37,7 +37,7 @@ namespace FBFactory
                 }
                 RemoveIssue(UnitIssueType.DownstreamUnavailable);
 
-                _downstreamBelt.InsertMaterial(_producedProduct.transform);
+                _downstreamBelt.InsertMaterial(_producedProduct);
                 _producedProduct = null;
             }
 
@@ -46,9 +46,10 @@ namespace FBFactory
             {
                 RemoveIssue(UnitIssueType.UpstreamUnavailable);
 
-                _producedProduct = Instantiate(rawPET.Prefab, transform.position, Quaternion.identity);
-
-                _producedProduct.SetActive(false);
+                _producedProduct = Instantiate(rawPET.Prefab, transform.position, Quaternion.identity)
+                                   .GetComponent<Beverage>();
+                _producedProduct.Own(this);
+                _producedProduct.gameObject.SetActive(false);
                 _isProcessing = true;
                 _processCompleteTime = Time.time + _processTime;
             }

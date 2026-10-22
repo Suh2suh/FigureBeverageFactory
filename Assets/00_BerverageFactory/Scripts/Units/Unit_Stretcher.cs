@@ -10,7 +10,7 @@ namespace FBFactory
 
         private readonly List<BeveragePallet> _infeedMaterials = new();
         private float _processCompleteTime = 0f;
-        private GameObject _producedProduct;
+        private FactoryMaterial _producedProduct;
 
 
         protected override void ExecuteProduction()
@@ -34,7 +34,7 @@ namespace FBFactory
                 }
                 RemoveIssue(UnitIssueType.DownstreamUnavailable);
 
-                _downstreamBelt.InsertMaterial(_producedProduct.transform);
+                _downstreamBelt.InsertMaterial(_producedProduct);
                 _producedProduct = null;
             }
 
@@ -47,8 +47,8 @@ namespace FBFactory
 
                 Stretch(pallet);
 
-                _producedProduct = pallet.gameObject;
-                _producedProduct.SetActive(false);
+                _producedProduct = pallet;
+                _producedProduct.gameObject.SetActive(false);
                 _isProcessing = true;
                 _processCompleteTime = Time.time + _processTime;
             }
@@ -60,6 +60,7 @@ namespace FBFactory
 
         private void Stretch(BeveragePallet pallet)
         {
+            pallet.Own(this);
             pallet.SetStretched();
         }
 
@@ -69,7 +70,9 @@ namespace FBFactory
             BeveragePallet beveragePallet = other.GetComponentInChildren<BeveragePallet>();
 
             if (beveragePallet != null && !_infeedMaterials.Contains(beveragePallet))
+            {
                 _infeedMaterials.Add(beveragePallet);
+            }
         }
 
 

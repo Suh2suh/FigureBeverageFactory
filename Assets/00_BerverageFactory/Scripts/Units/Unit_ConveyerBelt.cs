@@ -14,7 +14,7 @@ namespace FBFactory
         [SerializeField, ReadOnly] private CapacityState _status;
 
         private readonly LayerMask _conveyerBeltMask = 1 << 7;
-        private readonly List<FactoryMaterial> _materials = new();
+        [SerializeField, ReadOnly] private List<FactoryMaterial> _materials = new();
         private float _elapsedTime;
 
 
@@ -44,15 +44,18 @@ namespace FBFactory
             StateComplete();
         }
 
-
         protected override void ExecuteProduction()
         {
-            _elapsedTime += Time.deltaTime;
+            //
+        }
 
-            while (_elapsedTime >= Time.fixedDeltaTime)
+        private void FixedUpdate()
+        {
+            UpdateStatus();
+
+            if (_state == PackMLState.Execute)
             {
                 MoveBelt();
-                _elapsedTime -= Time.fixedDeltaTime;
             }
         }
 
@@ -72,6 +75,9 @@ namespace FBFactory
                     continue;
                 }
 
+                if (material.Owner != this)
+                    continue;
+
                 material.Rigidbody.MovePosition(material.Rigidbody.position + movement);
             }
         }
@@ -90,6 +96,7 @@ namespace FBFactory
 
             if (material != null && !_materials.Contains(material))
             {
+                material.Own(this);
                 _materials.Add(material);
             }
         }
@@ -110,15 +117,17 @@ namespace FBFactory
         }
 
 
-        public bool InsertMaterial(Transform material)
+        public bool InsertMaterial(FactoryMaterial material)
         {
             if (_status == CapacityState.Full)
                 return false;
 
             material.gameObject.SetActive(true);
-            FactoryMaterial factoryMaterial = material.GetComponent<FactoryMaterial>();
-            factoryMaterial.Rigidbody.position = _inputPoint.position;
-            _materials.Add(factoryMaterial);
+            material.Own(this);
+            material.Rigidbody.position = _inputPoint.position;
+
+            if (!_materials.Contains(material))
+                _materials.Add(material);
 
             return true;
         }
@@ -129,10 +138,6 @@ namespace FBFactory
         }
 
 
-        private void FixedUpdate()
-        {
-            UpdateStatus();
-        }
 
         private void UpdateStatus()
         {
