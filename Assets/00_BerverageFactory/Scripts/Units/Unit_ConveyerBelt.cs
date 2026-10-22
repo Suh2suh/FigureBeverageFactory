@@ -14,7 +14,7 @@ namespace FBFactory
         [SerializeField, ReadOnly] private CapacityState _status;
 
         private readonly LayerMask _conveyerBeltMask = 1 << 7;
-        [SerializeField, ReadOnly] private List<FactoryMaterial> _materials = new();
+        private readonly List<FactoryMaterial> _materials = new();
         private float _elapsedTime;
 
 
