@@ -6,9 +6,14 @@
 
 Current Working Version: V2 — DES
 
+https://github.com/user-attachments/assets/c46eff9b-e8a8-425e-987a-6dea660d6e74
+
+: video of current will be updated periodically
+
 This project is being developed incrementally from a simple
 production-flow model toward DES, analytics, automation,
 virtual control integration, and optimization.
+
 
 ## Why this project?
 
