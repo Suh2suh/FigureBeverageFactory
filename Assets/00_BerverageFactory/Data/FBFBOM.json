@@ -1,0 +1,237 @@
+{
+  "boms": [
+    {
+      "skuId": "BEV-APL-NONE-001",
+      "skuName": "Apple Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-APL-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-APL-CAT-001",
+      "skuName": "Apple Cat Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-APL-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-CAT-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-APL-BEAR-001",
+      "skuName": "Apple Bear Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-APL-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-BEAR-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-APL-CROC-001",
+      "skuName": "Apple Crocodile Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-APL-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-CROC-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-APL-PANDA-001",
+      "skuName": "Apple Panda Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-APL-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-PANDA-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-APL-RABBIT-001",
+      "skuName": "Apple Rabbit Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-APL-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-RABBIT-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+
+    {
+      "skuId": "BEV-GRP-NONE-001",
+      "skuName": "Grape Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-GRP-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-GRP-CAT-001",
+      "skuName": "Grape Cat Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-GRP-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-CAT-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-GRP-BEAR-001",
+      "skuName": "Grape Bear Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-GRP-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-BEAR-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-GRP-CROC-001",
+      "skuName": "Grape Crocodile Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-GRP-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-CROC-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-GRP-PANDA-001",
+      "skuName": "Grape Panda Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-GRP-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-PANDA-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-GRP-RABBIT-001",
+      "skuName": "Grape Rabbit Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-GRP-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-RABBIT-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+
+    {
+      "skuId": "BEV-ORG-NONE-001",
+      "skuName": "Orange Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-ORG-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-ORG-CAT-001",
+      "skuName": "Orange Cat Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-ORG-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-CAT-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-ORG-BEAR-001",
+      "skuName": "Orange Bear Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-ORG-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-BEAR-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-ORG-CROC-001",
+      "skuName": "Orange Crocodile Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-ORG-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-CROC-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-ORG-PANDA-001",
+      "skuName": "Orange Panda Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-ORG-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-PANDA-001", "quantity": 1, "unit": "EA" }
+      ]
+    },
+    {
+      "skuId": "BEV-ORG-RABBIT-001",
+      "skuName": "Orange Rabbit Beverage",
+      "revision": "A",
+      "baseQuantity": 1,
+      "baseUnit": "EA",
+      "components": [
+        { "materialId": "PET-500-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FILL-ORG-001", "quantity": 0.5, "unit": "L" },
+        { "materialId": "CAP-STD-001", "quantity": 1, "unit": "EA" },
+        { "materialId": "FIG-RABBIT-001", "quantity": 1, "unit": "EA" }
+      ]
+    }
+  ]
+}

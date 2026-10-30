@@ -5152,7 +5152,6 @@ MonoBehaviour:
   _fillingDefinition: {fileID: 11400000, guid: 5ea39981039fb214fb518cdefef7d873, type: 2}
   _processTime: 1
   _isProcessing: 0
-  _producedProduct: {fileID: 0}
 --- !u!1 &928456411
 GameObject:
   m_ObjectHideFlags: 0
@@ -8969,7 +8968,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.RawPETContainer
   _rawPETDefinition: {fileID: 11400000, guid: f63ac6704849f01419ac7fedfbfdf409, type: 2}
-  _produceCount: 1000
+  _leftMaterialCount: 1000
   _countDisplayText: {fileID: 1827721145}
 --- !u!1 &1405724841
 GameObject:

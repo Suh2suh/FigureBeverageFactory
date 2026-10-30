@@ -15,10 +15,19 @@ namespace FBFactory
     }
 
 
+    public enum MaterialType
+    {
+        PET,
+        Filling,
+        Cap,
+        Figure,
+        Label
+    }
+
+
     public enum FigureType
     {
         None,
-
         Cat,
         Bear,
         Crocodile,
@@ -26,7 +35,6 @@ namespace FBFactory
         Rabbit,
     }
 
-    // 현재는 Apple만 사용
     public enum FlavorType
     {
         None,

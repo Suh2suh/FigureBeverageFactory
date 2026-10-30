@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 882597088d105be42a6c217011cf81a3, type: 3}
+  m_Name: BEV-APL-PANDA-001
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.BOMScriptableObject
+  _skuId: BEV-APL-PANDA-001
+  _skuName: Apple Panda Beverage
+  _revision: A
+  _baseQuantity: 1
+  _baseUnit: EA
+  _components:
+  - _material: {fileID: 11400000, guid: 24194a3ab0d4fc44b9b04147692f35dd, type: 2}
+    _quantity: 1
+    _unit: EA
+  - _material: {fileID: 11400000, guid: 26841ae30848f654893f1e29bda39b2a, type: 2}
+    _quantity: 0.5
+    _unit: L
+  - _material: {fileID: 11400000, guid: a641743441234da43b4cc820b2fbd3b7, type: 2}
+    _quantity: 1
+    _unit: EA
+  - _material: {fileID: 11400000, guid: 787aa05db0ba970409b7db7a9f356717, type: 2}
+    _quantity: 1
+    _unit: EA

@@ -1,0 +1,66 @@
+{
+  "materials": [
+    {
+      "materialId": "PET-500-STD-001",
+      "materialName": "Standard 500ml PET Bottle",
+      "materialType": "PET",
+      "baseUnit": "EA"
+    },
+    {
+      "materialId": "CAP-STD-001",
+      "materialName": "Standard Bottle Cap",
+      "materialType": "CAP",
+      "baseUnit": "EA"
+    },
+
+    {
+      "materialId": "FILL-APL-001",
+      "materialName": "Apple Filling",
+      "materialType": "FILLING",
+      "baseUnit": "L"
+    },
+    {
+      "materialId": "FILL-GRP-001",
+      "materialName": "Grape Filling",
+      "materialType": "FILLING",
+      "baseUnit": "L"
+    },
+    {
+      "materialId": "FILL-ORG-001",
+      "materialName": "Orange Filling",
+      "materialType": "FILLING",
+      "baseUnit": "L"
+    },
+
+    {
+      "materialId": "FIG-CAT-001",
+      "materialName": "Cat Figure",
+      "materialType": "FIGURE",
+      "baseUnit": "EA"
+    },
+    {
+      "materialId": "FIG-BEAR-001",
+      "materialName": "Bear Figure",
+      "materialType": "FIGURE",
+      "baseUnit": "EA"
+    },
+    {
+      "materialId": "FIG-CROC-001",
+      "materialName": "Crocodile Figure",
+      "materialType": "FIGURE",
+      "baseUnit": "EA"
+    },
+    {
+      "materialId": "FIG-PANDA-001",
+      "materialName": "Panda Figure",
+      "materialType": "FIGURE",
+      "baseUnit": "EA"
+    },
+    {
+      "materialId": "FIG-RABBIT-001",
+      "materialName": "Rabbit Figure",
+      "materialType": "FIGURE",
+      "baseUnit": "EA"
+    }
+  ]
+}
