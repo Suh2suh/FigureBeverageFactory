@@ -16,5 +16,5 @@ MonoBehaviour:
   _materialName: Rabbit Figure
   _materialType: 3
   _baseUnit: EA
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 8519505179265298642, guid: 45b5eb6a70f9e404aac2c5be0f2bba63, type: 3}
   _material: {fileID: 0}

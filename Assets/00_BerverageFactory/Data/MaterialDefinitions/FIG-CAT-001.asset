@@ -16,5 +16,5 @@ MonoBehaviour:
   _materialName: Cat Figure
   _materialType: 3
   _baseUnit: EA
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 8469409643818181143, guid: 911f071151ab81c49b33e96b844d4112, type: 3}
   _material: {fileID: 0}

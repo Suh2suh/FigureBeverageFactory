@@ -16,5 +16,5 @@ MonoBehaviour:
   _materialName: Panda Figure
   _materialType: 3
   _baseUnit: EA
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 8492552370367559986, guid: 6423121d18b5e314a84d530ced2bc4f7, type: 3}
   _material: {fileID: 0}

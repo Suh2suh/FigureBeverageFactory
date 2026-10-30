@@ -16,5 +16,5 @@ MonoBehaviour:
   _materialName: Crocodile Figure
   _materialType: 3
   _baseUnit: EA
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 7313294794221945950, guid: b8ada766c3b6c824b801f823a24e1e9c, type: 3}
   _material: {fileID: 0}

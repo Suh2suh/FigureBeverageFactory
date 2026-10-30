@@ -16,5 +16,5 @@ MonoBehaviour:
   _materialName: Bear Figure
   _materialType: 3
   _baseUnit: EA
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 8649045540583071830, guid: abf76a42cf7d9ea49833ee194f0d11e4, type: 3}
   _material: {fileID: 0}
