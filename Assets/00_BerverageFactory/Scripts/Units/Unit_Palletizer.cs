@@ -5,6 +5,8 @@ namespace FBFactory
 {
     public class Unit_Palletizer : UnitBase
     {
+        public override UnitType UnitType => UnitType.Palletizer;
+
         [SerializeField] private float _processTime = 0.5f;
         [SerializeField, ReadOnly] private bool _isProcessing;
         [SerializeField] private int _packPerPallet = 8;

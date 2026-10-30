@@ -5,11 +5,13 @@ using UnityEngine;
 namespace FBFactory
 {
     /// <summary>
-    /// Label - material id 확인 - TODO : 추후 flavor별로 나누어서 vision?
+    /// Label - material id 확인
     /// Code - 생산일자/유통기한 확인
     /// </summary>
     public class Unit_Inspector_LabelingCoding : UnitBase
     {
+        public override UnitType UnitType => UnitType.Inspector_LabelingCoding;
+
         [SerializeField] private BeverageDefinition _beverageRecipe;
         [SerializeField] private float _processTime = 1.0f;
         [SerializeField, ReadOnly] private bool _isProcessing;

@@ -5,6 +5,8 @@ namespace FBFactory
 {
     public abstract class UnitBase : MonoBehaviour
     {
+        public abstract UnitType UnitType { get; }
+
         [SerializeField, ReadOnly] protected PackMLMode _mode = PackMLMode.Production;
         [SerializeField, ReadOnly] protected PackMLState _state = PackMLState.Stopped;
         [SerializeField, ReadOnly] protected UnitIssueType _issue = UnitIssueType.None;

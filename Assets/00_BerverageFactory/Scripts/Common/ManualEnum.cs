@@ -14,6 +14,26 @@ namespace FBFactory
         DownstreamUnavailable = 1 << 4,      // 다음 공정으로 제품 배출 불가
     }
 
+    public enum UnitType
+    {
+        BlowModular,
+        Filler,
+        Capper,
+        FigureInserter,
+        Labeler,
+        Coder,
+        Packager,
+        Palletizer,
+        Stretcher,
+
+        Inspector_FillingCapping = 50,
+        Inspector_Figure,
+        Inspector_LabelingCoding,
+
+
+        ConveyerBelt = 100,
+    }
+
 
     public enum MaterialType
     {
@@ -22,25 +42,6 @@ namespace FBFactory
         Cap,
         Figure,
         Label
-    }
-
-
-    public enum FigureType
-    {
-        None,
-        Cat,
-        Bear,
-        Crocodile,
-        Panda,
-        Rabbit,
-    }
-
-    public enum FlavorType
-    {
-        None,
-        Apple,
-        Grape,
-        Orange,
     }
 
     public enum CapacityState

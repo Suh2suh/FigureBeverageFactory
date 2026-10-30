@@ -5,6 +5,8 @@ namespace FBFactory
 {
     public class Unit_Stretcher : UnitBase
     {
+        public override UnitType UnitType => UnitType.Stretcher;
+
         [SerializeField] private float _processTime = 0.5f;
         [SerializeField, ReadOnly] private bool _isProcessing;
 

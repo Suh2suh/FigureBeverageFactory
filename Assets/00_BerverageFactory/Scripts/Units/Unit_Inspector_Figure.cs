@@ -4,12 +4,10 @@ using UnityEngine;
 
 namespace FBFactory
 {
-    /// <summary>
-    /// Filling - 채워진 양만 확인
-    /// Capping - 뚜껑 존재 여부만 확인
-    /// </summary>
     public class Unit_Inspector_Figure : UnitBase
     {
+        public override UnitType UnitType => UnitType.Inspector_Figure;
+
         enum FigureInspectionResult
         {
             Pass,

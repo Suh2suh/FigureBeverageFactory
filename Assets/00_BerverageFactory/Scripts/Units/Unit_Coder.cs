@@ -11,6 +11,8 @@ namespace FBFactory
     /// </summary>
     public class Unit_Coder : UnitBase
     {
+        public override UnitType UnitType => UnitType.Coder;
+
         [SerializeField] private string _code = "LOT001";  // v1에서는 고정 TODO : 추후 version에서 detailize
         [SerializeField] private float _processTime = 1.0f;
         [SerializeField, ReadOnly] private bool _isProcessing;

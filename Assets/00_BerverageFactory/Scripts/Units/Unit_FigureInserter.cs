@@ -6,6 +6,8 @@ namespace FBFactory
 {
     public class Unit_FigureInserter : UnitBase
     {
+        public override UnitType UnitType => UnitType.FigureInserter;
+
         [SerializeField] private BeverageDefinition _beverageRecipe;
         [SerializeField] private float _processTime = 1.0f;
         [SerializeField, ReadOnly] private bool _isProcessing;

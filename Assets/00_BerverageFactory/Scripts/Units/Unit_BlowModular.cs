@@ -8,6 +8,8 @@ namespace FBFactory
     /// </summary>
     public class Unit_BlowModular : UnitBase
     {
+        public override UnitType UnitType => UnitType.BlowModular;
+
         [SerializeField] private float _processTime = 1.0f;
         [SerializeField] private RawPETContainer _rawPETContainer;
         [SerializeField, ReadOnly] private bool _isProcessing;

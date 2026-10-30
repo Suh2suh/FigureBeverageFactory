@@ -7,6 +7,8 @@ namespace FBFactory
 {
     public class Unit_Capper : UnitBase
     {
+        public override UnitType UnitType => UnitType.Capper;
+
         [SerializeField] private float _processTime = 1.0f;
         [SerializeField, ReadOnly] private bool _isProcessing;
 

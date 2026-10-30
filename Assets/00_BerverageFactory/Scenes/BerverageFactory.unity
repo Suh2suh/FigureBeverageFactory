@@ -809,53 +809,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!1 &73476291
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 73476292}
-  - component: {fileID: 73476293}
-  m_Layer: 0
-  m_Name: FactoryDTO
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &73476292
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73476291}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 41.50178, y: 0.7, z: 18.36691}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &73476293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73476291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 366983227d6c9e64ea0d8cc37f8e7c1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.FactoryDTO
-  _lastOnSceneChange: 0
-  _figureTableData:
-    _figureTable: {fileID: 11400000, guid: 6b9c7f3d8e4a41b5a2d6f0c9e7b3a1d8, type: 2}
 --- !u!1 &97299237
 GameObject:
   m_ObjectHideFlags: 0
@@ -1967,6 +1920,59 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 301171099}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &313363013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 313363014}
+  - component: {fileID: 313363015}
+  m_Layer: 0
+  m_Name: '[FBF] MES'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &313363014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313363013}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 43.72796, y: -0, z: 22.20123}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &313363015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313363013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69ade0ec402c24148a5149cb8e75ffad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.MES
+  _lastOnSceneChange: 0
+  _orders:
+  - ID: 0
+    <BOM>k__BackingField: {fileID: 11400000, guid: ae38179fbb86198418f5b36237f69eae, type: 2}
+    <TargetQuantity>k__BackingField: 120
+  - ID: 0
+    <BOM>k__BackingField: {fileID: 11400000, guid: b305b3732d24c3249ac1ee7626576b42, type: 2}
+    <TargetQuantity>k__BackingField: 120
+  _orderStatus: []
 --- !u!1 &319639642
 GameObject:
   m_ObjectHideFlags: 0
@@ -7536,7 +7542,7 @@ GameObject:
   - component: {fileID: 1247557797}
   - component: {fileID: 1247557798}
   m_Layer: 0
-  m_Name: LineController
+  m_Name: '[FBF] LineController'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14005,7 +14011,7 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 361169691}
   - {fileID: 2144680098}
-  - {fileID: 73476292}
+  - {fileID: 313363014}
   - {fileID: 1247557797}
   - {fileID: 1407165771}
   - {fileID: 1378403856}

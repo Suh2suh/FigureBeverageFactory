@@ -10,6 +10,8 @@ namespace FBFactory
     /// </summary>
     public class Unit_Inspector_FillingCapping : UnitBase
     {
+        public override UnitType UnitType => UnitType.Inspector_FillingCapping;
+
         [SerializeField] private FillingDefinition _fillingDefinition;
         [SerializeField] private float _processTime = 1.0f;
         [SerializeField, ReadOnly] private bool _isProcessing;

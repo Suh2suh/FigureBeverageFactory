@@ -9,6 +9,8 @@ namespace FBFactory
     /// </summary>
     public class Unit_Labeler : UnitBase
     {
+        public override UnitType UnitType => UnitType.Labeler;
+
         [SerializeField] private BeverageDefinition _beverageRecipe;
         [SerializeField] private float _processTime = 0.5f;
         [SerializeField, ReadOnly] private bool _isProcessing;

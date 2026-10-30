@@ -7,6 +7,8 @@ namespace FBFactory
 {
     public class Unit_Filler : UnitBase
     {
+        public override UnitType UnitType => UnitType.Filler;
+
         [SerializeField] private FillingDefinition _fillingDefinition;
         [SerializeField] private float _processTime = 1.0f;
         [SerializeField, ReadOnly] private bool _isProcessing;
