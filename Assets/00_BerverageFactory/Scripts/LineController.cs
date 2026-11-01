@@ -1,83 +1,168 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace FBFactory
 {
-    public class LineController : MonoBehaviour
+    public class OrderMaterialSetup
     {
-        [SerializeField] private List<UnitBase> _units = new();
-        private Dictionary<UnitType, UnitBase> _typeToUnit = new();
-        private IReadOnlyList<OrderData> _orders;
-        private Dictionary<OrderData, Dictionary<UnitType, UnitSetup>> _orderToSetup = new();
-        private struct UnitSetup
-        {
-            public bool IsUsed;
-            public MaterialScriptableObject Material;
-        }
+        private Dictionary<MaterialType, List<MaterialScriptableObject>> _materialSetup;
 
-
-        private void Awake()
+        public void Configure(BOMScriptableObject bom)
         {
-            foreach (var unit in _units)
+            _materialSetup = new();
+            foreach (var component in bom.Components)
             {
-                if (unit is Unit_ConveyerBelt)
-                    continue;
-
-                _typeToUnit[unit.UnitType] = unit;
+                var materialType = component.Material.MaterialType;
+                if (!_materialSetup.ContainsKey(materialType))
+                {
+                    _materialSetup[materialType] = new();
+                }
+                _materialSetup[materialType].Add(component.Material);
             }
         }
 
+        public bool TryGetMaterials(MaterialType type, out IReadOnlyList<MaterialScriptableObject> materials)
+        {
+            bool hasMaterials = _materialSetup.ContainsKey(type);
+            materials = (hasMaterials ? _materialSetup[type] : null);
+            return hasMaterials;
+        }
+    }
+
+
+    public class LineController : MonoBehaviour
+    {
+        [SerializeField] private List<UnitBase> _units = new();
+
+        /// <summary>
+        /// conveyer belt is not included (∵ get conveyerbelt through unit, linked upstream/downstream belt)
+        /// </summary>
+        private Dictionary<UnitType, UnitData> _typeToUnitData = new();
+        private class UnitData
+        {
+            public UnitBase Unit;
+            public OrderData ProcessingOrder;
+            public PackMLState State => Unit.State;
+        }
+
+        private List<OrderData> _orderSequence = new();
+        private Dictionary<OrderData, ParsedOrderData> _orders = new();
+        private class ParsedOrderData
+        {
+            public HashSet<UnitType> _usedUnits = new()
+            {   // common route for Figure Beverage Factory
+                UnitType.BlowModular, UnitType.Filler, UnitType.Capper, UnitType.Inspector_FillingCapping,
+                UnitType.Labeler, UnitType.Coder, UnitType.Inspector_LabelingCoding,
+                UnitType.Packager, UnitType.Palletizer, UnitType.Stretcher,
+            };
+            public OrderMaterialSetup MaterialSetup { get; private set; }
+
+            public void Configure(BOMScriptableObject bom)
+            {
+                MaterialSetup.Configure(bom);
+                bool hasFigure = MaterialSetup.TryGetMaterials(MaterialType.Figure, out _);
+                if (hasFigure)
+                {
+                    _usedUnits.Add(UnitType.FigureInserter);
+                    _usedUnits.Add(UnitType.Inspector_Figure);
+                }
+            }
+        }
+
+        private void Awake()
+        {
+            InitAllUnits();
+        }
+
+        private void InitAllUnits()
+        {
+            _units = new();
+            _typeToUnitData = new();
+            foreach (var unit in _units)
+            {
+                unit.Reset_PackML();
+
+                if (unit is Unit_ConveyerBelt)
+                    continue;
+
+                _typeToUnitData[unit.UnitType] = new()
+                {
+                    Unit = unit,
+                    ProcessingOrder = null
+                };
+            }
+        }
+
+
         public void InitOrders(IReadOnlyList<OrderData> orders)
         {
-            _orders = orders;
+            if (orders.Count == 0)
+            {
+                Debug.Log("[LineController] orders from MES is empty");
+                return;
+            }
 
-            foreach (var order in _orders)
+            _orderSequence = new();
+            foreach (OrderData order in orders)
             {
                 SetupOrder(order);
+                _orderSequence.Add(order);
+            }
+
+            // TODO: v4 - 시작 로직 구체화 (order 간 gap 유동적으로 등)
+            var firstOrderIndex = _orderSequence[0];
+            var parsedFirstOrderData = _orders[firstOrderIndex];
+            foreach (UnitType type in Enum.GetValues(typeof(UnitType)))
+            {
+                if (type is UnitType.ConveyerBelt)
+                    continue;
+
+                var unitData = _typeToUnitData[type];
+                unitData.ProcessingOrder = firstOrderIndex;
+                unitData.Unit.SetupMaterial(parsedFirstOrderData.MaterialSetup);
             }
         }
 
         private void SetupOrder(OrderData order)
         {
-            Dictionary<MaterialType, MaterialScriptableObject> _typeToMaterial = new();
-            foreach (var component in order.BOM.Components)
-            {
-                _typeToMaterial[component.Material.MaterialType] = component.Material;
-            }
-            bool HasMaterial(MaterialType type)
-                => _typeToMaterial.ContainsKey(type);
-            MaterialScriptableObject GetMaterial(MaterialType type)
-                => _typeToMaterial.TryGetValue(type, out var material) ? material : null;
-
-            Dictionary<UnitType, UnitSetup> unitSetups = new();
-            // common route
-            unitSetups[UnitType.BlowModular] = new() { IsUsed = true, Material = GetMaterial(MaterialType.PET) };
-            unitSetups[UnitType.Filler] = new() { IsUsed = true, Material = GetMaterial(MaterialType.Filling) }; 
-            unitSetups[UnitType.Capper] = new() { IsUsed = true, Material = GetMaterial(MaterialType.Cap) };
-            unitSetups[UnitType.Inspector_FillingCapping] = new() { IsUsed = true, Material = GetMaterial(MaterialType.Filling) };
-            unitSetups[UnitType.Labeler] = new() { IsUsed = true, Material = GetMaterial(MaterialType.Label) };
-            unitSetups[UnitType.Coder] = new() { IsUsed = true };
-            unitSetups[UnitType.Inspector_LabelingCoding] = new() { IsUsed = true, Material = GetMaterial(MaterialType.Label) };
-            unitSetups[UnitType.Packager] = new() { IsUsed = true };
-            unitSetups[UnitType.Palletizer] = new() { IsUsed = true };
-            unitSetups[UnitType.Stretcher] = new() { IsUsed = true };
-            // extra route
-            unitSetups[UnitType.FigureInserter] = new() { IsUsed = HasMaterial(MaterialType.Figure), Material = GetMaterial(MaterialType.Figure) };
-            unitSetups[UnitType.Inspector_Figure] = new() { IsUsed = HasMaterial(MaterialType.Figure), Material = GetMaterial(MaterialType.Figure) };
-
-            _orderToSetup[order] = unitSetups;
+            ParsedOrderData parsedOrderData = new ParsedOrderData();
+            parsedOrderData.Configure(order.BOM);
+            _orders[order] = parsedOrderData;
         }
+
+
+        public void OnProductProduced(OrderData order)
+        {
+            MES.Instance.OnProduced(order.ID);
+        }
+
+        public void OnProductReject(OrderData order)
+        {
+            MES.Instance.OnRejected(order.ID);
+        }
+
 
         public void OnLastBottleProcessed(Beverage beverage, UnitType unitType)
         {
             // 특정 unit에서, 현재 order의 last bottle을 처리 완료 했을 시 lineController에 알림
             // => 해당 unit을 다음 SKU의 BOM에 맞춰 changeOver
-
-
         }
 
-        private bool TryGetUnit<T>(UnitType unitType, out UnitBase unit) where T : UnitBase
-            => _typeToUnit.TryGetValue(unitType, out unit);
+
+        private bool TryGetUnit(UnitType unitType, out UnitBase unit)
+        {
+            bool hasUnit = _typeToUnitData.TryGetValue(unitType, out var unitData);
+            unit = hasUnit ? unitData.Unit : null;
+            return hasUnit;
+        }
+
+        private bool TryGetUnit<T>(UnitType unitType, out T unit) where T : UnitBase
+        {
+            bool hasUnit = _typeToUnitData.TryGetValue(unitType, out var unitData);
+            unit = hasUnit ? unitData.Unit as T : null;
+            return hasUnit;
+        }
 
 
         #region Utility
@@ -103,7 +188,6 @@ namespace FBFactory
             }
 
         #endregion
-
 
     }
 }

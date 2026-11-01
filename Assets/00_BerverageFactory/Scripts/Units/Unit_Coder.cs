@@ -69,7 +69,7 @@ namespace FBFactory
 
         private void Code(Beverage bottle)
         {
-            bottle.SetCode(_code);
+            bottle.SetCode("cooooddddeeee");
         }
 
         private void OnTriggerEnter(Collider other)

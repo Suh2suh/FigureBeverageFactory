@@ -11,10 +11,8 @@ namespace FBFactory
         private bool _isInit = false;
 
 
-        protected override void Awake()
+        private void Start()
         {
-            base.Awake();
-
             Initialize();
         }
 

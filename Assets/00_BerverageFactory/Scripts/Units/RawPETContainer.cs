@@ -10,23 +10,23 @@ namespace FBFactory
     /// </summary>
     public class RawPETContainer : MonoBehaviour
     {
-        [SerializeField] PETDefinition _rawPETDefinition;
+        [SerializeField] MaterialScriptableObject _rawPETMaterial;
         [SerializeField] int _leftMaterialCount;
         [SerializeField] TextMeshPro _countDisplayText;
 
 
-        public bool TryConsume(out PETDefinition rawPET)
+        public bool TryConsume(out MaterialScriptableObject rawPETMaterial)
         {
             if (_leftMaterialCount <= 0)
             {
-                rawPET = null;
+                rawPETMaterial = null;
                 return false;
             }
 
             _leftMaterialCount--;
             _countDisplayText.text = _leftMaterialCount.ToString();
 
-            rawPET = _rawPETDefinition;
+            rawPETMaterial = _rawPETMaterial;
             return true;
         }
 

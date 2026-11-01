@@ -1965,6 +1965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.MES
   _lastOnSceneChange: 0
+  _lineController: {fileID: 1247557798}
   _orders:
   - ID: 0
     <BOM>k__BackingField: {fileID: 11400000, guid: ae38179fbb86198418f5b36237f69eae, type: 2}
@@ -5073,7 +5074,6 @@ MonoBehaviour:
   _issue: 0
   _upstreamBelt: {fileID: 1242207434}
   _downstreamBelt: {fileID: 171391664}
-  _beverageRecipe: {fileID: 11400000, guid: 91e610a9ee40fe840afe0d82be2adfde, type: 2}
   _processTime: 1
   _isProcessing: 0
 --- !u!1 &922954428
@@ -5155,7 +5155,6 @@ MonoBehaviour:
   _issue: 0
   _upstreamBelt: {fileID: 545530310}
   _downstreamBelt: {fileID: 1485514582}
-  _fillingDefinition: {fileID: 11400000, guid: 5ea39981039fb214fb518cdefef7d873, type: 2}
   _processTime: 1
   _isProcessing: 0
 --- !u!1 &928456411
@@ -5322,7 +5321,7 @@ MonoBehaviour:
   _issue: 0
   _upstreamBelt: {fileID: 0}
   _downstreamBelt: {fileID: 0}
-  _beverageRecipe: {fileID: 11400000, guid: 91e610a9ee40fe840afe0d82be2adfde, type: 2}
+  _labelMaterial: {fileID: 0}
   _processTime: 1
   _isProcessing: 0
   _point_bottleDiscard: {fileID: 373302255}
@@ -5775,7 +5774,7 @@ MonoBehaviour:
   _issue: 0
   _upstreamBelt: {fileID: 472480126}
   _downstreamBelt: {fileID: 2143481633}
-  _beverageRecipe: {fileID: 11400000, guid: 91e610a9ee40fe840afe0d82be2adfde, type: 2}
+  _figureMaterial: {fileID: 0}
   _processTime: 1
   _isProcessing: 0
   _point_bottleDiscard: {fileID: 493037142}
@@ -8252,7 +8251,7 @@ MonoBehaviour:
   _issue: 0
   _upstreamBelt: {fileID: 2143481633}
   _downstreamBelt: {fileID: 1606962558}
-  _beverageRecipe: {fileID: 11400000, guid: 91e610a9ee40fe840afe0d82be2adfde, type: 2}
+  _labelMaterial: {fileID: 0}
   _processTime: 0.5
   _isProcessing: 0
 --- !u!1001 &1322135430
@@ -8973,7 +8972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73f071263dde4947bbd0f2d32fe3b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.RawPETContainer
-  _rawPETDefinition: {fileID: 11400000, guid: f63ac6704849f01419ac7fedfbfdf409, type: 2}
+  _rawPETMaterial: {fileID: 0}
   _leftMaterialCount: 1000
   _countDisplayText: {fileID: 1827721145}
 --- !u!1 &1405724841
@@ -10244,7 +10243,6 @@ MonoBehaviour:
   _issue: 0
   _upstreamBelt: {fileID: 1054105124}
   _downstreamBelt: {fileID: 443626625}
-  _fillingDefinition: {fileID: 11400000, guid: 5ea39981039fb214fb518cdefef7d873, type: 2}
   _processTime: 1
   _isProcessing: 0
   _point_bottleDiscard: {fileID: 526228756}
@@ -11912,7 +11910,6 @@ MonoBehaviour:
   _issue: 0
   _upstreamBelt: {fileID: 1634428617}
   _downstreamBelt: {fileID: 1709117761}
-  _fillingDefinition: {fileID: 11400000, guid: 5ea39981039fb214fb518cdefef7d873, type: 2}
   _processTime: 1
   _isProcessing: 0
   _point_bottleDiscard: {fileID: 373302255}

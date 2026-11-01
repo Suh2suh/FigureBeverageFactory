@@ -1,14 +1,13 @@
-using FBFactory;
-using Unity.Collections;
 using UnityEngine;
 
 namespace FBFactory
 {
     public class Beverage : FactoryMaterial
     {
+        [SerializeField, ReadOnly] private MaterialScriptableObject _filling;
         [SerializeField, ReadOnly] private int _maxML = -1;
         [SerializeField, ReadOnly] private int _filledML = 0;
-        [SerializeField, ReadOnly] private FlavorType _fillingFalvor;
+        [SerializeField, ReadOnly] private MaterialScriptableObject _figure;
         [SerializeField, ReadOnly] private Material _label = null;
         [SerializeField, ReadOnly] private string _code = string.Empty;
 
@@ -18,11 +17,12 @@ namespace FBFactory
 
         public int MaxML => _maxML;
         public int FilledML => _filledML;
-        public FlavorType Flavor => _fillingFalvor;
         public bool HasCap => _lid.gameObject.activeSelf;
         public Material Label => _label;
         public string Code => _code;
         public Transform FigureSocket => _figureSocket;
+        public MaterialScriptableObject Filling => _filling;
+        public MaterialScriptableObject Figure => _figure;
 
 
         public void SetMaxML(int maxML)
@@ -30,15 +30,20 @@ namespace FBFactory
             _maxML = maxML;
         }
 
-        public void SetFilling(FlavorType filling, int ML)
+        public void SetFilling(MaterialScriptableObject filling, int ML)
         {
-            _fillingFalvor = filling; 
+            _filling = filling;
             _filledML = ML;
         }
 
-        public void SetCapping(Quaternion rotation /*추후 Cap Inspection 사용*/)
+        public void SetCapping(Quaternion rotation /*TODO : v2(des) - Cap Inspection with rotation*/)
         {
             _lid.gameObject.SetActive(true);
+        }
+
+        public void SetFigure(MaterialScriptableObject figure)
+        {
+            _figure = figure;
         }
 
         public void SetLabel(Material label)

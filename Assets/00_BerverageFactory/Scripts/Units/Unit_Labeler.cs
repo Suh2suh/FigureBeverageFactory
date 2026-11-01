@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace FBFactory
 {
     /// <summary>
@@ -10,8 +9,7 @@ namespace FBFactory
     public class Unit_Labeler : UnitBase
     {
         public override UnitType UnitType => UnitType.Labeler;
-
-        [SerializeField] private BeverageDefinition _beverageRecipe;
+        [SerializeField] private MaterialScriptableObject _labelMaterial;
         [SerializeField] private float _processTime = 0.5f;
         [SerializeField, ReadOnly] private bool _isProcessing;
 
@@ -68,7 +66,7 @@ namespace FBFactory
         private void Label(Beverage bottle)
         {
             // TODO : v4에서 일부는 라벨 미부착
-            bottle.SetLabel(_beverageRecipe.Label);
+            bottle.SetLabel(_labelMaterial.Material);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -85,11 +83,11 @@ namespace FBFactory
         {
             var beverage = other.transform.GetComponentInChildren<Beverage>();
             if (beverage != null)
+
             {
                 _infeedMaterials.Remove(beverage);
             }
         }
-
 
         protected override void OnAborting_PackML()
         {

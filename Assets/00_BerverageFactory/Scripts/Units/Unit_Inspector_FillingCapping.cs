@@ -12,7 +12,6 @@ namespace FBFactory
     {
         public override UnitType UnitType => UnitType.Inspector_FillingCapping;
 
-        [SerializeField] private FillingDefinition _fillingDefinition;
         [SerializeField] private float _processTime = 1.0f;
         [SerializeField, ReadOnly] private bool _isProcessing;
         [SerializeField] private Transform _point_bottleDiscard;
@@ -20,6 +19,7 @@ namespace FBFactory
         private List<Beverage> _infeedMaterials = new();
         private float _processCompleteTime = 0f;
         private (Beverage bottle, bool pass) _inspection;
+        private float _fillAmount = 0f;
 
 
         protected override void ExecuteProduction()
@@ -79,7 +79,7 @@ namespace FBFactory
         {
             if (!bottle.HasCap)
                 return false;
-            if (bottle.FilledML < _fillingDefinition.FillAmount)  // TODO : Threshold?
+            if (bottle.FilledML < _fillAmount)  // TODO : Threshold?
                 return false;
 
             return true;

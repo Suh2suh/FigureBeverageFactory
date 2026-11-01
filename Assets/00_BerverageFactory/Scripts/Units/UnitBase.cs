@@ -37,6 +37,13 @@ namespace FBFactory
         protected abstract void ExecuteProduction();
 
 
+        public virtual void SetupMaterial(OrderMaterialSetup materialSetpup)
+        {
+            // LineController로부터 현재 Order에 대한 MaterialSetup(BOM)을 전달받음
+            // 각 Unit은 해당 MaterialSetup 정보를 기반으로 unit setting changeOver
+        }
+
+
         public void SetMode(PackMLMode to)
         {
             _mode = to;

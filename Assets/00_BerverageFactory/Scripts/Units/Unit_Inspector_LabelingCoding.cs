@@ -12,7 +12,7 @@ namespace FBFactory
     {
         public override UnitType UnitType => UnitType.Inspector_LabelingCoding;
 
-        [SerializeField] private BeverageDefinition _beverageRecipe;
+        [SerializeField] private MaterialScriptableObject _labelMaterial;
         [SerializeField] private float _processTime = 1.0f;
         [SerializeField, ReadOnly] private bool _isProcessing;
         [SerializeField] private Transform _point_bottleDiscard;
@@ -77,7 +77,7 @@ namespace FBFactory
 
         private bool Inspect(Beverage bottle)
         {
-            if (!bottle.Label != _beverageRecipe.Label)
+            if (!bottle.Label != _labelMaterial.Material)
                 return false;
             if (bottle.Code == string.Empty) // TODO: 추후 version에서 detailize - v1에서 욕심 X
                 return false;

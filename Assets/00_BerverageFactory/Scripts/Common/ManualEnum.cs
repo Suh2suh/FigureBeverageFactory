@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿
 
 namespace FBFactory
 {
@@ -30,10 +29,8 @@ namespace FBFactory
         Inspector_Figure,
         Inspector_LabelingCoding,
 
-
         ConveyerBelt = 100,
     }
-
 
     public enum MaterialType
     {

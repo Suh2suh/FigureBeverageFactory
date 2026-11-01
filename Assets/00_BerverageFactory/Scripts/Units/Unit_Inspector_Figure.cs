@@ -15,7 +15,7 @@ namespace FBFactory
             Fail_Incorrect,  // 레시피와 다른 피규어 - TODO : 추후 version에서 RobotArm연결 시 사용
         }
 
-        [SerializeField] private BeverageDefinition _beverageRecipe;
+        [SerializeField, ReadOnly] private MaterialScriptableObject _figureMaterial;
         [SerializeField] private float _processTime = 1.0f;
         [SerializeField, ReadOnly] private bool _isProcessing;
         [SerializeField] private Transform _point_bottleDiscard;
@@ -97,12 +97,11 @@ namespace FBFactory
 
         private FigureInspectionResult Inspect(Beverage bottle)
         {
-            var figure = bottle.FigureSocket.GetComponentInChildren<Figure>();
-            if (figure == null)
+            if (bottle.Figure == null)
             {
                 return FigureInspectionResult.Fail_NoFigure;
             }
-            if (figure.Type != _beverageRecipe.FigureType)
+            if (bottle.Figure != _figureMaterial)
             {
                 return FigureInspectionResult.Fail_Incorrect;
             }

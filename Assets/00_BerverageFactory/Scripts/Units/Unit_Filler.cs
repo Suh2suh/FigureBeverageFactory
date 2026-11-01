@@ -9,13 +9,15 @@ namespace FBFactory
     {
         public override UnitType UnitType => UnitType.Filler;
 
-        [SerializeField] private FillingDefinition _fillingDefinition;
         [SerializeField] private float _processTime = 1.0f;
         [SerializeField, ReadOnly] private bool _isProcessing;
 
         private List<Beverage> _infeedMaterials = new();
         private float _processCompleteTime = 0f;
         private FactoryMaterial _producedProduct;
+
+        private MaterialScriptableObject _filling;
+        private int _fillAmount = 0;
 
 
         protected override void ExecuteProduction()
@@ -66,11 +68,11 @@ namespace FBFactory
 
         private void Fill(Beverage bottle)
         {
-            int fillAmount = math.max(bottle.MaxML, _fillingDefinition.FillAmount);
+            int fillAmount = math.max(bottle.MaxML, _fillAmount);
             // ㄴ Reason - Max - Bottle capacity를 초과한 filling이 들어갔을 경우 (what-if version scenario)
             // ㄴ TODO: 추후 what-if에서 일부 beverage는 fill less
 
-            bottle.SetFilling(_fillingDefinition.Flavor, fillAmount);
+            bottle.SetFilling(_filling, fillAmount);
         }
 
         private void OnTriggerEnter(Collider other)

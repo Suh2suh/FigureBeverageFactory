@@ -8,12 +8,12 @@ namespace FBFactory
     {
         public override UnitType UnitType => UnitType.FigureInserter;
 
-        [SerializeField] private BeverageDefinition _beverageRecipe;
         [SerializeField] private float _processTime = 1.0f;
         [SerializeField, ReadOnly] private bool _isProcessing;
 
         private List<Beverage> _infeedMaterials = new();
         private float _processCompleteTime = 0f;
+        private MaterialScriptableObject _figure;
         private FactoryMaterial _producedProduct;
 
 
@@ -65,7 +65,7 @@ namespace FBFactory
         private void InsertFigure(Beverage bottle)
         {
             // TODO : v4(what-if)에서 Develop
-            var figure = Instantiate(FactoryDTO.Instance.FigureTable.GetFigurePrefab(_beverageRecipe.FigureType));
+            var figure = _figure.Prefab;
             figure.transform.parent = bottle.FigureSocket;
             figure.transform.localPosition = Vector3.zero;
         }

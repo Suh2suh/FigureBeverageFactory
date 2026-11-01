@@ -22,7 +22,7 @@ namespace FBFactory
         {
             [SerializeField] private int _maxML;
             [SerializeField] private int _filledML;
-            [SerializeField] private FlavorType _flavor;
+            [SerializeField] private MaterialScriptableObject _filling;
             [SerializeField] private bool _hasCap;
             [SerializeField] private Material _label;
             [SerializeField] private string _code;
@@ -31,11 +31,13 @@ namespace FBFactory
             {
                 _maxML = beverage.MaxML;
                 _filledML = beverage.FilledML;
-                _flavor = beverage.Flavor;
+                _filling = beverage.Filling;
                 _hasCap = beverage.HasCap;
                 _label = beverage.Label;
                 _code = beverage.Code;
             }
         }
+
+
     }
 }
