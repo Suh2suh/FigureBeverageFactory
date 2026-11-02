@@ -7,10 +7,14 @@ namespace FBFactory
     public class OrderMaterialSetup
     {
         private Dictionary<MaterialType, List<MaterialScriptableObject>> _materialSetup;
+        private Dictionary<MaterialType, float> _beverageQuantities;
+        private Dictionary<MaterialType, string> _beverageUnits;
 
         public void Configure(BOMScriptableObject bom)
         {
             _materialSetup = new();
+            _beverageQuantities = new();
+            _beverageUnits = new();
             foreach (var component in bom.Components)
             {
                 var materialType = component.Material.MaterialType;
@@ -19,6 +23,8 @@ namespace FBFactory
                     _materialSetup[materialType] = new();
                 }
                 _materialSetup[materialType].Add(component.Material);
+                _beverageQuantities[materialType] = component.Quantity;
+                _beverageUnits[materialType] = component.Unit;
             }
         }
 
@@ -27,6 +33,17 @@ namespace FBFactory
             bool hasMaterials = _materialSetup.ContainsKey(type);
             materials = (hasMaterials ? _materialSetup[type] : null);
             return hasMaterials;
+        }
+
+        public float GetBeverageQuantity(MaterialType type)
+        {
+            float quantity = _beverageQuantities[type];
+            string unit = _beverageUnits[type];
+
+            if (unit == "L")
+                return quantity * 1000f;
+
+            return quantity;
         }
     }
 
@@ -85,6 +102,8 @@ namespace FBFactory
 
                 if (unit is Unit_ConveyerBelt)
                     continue;
+
+                unit.SetChangeOverCompleteCallback(OnEndChangeOver);
 
                 _typeToUnitData[unit.UnitType] = new()
                 {
@@ -145,8 +164,27 @@ namespace FBFactory
 
         public void OnLastBottleProcessed(Beverage beverage, UnitType unitType)
         {
-            // 특정 unit에서, 현재 order의 last bottle을 처리 완료 했을 시 lineController에 알림
-            // => 해당 unit을 다음 SKU의 BOM에 맞춰 changeOver
+            if (!_typeToUnitData.TryGetValue(unitType, out UnitData unitData) ||
+                unitData.ProcessingOrder == null)
+                return;
+
+            int currentOrderIndex = _orderSequence.IndexOf(unitData.ProcessingOrder);
+            int nextOrderIndex = currentOrderIndex + 1;
+
+            if (nextOrderIndex >= _orderSequence.Count)
+                return;
+
+            OrderData nextOrder = _orderSequence[nextOrderIndex];
+            unitData.ProcessingOrder = nextOrder;
+
+            unitData.Unit.Stop_PackML();
+            unitData.Unit.SetupMaterial(_orders[nextOrder].MaterialSetup);
+        }
+
+        public void OnEndChangeOver(UnitBase unit)
+        {
+            unit.Reset_PackML();
+            unit.Start_PackML();
         }
 
 

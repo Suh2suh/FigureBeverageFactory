@@ -14,7 +14,13 @@ namespace FBFactory
         public override UnitType UnitType => UnitType.Coder;
 
         [SerializeField] private string _code = "LOT001";  // v1에서는 고정 TODO : 추후 version에서 detailize
-        [SerializeField] private float _processTime = 1.0f;
+        protected override float ProcessTime => 0.70f;
+        protected override float ChangeoverTime => 5f;
+
+        protected override void OnSetupMaterial(OrderMaterialSetup materialSetup)
+        {
+            // TODO: materialSetup 기반으로 Coder 재료를 설정한다.
+        }
         [SerializeField, ReadOnly] private bool _isProcessing;
 
         private List<Beverage> _infeedMaterials = new();
@@ -59,7 +65,7 @@ namespace FBFactory
                 _producedProduct = bottle;
                 _producedProduct.gameObject.SetActive(false);
                 _isProcessing = true;
-                _processCompleteTime = Time.time + _processTime;
+                _processCompleteTime = Time.time + ProcessTime;
             }
             else
             {

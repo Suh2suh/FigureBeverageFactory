@@ -14,6 +14,11 @@ namespace FBFactory
         [SerializeField] int _leftMaterialCount;
         [SerializeField] TextMeshPro _countDisplayText;
 
+        public void SetMaterial(MaterialScriptableObject material)
+        {
+            _rawPETMaterial = material;
+        }
+
 
         public bool TryConsume(out MaterialScriptableObject rawPETMaterial)
         {

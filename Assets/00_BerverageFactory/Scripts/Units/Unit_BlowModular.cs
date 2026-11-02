@@ -10,7 +10,14 @@ namespace FBFactory
     {
         public override UnitType UnitType => UnitType.BlowModular;
 
-        [SerializeField] private float _processTime = 1.0f;
+        protected override float ProcessTime => 1.00f;
+        protected override float ChangeoverTime => 45f;
+
+        protected override void OnSetupMaterial(OrderMaterialSetup materialSetup)
+        {
+            if (materialSetup.TryGetMaterials(MaterialType.PET, out var materials))
+                _rawPETContainer.SetMaterial(materials[0]);
+        }
         [SerializeField] private RawPETContainer _rawPETContainer;
         [SerializeField, ReadOnly] private bool _isProcessing;
 
@@ -53,7 +60,7 @@ namespace FBFactory
                 _producedProduct.Own(this);
                 _producedProduct.gameObject.SetActive(false);
                 _isProcessing = true;
-                _processCompleteTime = Time.time + _processTime;
+                _processCompleteTime = Time.time + ProcessTime;
             }
             else
             {

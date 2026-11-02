@@ -7,7 +7,13 @@ namespace FBFactory
     {
         public override UnitType UnitType => UnitType.Stretcher;
 
-        [SerializeField] private float _processTime = 0.5f;
+        protected override float ProcessTime => 8.0f;
+        protected override float ChangeoverTime => 10f;
+
+        protected override void OnSetupMaterial(OrderMaterialSetup materialSetup)
+        {
+            // TODO: materialSetup 기반으로 Stretcher 재료를 설정한다.
+        }
         [SerializeField, ReadOnly] private bool _isProcessing;
 
         private readonly List<BeveragePallet> _infeedMaterials = new();
@@ -52,7 +58,7 @@ namespace FBFactory
                 _producedProduct = pallet;
                 _producedProduct.gameObject.SetActive(false);
                 _isProcessing = true;
-                _processCompleteTime = Time.time + _processTime;
+                _processCompleteTime = Time.time + ProcessTime;
             }
             else
             {

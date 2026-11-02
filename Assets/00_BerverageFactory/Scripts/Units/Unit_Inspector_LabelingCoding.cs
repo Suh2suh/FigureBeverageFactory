@@ -13,7 +13,14 @@ namespace FBFactory
         public override UnitType UnitType => UnitType.Inspector_LabelingCoding;
 
         [SerializeField] private MaterialScriptableObject _labelMaterial;
-        [SerializeField] private float _processTime = 1.0f;
+        protected override float ProcessTime => 0.67f;
+        protected override float ChangeoverTime => 5f;
+
+        protected override void OnSetupMaterial(OrderMaterialSetup materialSetup)
+        {
+            if (materialSetup.TryGetMaterials(MaterialType.Label, out var materials))
+                _labelMaterial = materials[0];
+        }
         [SerializeField, ReadOnly] private bool _isProcessing;
         [SerializeField] private Transform _point_bottleDiscard;
 
@@ -67,7 +74,7 @@ namespace FBFactory
                 _inspection.bottle = bottle;
                 _inspection.bottle.gameObject.SetActive(false);
                 _isProcessing = true;
-                _processCompleteTime = Time.time + _processTime;
+                _processCompleteTime = Time.time + ProcessTime;
             }
             else
             {

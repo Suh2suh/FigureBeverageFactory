@@ -7,7 +7,13 @@ namespace FBFactory
     {
         public override UnitType UnitType => UnitType.Packager;
 
-        [SerializeField] private float _processTime = 0.5f;
+        protected override float ProcessTime => 7.80f;
+        protected override float ChangeoverTime => 30f;
+
+        protected override void OnSetupMaterial(OrderMaterialSetup materialSetup)
+        {
+            // TODO: materialSetup 기반으로 Packager 재료를 설정한다.
+        }
         [SerializeField, ReadOnly] private bool _isProcessing;
         [SerializeField] private int _beveragePerPack = 6;
         [SerializeField] private GameObject _beveragePackPrefab;
@@ -53,7 +59,7 @@ namespace FBFactory
                 _producedProduct = package;
                 _producedProduct.gameObject.SetActive(false);
                 _isProcessing = true;
-                _processCompleteTime = Time.time + _processTime;
+                _processCompleteTime = Time.time + ProcessTime;
             }
             else
             {

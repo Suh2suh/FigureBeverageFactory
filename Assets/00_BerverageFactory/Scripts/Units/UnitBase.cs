@@ -1,10 +1,14 @@
 using Unity.Collections;
 using UnityEngine;
+using System;
 
 namespace FBFactory
 {
     public abstract class UnitBase : MonoBehaviour
     {
+        protected virtual float ProcessTime => 0f;
+        protected virtual float ChangeoverTime => 0f;
+
         public abstract UnitType UnitType { get; }
 
         [SerializeField, ReadOnly] protected PackMLMode _mode = PackMLMode.Production;
@@ -12,6 +16,10 @@ namespace FBFactory
         [SerializeField, ReadOnly] protected UnitIssueType _issue = UnitIssueType.None;
         [SerializeField] protected Unit_ConveyerBelt _upstreamBelt;
         [SerializeField] protected Unit_ConveyerBelt _downstreamBelt;
+
+        private Action<UnitBase> _onChangeOverComplete;
+        private float _changeOverCompleteTime;
+        private bool _isChangingOver;
 
         public PackMLState State => _state;
         public Unit_ConveyerBelt UpstreamBelt => _upstreamBelt;
@@ -25,8 +33,15 @@ namespace FBFactory
 
         private void Update()
         {
+            if (_isChangingOver && Time.time >= _changeOverCompleteTime)
+            {
+                _isChangingOver = false;
+                _onChangeOverComplete?.Invoke(this);
+            }
+
             if (_mode != PackMLMode.Production ||
-                _state != PackMLState.Execute)
+                _state != PackMLState.Execute ||
+                _isChangingOver)
             {
                 return;
             }
@@ -37,10 +52,21 @@ namespace FBFactory
         protected abstract void ExecuteProduction();
 
 
-        public virtual void SetupMaterial(OrderMaterialSetup materialSetpup)
+        public void SetupMaterial(OrderMaterialSetup materialSetup)
         {
-            // LineController로부터 현재 Order에 대한 MaterialSetup(BOM)을 전달받음
-            // 각 Unit은 해당 MaterialSetup 정보를 기반으로 unit setting changeOver
+            OnSetupMaterial(materialSetup);
+
+            _changeOverCompleteTime = Time.time + ChangeoverTime;
+            _isChangingOver = true;
+        }
+
+        public void SetChangeOverCompleteCallback(Action<UnitBase> callback)
+        {
+            _onChangeOverComplete = callback;
+        }
+
+        protected virtual void OnSetupMaterial(OrderMaterialSetup materialSetup)
+        {
         }
 
 
