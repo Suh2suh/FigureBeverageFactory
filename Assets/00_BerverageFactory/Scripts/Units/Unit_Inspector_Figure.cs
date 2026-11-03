@@ -26,7 +26,7 @@ namespace FBFactory
         }
         [SerializeField, ReadOnly] private bool _isProcessing;
         [SerializeField] private Transform _point_bottleDiscard;
-        [SerializeField] private Unit_ConveyerBelt _rollbackConveyer;
+        [SerializeField] private GroupConveyerBelt _rollbackConveyer;
 
         private List<Beverage> _infeedMaterials = new();
         private float _processCompleteTime = 0f;

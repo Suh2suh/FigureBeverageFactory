@@ -13,11 +13,15 @@ namespace FBFactory
         [SerializeField] private Transform _inputPoint;
         [SerializeField] private Transform _outputPoint;
         [SerializeField, ReadOnly] private float _capacity;
+        [SerializeField, ReadOnly] private float _beltArea;
         [SerializeField, ReadOnly] private CapacityState _status;
 
         private readonly LayerMask _conveyerBeltMask = 1 << 7;
         private readonly List<FactoryMaterial> _materials = new();
         private float _elapsedTime;
+
+        public float Capacity => _capacity;
+        public float BeltArea => _beltArea;
 
 
         protected override void OnResetting_PackML()
@@ -174,7 +178,10 @@ namespace FBFactory
                 Collider beltCollider = GetComponent<Collider>();
 
                 if (beltCollider == null || !TryGetProjectedRect(beltCollider, out Rect beltRect))
+                {
+                    _beltArea = 0f;
                     return 0f;
+                }
 
                 List<Rect> materialRects = new();
 
@@ -204,6 +211,7 @@ namespace FBFactory
                 }
 
                 float beltArea = beltRect.width * beltRect.height;
+                _beltArea = beltArea;
 
                 if (beltArea <= 0f || materialRects.Count == 0)
                     return 0f;

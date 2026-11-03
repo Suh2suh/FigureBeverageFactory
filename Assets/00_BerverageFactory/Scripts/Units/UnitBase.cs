@@ -14,16 +14,14 @@ namespace FBFactory
         [SerializeField, ReadOnly] protected PackMLMode _mode = PackMLMode.Production;
         [SerializeField, ReadOnly] protected PackMLState _state = PackMLState.Stopped;
         [SerializeField, ReadOnly] protected UnitIssueType _issue = UnitIssueType.None;
-        [SerializeField] protected Unit_ConveyerBelt _upstreamBelt;
-        [SerializeField] protected Unit_ConveyerBelt _downstreamBelt;
+        [SerializeField] protected GroupConveyerBelt _upstreamBelt;
+        [SerializeField] protected GroupConveyerBelt _downstreamBelt;
 
         private Action<UnitBase> _onChangeOverComplete;
-        private float _changeOverCompleteTime;
-        private bool _isChangingOver;
 
         public PackMLState State => _state;
-        public Unit_ConveyerBelt UpstreamBelt => _upstreamBelt;
-        public Unit_ConveyerBelt DownstreamBelt => _downstreamBelt;
+        public GroupConveyerBelt UpstreamBelt => _upstreamBelt;
+        public GroupConveyerBelt DownstreamBelt => _downstreamBelt;
 
 
         private void Awake()
@@ -33,15 +31,8 @@ namespace FBFactory
 
         private void Update()
         {
-            if (_isChangingOver && Time.time >= _changeOverCompleteTime)
-            {
-                _isChangingOver = false;
-                _onChangeOverComplete?.Invoke(this);
-            }
-
             if (_mode != PackMLMode.Production ||
-                _state != PackMLState.Execute ||
-                _isChangingOver)
+                _state != PackMLState.Execute)
             {
                 return;
             }
@@ -54,10 +45,16 @@ namespace FBFactory
 
         public void SetupMaterial(OrderMaterialSetup materialSetup)
         {
-            OnSetupMaterial(materialSetup);
+            if (_state != PackMLState.Stopped)
+                return;
 
-            _changeOverCompleteTime = Time.time + ChangeoverTime;
-            _isChangingOver = true;
+            OnSetupMaterial(materialSetup);
+            Invoke(nameof(CompleteChangeOver), ChangeoverTime);
+        }
+
+        private void CompleteChangeOver()
+        {
+            _onChangeOverComplete?.Invoke(this);
         }
 
         public void SetChangeOverCompleteCallback(Action<UnitBase> callback)

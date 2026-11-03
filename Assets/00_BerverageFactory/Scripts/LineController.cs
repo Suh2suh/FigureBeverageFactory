@@ -77,6 +77,7 @@ namespace FBFactory
 
             public void Configure(BOMScriptableObject bom)
             {
+                MaterialSetup = new();
                 MaterialSetup.Configure(bom);
                 bool hasFigure = MaterialSetup.TryGetMaterials(MaterialType.Figure, out _);
                 if (hasFigure)
@@ -87,19 +88,18 @@ namespace FBFactory
             }
         }
 
+
         private void Awake()
         {
+            // CollectAllUnits();
             InitAllUnits();
         }
 
         private void InitAllUnits()
         {
-            _units = new();
             _typeToUnitData = new();
             foreach (var unit in _units)
             {
-                unit.Reset_PackML();
-
                 if (unit is Unit_ConveyerBelt)
                     continue;
 
@@ -183,6 +183,7 @@ namespace FBFactory
 
         public void OnEndChangeOver(UnitBase unit)
         {
+            
             unit.Reset_PackML();
             unit.Start_PackML();
         }

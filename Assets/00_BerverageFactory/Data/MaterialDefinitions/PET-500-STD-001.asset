@@ -16,5 +16,5 @@ MonoBehaviour:
   _materialName: Standard 500ml PET Bottle
   _materialType: 0
   _baseUnit: EA
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 7924478854106924536, guid: 706a9a54fcd301e45a2a0d1a87b2434b, type: 3}
   _material: {fileID: 0}
