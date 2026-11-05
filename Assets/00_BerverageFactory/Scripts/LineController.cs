@@ -128,10 +128,10 @@ namespace FBFactory
         {
             if (orders.Count == 0)
             {
-                Debug.Log("[LineController] orders from MES is empty");
+                Debug.Log("[LineController] orders from MES is empty".Color(Color.red));
                 return;
             }
-            Debug.Log("[LineController] Init Orders from MES...");
+            Debug.Log("[LineController] Start Parsing Orders from MES...".Color(Color.blue));
 
             // MES에서 내려온 order데이터를 미리 parsing (unit order 상태를 바로 전환할 수 있게)
             _orderSequence = new();
@@ -139,12 +139,13 @@ namespace FBFactory
             {
                 SetupOrder(order);
                 _orderSequence.Add(order);
-                Debug.Log($"[LineController] Order #{order.ID} - '{order.BOM.SkuName}' / {order.TargetQuantity} EA");
+                Debug.Log($"[LineController] Parsed : Order #{order.ID} - '{order.BOM.SkuName}' / {order.TargetQuantity} EA");
             }
 
             // TODO: v4 - 시작 로직 구체화 (order 간 gap 유동적으로 등)
             // 1. Order Production 시작
             // 1-a. first order에 사용되는 unit들에 대하여, material setup(changeOver)
+            Debug.Log($"[LineController] Changing-Over all Units' setting...".Color(Color.blue));
             var firstOrderIndex = _orderSequence[0];
             var firstOrderData = _orders[firstOrderIndex];
             foreach (UnitType type in Enum.GetValues(typeof(UnitType)))
@@ -158,6 +159,7 @@ namespace FBFactory
                 unitData.Unit.SetupMaterial(firstOrderData.MaterialSetup);
             }
             // 1-b. ConveyerBelt 작동
+            Debug.Log($"[LineController] Starting all ConveyerBelts...".Color(Color.blue));
             foreach (var conveyerGroup in _conveyerGroup)
             {
                 conveyerGroup.Start_PackML();
