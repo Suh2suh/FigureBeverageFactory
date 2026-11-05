@@ -12,34 +12,24 @@ namespace FBFactory
         [SerializeField] private List<Unit_ConveyerBelt> _belts = new();
         [SerializeField, ReadOnly] private float _capacity;
 
-        public string EquipmentId => _equipmentId;
-        public UnitBase UpstreamUnit => _upstreamUnit;
-        public UnitBase DownstreamUnit => _downstreamUnit;
-        public IReadOnlyList<Unit_ConveyerBelt> Belts => _belts;
-        public float Capacity => _capacity;
+        private Unit_ConveyerBelt InputBelt => _belts[0];
+        private Unit_ConveyerBelt _outputBelt => _belts[^1];
 
-        private void Awake()
-        {
-            OnTransformChildrenChanged();
-        }
+
+        public void Reset_PackML()
+            => _belts.ForEach(belt => belt.Reset_PackML());
 
         public void Start_PackML()
-        {
-            foreach (Unit_ConveyerBelt belt in _belts)
-                belt.Start_PackML();
-        }
+            => _belts.ForEach(belt => belt.Start_PackML());
 
         public void Stop_PackML()
-        {
-            foreach (Unit_ConveyerBelt belt in _belts)
-                belt.Stop_PackML();
-        }
+            => _belts.ForEach(belt => belt.Stop_PackML());
 
         public bool InsertMaterial(FactoryMaterial material)
         {
             foreach (Unit_ConveyerBelt belt in _belts)
             {
-                if (belt.GetCapacityStatus() == CapacityState.Full)
+                if (GetCapacityStatus() == CapacityState.Full)
                     continue;
 
                 return belt.InsertMaterial(material);
@@ -62,20 +52,10 @@ namespace FBFactory
             return CapacityState.Full;
         }
 
+
         private void FixedUpdate()
         {
             UpdateCapacity();
-        }
-
-        private void OnTransformChildrenChanged()
-        {
-            _belts.Clear();
-            _belts.AddRange(GetComponentsInChildren<Unit_ConveyerBelt>());
-        }
-
-        private void OnValidate()
-        {
-            OnTransformChildrenChanged();
         }
 
         private void UpdateCapacity()
@@ -91,11 +71,14 @@ namespace FBFactory
 
             foreach (Unit_ConveyerBelt belt in _belts)
             {
+                belt.UpdateStatus();
                 totalArea += belt.BeltArea;
                 occupiedArea += belt.Capacity * belt.BeltArea;
             }
 
             _capacity = totalArea <= 0f ? 0f : occupiedArea / totalArea;
         }
+
+
     }
 }

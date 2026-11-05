@@ -51,6 +51,7 @@ namespace FBFactory
     public class LineController : MonoBehaviour
     {
         [SerializeField] private List<UnitBase> _units = new();
+        [SerializeField] private List<GroupConveyerBelt> _conveyerGroup = new();
 
         /// <summary>
         /// conveyer belt is not included (∵ get conveyerbelt through unit, linked upstream/downstream belt)
@@ -95,6 +96,15 @@ namespace FBFactory
             InitAllUnits();
         }
 
+        private void OnValidate()
+        {
+            for (int i = _units.Count - 1; i >= 0; i--)
+            {
+                if (_units[i] is Unit_ConveyerBelt)
+                    _units.RemoveAt(i);
+            }
+        }
+
         private void InitAllUnits()
         {
             _typeToUnitData = new();
@@ -121,25 +131,36 @@ namespace FBFactory
                 Debug.Log("[LineController] orders from MES is empty");
                 return;
             }
+            Debug.Log("[LineController] Init Orders from MES...");
 
+            // MES에서 내려온 order데이터를 미리 parsing (unit order 상태를 바로 전환할 수 있게)
             _orderSequence = new();
             foreach (OrderData order in orders)
             {
                 SetupOrder(order);
                 _orderSequence.Add(order);
+                Debug.Log($"[LineController] Order #{order.ID} - '{order.BOM.SkuName}' / {order.TargetQuantity} EA");
             }
 
             // TODO: v4 - 시작 로직 구체화 (order 간 gap 유동적으로 등)
+            // 1. Order Production 시작
+            // 1-a. first order에 사용되는 unit들에 대하여, material setup(changeOver)
             var firstOrderIndex = _orderSequence[0];
-            var parsedFirstOrderData = _orders[firstOrderIndex];
+            var firstOrderData = _orders[firstOrderIndex];
             foreach (UnitType type in Enum.GetValues(typeof(UnitType)))
             {
-                if (type is UnitType.ConveyerBelt)
+                if (type is UnitType.ConveyerBelt ||
+                    !firstOrderData._usedUnits.Contains(type))
                     continue;
 
                 var unitData = _typeToUnitData[type];
                 unitData.ProcessingOrder = firstOrderIndex;
-                unitData.Unit.SetupMaterial(parsedFirstOrderData.MaterialSetup);
+                unitData.Unit.SetupMaterial(firstOrderData.MaterialSetup);
+            }
+            // 1-b. ConveyerBelt 작동
+            foreach (var conveyerGroup in _conveyerGroup)
+            {
+                conveyerGroup.Start_PackML();
             }
         }
 
@@ -183,7 +204,7 @@ namespace FBFactory
 
         public void OnEndChangeOver(UnitBase unit)
         {
-            
+            Debug.Log($"[LineController] {unit.name} ended changeOver for Order ID : {_typeToUnitData[unit.UnitType].ProcessingOrder.ID}");
             unit.Reset_PackML();
             unit.Start_PackML();
         }
@@ -208,22 +229,20 @@ namespace FBFactory
             public void CollectAllUnits()
             {
                 _units.Clear();
-                _units.AddRange(FindObjectsOfType<UnitBase>(true));
-            }
 
-            public void StartAllUnits()
-            {
-                foreach (UnitBase unit in _units)
+                foreach (UnitBase unit in FindObjectsOfType<UnitBase>(true))
                 {
-                    unit.Reset_PackML();
-                    unit.Start_PackML();
+                    if (unit is Unit_ConveyerBelt)
+                        continue;
+
+                    _units.Add(unit);
                 }
             }
 
-            public void StopAllUnits()
+            public void CollectAllConveyerGroup()
             {
-                foreach (UnitBase unit in _units)
-                    unit.Stop_PackML();
+                _conveyerGroup.Clear();
+                _conveyerGroup.AddRange(FindObjectsOfType<GroupConveyerBelt>(true));
             }
 
         #endregion

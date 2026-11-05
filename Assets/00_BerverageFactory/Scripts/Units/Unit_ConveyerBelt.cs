@@ -57,8 +57,6 @@ namespace FBFactory
 
         private void FixedUpdate()
         {
-            UpdateStatus();
-
             if (_state == PackMLState.Execute)
             {
                 MoveBelt();
@@ -144,11 +142,9 @@ namespace FBFactory
             return _status;
         }
 
-
-
-        private void UpdateStatus()
+        internal void UpdateStatus()
         {
-            _capacity = UpdateCapacity();
+            _capacity = CalculateCapacity(out _beltArea);
 
             if (_capacity <= 0f)
             {
@@ -173,13 +169,13 @@ namespace FBFactory
 
         #region ConveyerBelt Capacity Sensing
 
-            private float UpdateCapacity()
+            internal float CalculateCapacity(out float beltArea)
             {
                 Collider beltCollider = GetComponent<Collider>();
 
                 if (beltCollider == null || !TryGetProjectedRect(beltCollider, out Rect beltRect))
                 {
-                    _beltArea = 0f;
+                    beltArea = 0f;
                     return 0f;
                 }
 
@@ -210,8 +206,7 @@ namespace FBFactory
                         materialRects.Add(materialRect);
                 }
 
-                float beltArea = beltRect.width * beltRect.height;
-                _beltArea = beltArea;
+                beltArea = beltRect.width * beltRect.height;
 
                 if (beltArea <= 0f || materialRects.Count == 0)
                     return 0f;

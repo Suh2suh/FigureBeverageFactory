@@ -841,7 +841,8 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 980455973}
   _downstreamUnit: {fileID: 1310662228}
-  _belts: []
+  _belts:
+  - {fileID: 2143481633}
   _capacity: 0
 --- !u!4 &62960030
 Transform:
@@ -996,7 +997,8 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 1026410128}
   _downstreamUnit: {fileID: 1640799416}
-  _belts: []
+  _belts:
+  - {fileID: 1054105124}
   _capacity: 0
 --- !u!4 &170876865
 Transform:
@@ -1169,7 +1171,9 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 1640799416}
   _downstreamUnit: {fileID: 903201676}
-  _belts: []
+  _belts:
+  - {fileID: 443626625}
+  - {fileID: 1242207434}
   _capacity: 0
 --- !u!4 &207967232
 Transform:
@@ -2121,9 +2125,6 @@ MonoBehaviour:
   - ID: 0
     <BOM>k__BackingField: {fileID: 11400000, guid: ae38179fbb86198418f5b36237f69eae, type: 2}
     <TargetQuantity>k__BackingField: 120
-  - ID: 0
-    <BOM>k__BackingField: {fileID: 11400000, guid: b305b3732d24c3249ac1ee7626576b42, type: 2}
-    <TargetQuantity>k__BackingField: 120
   _orderStatus: []
 --- !u!1 &319639642
 GameObject:
@@ -3037,7 +3038,10 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 936160105}
   _downstreamUnit: {fileID: 633835886}
-  _belts: []
+  _belts:
+  - {fileID: 1709117761}
+  - {fileID: 1086476179}
+  - {fileID: 1652470799}
   _capacity: 0
 --- !u!4 &433059055
 Transform:
@@ -3089,7 +3093,8 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 1928308710}
   _downstreamUnit: {fileID: 0}
-  _belts: []
+  _belts:
+  - {fileID: 1341925380}
   _capacity: 0
 --- !u!4 &435148285
 Transform:
@@ -3381,7 +3386,8 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 922954431}
   _downstreamUnit: {fileID: 1026410128}
-  _belts: []
+  _belts:
+  - {fileID: 1485514582}
   _capacity: 0
 --- !u!4 &500875652
 Transform:
@@ -3621,7 +3627,8 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 2085133059}
   _downstreamUnit: {fileID: 922954431}
-  _belts: []
+  _belts:
+  - {fileID: 545530310}
   _capacity: 0
 --- !u!4 &561979881
 Transform:
@@ -7954,7 +7961,6 @@ MonoBehaviour:
   - {fileID: 509887346}
   - {fileID: 1652470799}
   - {fileID: 1936785479}
-  _conveyerBeltGroups: []
 --- !u!1 &1254702774
 GameObject:
   m_ObjectHideFlags: 0
@@ -9693,7 +9699,8 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 1310662228}
   _downstreamUnit: {fileID: 698632457}
-  _belts: []
+  _belts:
+  - {fileID: 1606962558}
   _capacity: 0
 --- !u!4 &1471195500
 Transform:
@@ -10222,7 +10229,10 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 903201676}
   _downstreamUnit: {fileID: 980455973}
-  _belts: []
+  _belts:
+  - {fileID: 171391664}
+  - {fileID: 472480126}
+  - {fileID: 1936785479}
   _capacity: 0
 --- !u!4 &1582062246
 Transform:
@@ -10768,7 +10778,10 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 980455973}
   _downstreamUnit: {fileID: 1310662228}
-  _belts: []
+  _belts:
+  - {fileID: 562452155}
+  - {fileID: 213616195}
+  - {fileID: 509887346}
   _capacity: 0
 --- !u!4 &1699628439
 Transform:
@@ -13223,7 +13236,8 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 633835886}
   _downstreamUnit: {fileID: 2065919201}
-  _belts: []
+  _belts:
+  - {fileID: 8373849970597904060}
   _capacity: 0
 --- !u!4 &2014676536
 Transform:
@@ -13385,7 +13399,8 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 2065919201}
   _downstreamUnit: {fileID: 1928308710}
-  _belts: []
+  _belts:
+  - {fileID: 2020810209}
   _capacity: 0
 --- !u!4 &2023370106
 Transform:
@@ -14042,7 +14057,8 @@ MonoBehaviour:
   _equipmentId: 
   _upstreamUnit: {fileID: 698632457}
   _downstreamUnit: {fileID: 936160105}
-  _belts: []
+  _belts:
+  - {fileID: 1634428617}
   _capacity: 0
 --- !u!4 &2129177124
 Transform:
