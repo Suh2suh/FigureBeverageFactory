@@ -162,6 +162,7 @@ namespace FBFactory
             Debug.Log($"[LineController] Starting all ConveyerBelts...".Color(Color.blue));
             foreach (var conveyerGroup in _conveyerGroup)
             {
+                conveyerGroup.Reset_PackML();
                 conveyerGroup.Start_PackML();
             }
         }
