@@ -7,8 +7,6 @@ namespace FBFactory
     public class GroupConveyerBelt : MonoBehaviour
     {
         [SerializeField] private string _equipmentId;
-        [SerializeField] private UnitBase _upstreamUnit;
-        [SerializeField] private UnitBase _downstreamUnit;
         [SerializeField] private List<Unit_ConveyerBelt> _belts = new();
         [SerializeField, ReadOnly] private float _capacity;
 

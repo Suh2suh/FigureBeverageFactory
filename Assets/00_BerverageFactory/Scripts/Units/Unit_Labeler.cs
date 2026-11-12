@@ -9,6 +9,7 @@ namespace FBFactory
     public class Unit_Labeler : UnitBase
     {
         public override UnitType UnitType => UnitType.Labeler;
+        public override bool IsProcessing => _isProcessing;
         [SerializeField] private MaterialScriptableObject _labelMaterial;
         protected override float ProcessTime => 0.70f;
         protected override float ChangeoverTime => 30f;
@@ -39,14 +40,12 @@ namespace FBFactory
             // 완제품 출하 시도
             if (_producedProduct != null)
             {
-                if (_downstreamBelt.GetCapacityStatus() == CapacityState.Full)
+                if (!LineController.TryInsertMaterial(this, _producedProduct, ConnectionType.Production))
                 {
                     AddIssue(UnitIssueType.DownstreamUnavailable);
                     return;
                 }
                 RemoveIssue(UnitIssueType.DownstreamUnavailable);
-
-                _downstreamBelt.InsertMaterial(_producedProduct);
                 _producedProduct = null;
             }
 

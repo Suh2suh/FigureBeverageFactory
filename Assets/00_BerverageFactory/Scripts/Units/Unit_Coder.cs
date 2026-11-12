@@ -12,6 +12,7 @@ namespace FBFactory
     public class Unit_Coder : UnitBase
     {
         public override UnitType UnitType => UnitType.Coder;
+        public override bool IsProcessing => _isProcessing;
 
         [SerializeField] private string _code = "LOT001";  // v1에서는 고정 TODO : 추후 version에서 detailize
         protected override float ProcessTime => 0.70f;
@@ -42,14 +43,12 @@ namespace FBFactory
             // 완제품 출하 시도
             if (_producedProduct != null)
             {
-                if (_downstreamBelt.GetCapacityStatus() == CapacityState.Full)
+                if (!LineController.TryInsertMaterial(this, _producedProduct, ConnectionType.Production))
                 {
                     AddIssue(UnitIssueType.DownstreamUnavailable);
                     return;
                 }
                 RemoveIssue(UnitIssueType.DownstreamUnavailable);
-
-                _downstreamBelt.InsertMaterial(_producedProduct);
                 _producedProduct = null;
             }
 

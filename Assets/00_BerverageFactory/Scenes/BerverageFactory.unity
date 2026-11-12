@@ -839,8 +839,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 980455973}
-  _downstreamUnit: {fileID: 1310662228}
   _belts:
   - {fileID: 2143481633}
   _capacity: 0
@@ -891,6 +889,171 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1787381751}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &122932125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 122932126}
+  - component: {fileID: 122932131}
+  - component: {fileID: 122932130}
+  - component: {fileID: 122932129}
+  - component: {fileID: 122932128}
+  - component: {fileID: 122932127}
+  m_Layer: 0
+  m_Name: CB_Bypass_FillCapToLabeler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &122932126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122932125}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 46.77, y: 0.6, z: 25.54}
+  m_LocalScale: {x: 10.26, y: 0.1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1515326527}
+  - {fileID: 661766797}
+  m_Father: {fileID: 1740373756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &122932127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122932125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.Unit_ConveyerBelt
+  _mode: 1
+  _state: 0
+  _issue: 0
+  _moveDirection: {x: 1, y: 0, z: 0}
+  _velocityCmPerSecond: 1
+  _inputPoint: {fileID: 773997891}
+  _outputPoint: {fileID: 231910430}
+  _capacity: 0
+  _beltArea: 0
+  _status: 0
+--- !u!54 &122932128
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122932125}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!23 &122932129
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122932125}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 1067956643}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &122932130
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122932125}
+  m_Material: {fileID: 376142201}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &122932131
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122932125}
+  m_Mesh: {fileID: 1544725622}
 --- !u!1001 &163364113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -995,8 +1158,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 1026410128}
-  _downstreamUnit: {fileID: 1640799416}
   _belts:
   - {fileID: 1054105124}
   _capacity: 0
@@ -1169,8 +1330,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 1640799416}
-  _downstreamUnit: {fileID: 903201676}
   _belts:
   - {fileID: 443626625}
   - {fileID: 1242207434}
@@ -1837,6 +1996,118 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!1 &290481237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 290481241}
+  - component: {fileID: 290481240}
+  - component: {fileID: 290481239}
+  - component: {fileID: 290481238}
+  m_Layer: 0
+  m_Name: ImplicitNewPos_Labeler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &290481238
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290481237}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &290481239
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290481237}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &290481240
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290481237}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &290481241
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290481237}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 51.9, y: -0, z: 25.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &294635376
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2662,6 +2933,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 936160104}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!134 &376142201
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 2
+  m_DynamicFriction: 0.6
+  m_StaticFriction: 0.6
+  m_Bounciness: 0
+  m_FrictionCombine: 0
+  m_BounceCombine: 0
 --- !u!1001 &405459108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3036,8 +3320,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 936160105}
-  _downstreamUnit: {fileID: 633835886}
   _belts:
   - {fileID: 1709117761}
   - {fileID: 1086476179}
@@ -3091,8 +3373,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 1928308710}
-  _downstreamUnit: {fileID: 0}
   _belts:
   - {fileID: 1341925380}
   _capacity: 0
@@ -3384,8 +3664,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 922954431}
-  _downstreamUnit: {fileID: 1026410128}
   _belts:
   - {fileID: 1485514582}
   _capacity: 0
@@ -3625,8 +3903,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 2085133059}
-  _downstreamUnit: {fileID: 922954431}
   _belts:
   - {fileID: 545530310}
   _capacity: 0
@@ -4131,8 +4407,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 433059054}
-  _downstreamBelt: {fileID: 2014676535}
   _isProcessing: 0
   _beveragePerPack: 6
   _beveragePackPrefab: {fileID: 3411840705180234272, guid: 3ecd8d1d2024b794fbbd128a23633a21, type: 3}
@@ -4418,6 +4692,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 277097772}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &661766796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 661766797}
+  m_Layer: 0
+  m_Name: OutputPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &661766797
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661766796}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0.21}
+  m_LocalScale: {x: 0.09746589, y: 10, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 122932126}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &698632453
 GameObject:
   m_ObjectHideFlags: 0
@@ -4495,8 +4800,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 1471195499}
-  _downstreamBelt: {fileID: 2129177123}
   _code: LOT001
   _isProcessing: 0
 --- !u!1 &711322714
@@ -5430,8 +5733,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 207967231}
-  _downstreamBelt: {fileID: 1582062245}
   _isProcessing: 0
 --- !u!1 &922954428
 GameObject:
@@ -5510,8 +5811,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 561979880}
-  _downstreamBelt: {fileID: 500875651}
   _isProcessing: 0
 --- !u!1 &928456411
 GameObject:
@@ -5675,8 +5974,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 2129177123}
-  _downstreamBelt: {fileID: 433059054}
   _labelMaterial: {fileID: 0}
   _isProcessing: 0
   _point_bottleDiscard: {fileID: 373302255}
@@ -6127,12 +6424,9 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 1582062245}
-  _downstreamBelt: {fileID: 62960029}
   _figureMaterial: {fileID: 0}
   _isProcessing: 0
   _point_bottleDiscard: {fileID: 493037142}
-  _rollbackConveyer: {fileID: 1699628438}
 --- !u!1 &988770180
 GameObject:
   m_ObjectHideFlags: 0
@@ -6510,8 +6804,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 500875651}
-  _downstreamBelt: {fileID: 170876864}
   _isProcessing: 0
 --- !u!1001 &1037860429
 PrefabInstance:
@@ -6744,6 +7036,149 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6885623919234138185, guid: 707ec94fb9617874a9034268febf718d, type: 3}
   m_PrefabInstance: {fileID: 1746614293}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1067956643
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Lit (Instance)
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ClearCoatMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Cube:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicSpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AddPrecomputedVelocity: 0
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _BumpScale: 1
+    - _ClearCoat: 0
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _EnvironmentReflections: 1
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossinessSource: 0
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _ReflectionSource: 0
+    - _ScreenSpaceReflections: 1
+    - _ScreenSpaceReflectionsContributeTransparent: 1
+    - _Shininess: 1
+    - _Smoothness: 0.5
+    - _SmoothnessTextureChannel: 0
+    - _SpecSource: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _Surface: 0
+    - _UVSec: 0
+    - _WorkflowMode: 1
+    - _XRMotionVectorsPass: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1068395904
 GameObject:
   m_ObjectHideFlags: 0
@@ -7928,12 +8363,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.LineController
   _units:
-  - {fileID: 171391664}
-  - {fileID: 213616195}
-  - {fileID: 443626625}
-  - {fileID: 472480126}
-  - {fileID: 545530310}
-  - {fileID: 562452155}
   - {fileID: 633835886}
   - {fileID: 698632457}
   - {fileID: 903201676}
@@ -7941,26 +8370,125 @@ MonoBehaviour:
   - {fileID: 936160105}
   - {fileID: 980455973}
   - {fileID: 1026410128}
-  - {fileID: 1054105124}
-  - {fileID: 1086476179}
-  - {fileID: 1242207434}
   - {fileID: 1310662228}
-  - {fileID: 1341925380}
-  - {fileID: 1485514582}
-  - {fileID: 1606962558}
-  - {fileID: 1634428617}
   - {fileID: 1640799416}
-  - {fileID: 1709117761}
   - {fileID: 1899001343}
   - {fileID: 1928308710}
-  - {fileID: 2020810209}
   - {fileID: 2065919201}
   - {fileID: 2085133059}
-  - {fileID: 2143481633}
-  - {fileID: 8373849970597904060}
-  - {fileID: 509887346}
-  - {fileID: 1652470799}
-  - {fileID: 1936785479}
+  _conveyerGroup:
+  - {fileID: 170876864}
+  - {fileID: 2023370105}
+  - {fileID: 433059054}
+  - {fileID: 561979880}
+  - {fileID: 1471195499}
+  - {fileID: 2014676535}
+  - {fileID: 207967231}
+  - {fileID: 1740373755}
+  - {fileID: 435148284}
+  - {fileID: 500875651}
+  - {fileID: 1582062245}
+  - {fileID: 62960029}
+  - {fileID: 2129177123}
+  - {fileID: 1699628438}
+  _normalProductionPath:
+    Name: Normal Production
+    Connections:
+    - PrevUnit: {fileID: 2085133059}
+      Conveyor: {fileID: 561979880}
+      NextUnit: {fileID: 922954431}
+      Type: 0
+    - PrevUnit: {fileID: 922954431}
+      Conveyor: {fileID: 500875651}
+      NextUnit: {fileID: 1026410128}
+      Type: 0
+    - PrevUnit: {fileID: 1026410128}
+      Conveyor: {fileID: 170876864}
+      NextUnit: {fileID: 1640799416}
+      Type: 0
+    - PrevUnit: {fileID: 1310662228}
+      Conveyor: {fileID: 1471195499}
+      NextUnit: {fileID: 698632457}
+      Type: 0
+    - PrevUnit: {fileID: 698632457}
+      Conveyor: {fileID: 2129177123}
+      NextUnit: {fileID: 1899001343}
+      Type: 0
+    - PrevUnit: {fileID: 1899001343}
+      Conveyor: {fileID: 433059054}
+      NextUnit: {fileID: 633835886}
+      Type: 0
+    - PrevUnit: {fileID: 633835886}
+      Conveyor: {fileID: 2014676535}
+      NextUnit: {fileID: 2065919201}
+      Type: 0
+    - PrevUnit: {fileID: 2065919201}
+      Conveyor: {fileID: 2023370105}
+      NextUnit: {fileID: 1928308710}
+      Type: 0
+    - PrevUnit: {fileID: 1640799416}
+      Conveyor: {fileID: 1740373755}
+      NextUnit: {fileID: 1310662228}
+      Type: 0
+    - PrevUnit: {fileID: 1928308710}
+      Conveyor: {fileID: 435148284}
+      NextUnit: {fileID: 0}
+      Type: 0
+  _figureProductionPath:
+    Name: Figure Production
+    Connections:
+    - PrevUnit: {fileID: 2085133059}
+      Conveyor: {fileID: 561979880}
+      NextUnit: {fileID: 922954431}
+      Type: 0
+    - PrevUnit: {fileID: 922954431}
+      Conveyor: {fileID: 500875651}
+      NextUnit: {fileID: 1026410128}
+      Type: 0
+    - PrevUnit: {fileID: 1026410128}
+      Conveyor: {fileID: 170876864}
+      NextUnit: {fileID: 1640799416}
+      Type: 0
+    - PrevUnit: {fileID: 1310662228}
+      Conveyor: {fileID: 1471195499}
+      NextUnit: {fileID: 698632457}
+      Type: 0
+    - PrevUnit: {fileID: 698632457}
+      Conveyor: {fileID: 2129177123}
+      NextUnit: {fileID: 1899001343}
+      Type: 0
+    - PrevUnit: {fileID: 1899001343}
+      Conveyor: {fileID: 433059054}
+      NextUnit: {fileID: 633835886}
+      Type: 0
+    - PrevUnit: {fileID: 633835886}
+      Conveyor: {fileID: 2014676535}
+      NextUnit: {fileID: 2065919201}
+      Type: 0
+    - PrevUnit: {fileID: 2065919201}
+      Conveyor: {fileID: 2023370105}
+      NextUnit: {fileID: 1928308710}
+      Type: 0
+    - PrevUnit: {fileID: 1640799416}
+      Conveyor: {fileID: 207967231}
+      NextUnit: {fileID: 903201676}
+      Type: 0
+    - PrevUnit: {fileID: 903201676}
+      Conveyor: {fileID: 1582062245}
+      NextUnit: {fileID: 980455973}
+      Type: 0
+    - PrevUnit: {fileID: 980455973}
+      Conveyor: {fileID: 62960029}
+      NextUnit: {fileID: 1310662228}
+      Type: 0
+    - PrevUnit: {fileID: 980455973}
+      Conveyor: {fileID: 1699628438}
+      NextUnit: {fileID: 903201676}
+      Type: 1
+    - PrevUnit: {fileID: 1928308710}
+      Conveyor: {fileID: 435148284}
+      NextUnit: {fileID: 0}
+      Type: 0
 --- !u!1 &1254702774
 GameObject:
   m_ObjectHideFlags: 0
@@ -8552,7 +9080,7 @@ Transform:
   m_GameObject: {fileID: 1310662224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.34, y: 0, z: -6.031}
+  m_LocalPosition: {x: -0.38, y: 0, z: 4.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8602,8 +9130,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 62960029}
-  _downstreamBelt: {fileID: 1471195499}
   _labelMaterial: {fileID: 0}
   _isProcessing: 0
 --- !u!1001 &1322135430
@@ -8971,8 +9497,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 0}
-  _downstreamBelt: {fileID: 0}
   _moveDirection: {x: -1, y: 0, z: 0}
   _velocityCmPerSecond: 50
   _inputPoint: {fileID: 773997891}
@@ -9697,8 +10221,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 1310662228}
-  _downstreamUnit: {fileID: 698632457}
   _belts:
   - {fileID: 1606962558}
   _capacity: 0
@@ -9949,6 +10471,149 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6885623919234138185, guid: 707ec94fb9617874a9034268febf718d, type: 3}
   m_PrefabInstance: {fileID: 1485514581}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1503710949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1503710953}
+  - component: {fileID: 1503710952}
+  - component: {fileID: 1503710951}
+  - component: {fileID: 1503710950}
+  m_Layer: 0
+  m_Name: ImplicitNewPos_BypassConveyerStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1503710950
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503710949}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1503710951
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503710949}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1503710952
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503710949}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1503710953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503710949}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 41.64, y: -0, z: 25.33}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1515326526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1515326527}
+  m_Layer: 0
+  m_Name: InputPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1515326527
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515326526}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0, z: -0.21}
+  m_LocalScale: {x: 0.09746589, y: 10, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 122932126}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1516361186
 GameObject:
   m_ObjectHideFlags: 0
@@ -10011,6 +10676,185 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!43 &1544725622
+Mesh:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Cube Instance
+  serializedVersion: 12
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 36
+    topology: 0
+    baseVertex: 0
+    firstVertex: 0
+    vertexCount: 24
+    localAABB:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0.5, y: 0.5, z: 0.5}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_BonesAABB: []
+  m_VariableBoneCountWeights:
+    m_Data: 
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 0
+  m_KeepIndices: 0
+  m_IndexFormat: 0
+  m_IndexBuffer: 0000020003000000030001000800040005000800050009000a00060007000a0007000b000c000d000e000c000e000f00100011001200100012001300140015001600140016001700y
+  m_VertexData:
+    serializedVersion: 3
+    m_VertexCount: 24
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 24
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 40
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 48
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 1344
+    _typelessdata: 0000003f000000bf0000003f00000000000000000000803f000080bf0000000000000000000080bf00000000000000007ee4303f88bfb13e000000bf000000bf0000003f00000000000000000000803f000080bf0000000000000000000080bf0000803f00000000fc247f3f88bfb13e0000003f0000003f0000003f00000000000000000000803f000080bf0000000000000000000080bf000000000000803f7ee4303f4020273f000000bf0000003f0000003f00000000000000000000803f000080bf0000000000000000000080bf0000803f0000803ffc247f3f4020273f0000003f0000003f000000bf000000000000803f00000000000080bf0000000000000000000080bf000000000000803f94949e3e83bfb13e000000bf0000003f000000bf000000000000803f00000000000080bf0000000000000000000080bf0000803f0000803f3ce6843b83bfb13e0000003f000000bf000000bf0000000000000000000080bf000080bf0000000000000000000080bf000000000000803f83bfb13e4020273f000000bf000000bf000000bf0000000000000000000080bf000080bf0000000000000000000080bf0000803f0000803f4020273f4020273f0000003f0000003f0000003f000000000000803f00000000000080bf0000000000000000000080bf000000000000000094949e3e4020273f000000bf0000003f0000003f000000000000803f00000000000080bf0000000000000000000080bf0000803f000000003ce6843b4020273f0000003f0000003f000000bf0000000000000000000080bf000080bf0000000000000000000080bf000000000000000083bfb13e83bfb13e000000bf0000003f000000bf0000000000000000000080bf000080bf0000000000000000000080bf0000803f000000004020273f83bfb13e0000003f000000bf000000bf00000000000080bf00000000000080bf0000000000000000000080bf000000000000000083bfb13e3ce6843b0000003f000000bf0000003f00000000000080bf00000000000080bf0000000000000000000080bf000000000000803f83bfb13e94949e3e000000bf000000bf0000003f00000000000080bf00000000000080bf0000000000000000000080bf0000803f0000803f4020273f94949e3e000000bf000000bf000000bf00000000000080bf00000000000080bf0000000000000000000080bf0000803f000000004020273f3ce6843b000000bf000000bf0000003f000080bf00000000000000000000000000000000000080bf000080bf0000000000000000b8b5303f94949e3e000000bf0000003f0000003f000080bf00000000000000000000000000000000000080bf000080bf000000000000803f34f67e3f94949e3e000000bf0000003f000000bf000080bf00000000000000000000000000000000000080bf000080bf0000803f0000803f34f67e3f3ce6843b000000bf000000bf000000bf000080bf00000000000000000000000000000000000080bf000080bf0000803f00000000b8b5303f3ce6843b0000003f000000bf000000bf0000803f000000000000000000000000000000000000803f000080bf000000000000000094949e3e3ce6843b0000003f0000003f000000bf0000803f000000000000000000000000000000000000803f000080bf000000000000803f3ce6843b3ce6843b0000003f0000003f0000003f0000803f000000000000000000000000000000000000803f000080bf0000803f0000803f3ce6843b94949e3e0000003f000000bf0000003f0000803f000000000000000000000000000000000000803f000080bf0000803f0000000094949e3e94949e3e
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0.5, y: 0.5, z: 0.5}
+  m_CookingOptions: 30
+  m_PreBakeConvexCollisionMesh: 0
+  m_PreBakeTriangleCollisionMesh: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  'm_MeshMetrics[0]': 1
+  'm_MeshMetrics[1]': 10.7026205
+  m_MeshOptimizationFlags: 1
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
+  m_MeshLodInfo:
+    serializedVersion: 2
+    m_LodSelectionCurve:
+      serializedVersion: 1
+      m_LodSlope: 0
+      m_LodBias: 0
+    m_NumLevels: 1
+    m_SubMeshes:
+    - serializedVersion: 2
+      m_Levels:
+      - serializedVersion: 1
+        m_IndexStart: 0
+        m_IndexCount: 0
 --- !u!1001 &1574507123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10227,8 +11071,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 903201676}
-  _downstreamUnit: {fileID: 980455973}
   _belts:
   - {fileID: 171391664}
   - {fileID: 472480126}
@@ -10700,8 +11542,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 170876864}
-  _downstreamBelt: {fileID: 207967231}
   _isProcessing: 0
   _point_bottleDiscard: {fileID: 526228756}
 --- !u!114 &1652470799 stripped
@@ -10776,8 +11616,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 980455973}
-  _downstreamUnit: {fileID: 1310662228}
   _belts:
   - {fileID: 562452155}
   - {fileID: 213616195}
@@ -11033,6 +11871,55 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 250107071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1740373754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1740373756}
+  - component: {fileID: 1740373755}
+  m_Layer: 0
+  m_Name: GroupCB_Bypass_FillCapToLabeler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1740373755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740373754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd02ba657976c3940bf97f15fcf66427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
+  _equipmentId: 
+  _belts:
+  - {fileID: 122932127}
+  _capacity: 0
+--- !u!4 &1740373756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740373754}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 122932126}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1746614293
 PrefabInstance:
@@ -12421,8 +13308,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 0}
-  _downstreamBelt: {fileID: 0}
   _isProcessing: 0
   _point_bottleDiscard: {fileID: 373302255}
 --- !u!54 &1899001344
@@ -12786,8 +13671,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 2023370105}
-  _downstreamBelt: {fileID: 435148284}
   _isProcessing: 0
 --- !u!114 &1936785479 stripped
 MonoBehaviour:
@@ -13234,8 +14117,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 633835886}
-  _downstreamUnit: {fileID: 2065919201}
   _belts:
   - {fileID: 8373849970597904060}
   _capacity: 0
@@ -13289,8 +14170,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 0}
-  _downstreamBelt: {fileID: 0}
   _moveDirection: {x: -1, y: 0, z: 0}
   _velocityCmPerSecond: 50
   _inputPoint: {fileID: 1775655558}
@@ -13397,8 +14276,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 2065919201}
-  _downstreamUnit: {fileID: 1928308710}
   _belts:
   - {fileID: 2020810209}
   _capacity: 0
@@ -13498,8 +14375,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 2014676535}
-  _downstreamBelt: {fileID: 2023370105}
   _isProcessing: 0
   _packPerPallet: 8
   _beveragePalletPrefab: {fileID: 6757564274897248289, guid: 585712bae0c821c40827e96c59971927, type: 3}
@@ -13585,8 +14460,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 0}
-  _downstreamBelt: {fileID: 561979880}
   _rawPETContainer: {fileID: 1378403857}
   _isProcessing: 0
 --- !u!1 &2093438084
@@ -14055,8 +14928,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FBFactory.GroupConveyerBelt
   _equipmentId: 
-  _upstreamUnit: {fileID: 698632457}
-  _downstreamUnit: {fileID: 936160105}
   _belts:
   - {fileID: 1634428617}
   _capacity: 0
@@ -14639,8 +15510,6 @@ MonoBehaviour:
   _mode: 1
   _state: 4
   _issue: 0
-  _upstreamBelt: {fileID: 0}
-  _downstreamBelt: {fileID: 0}
   _moveDirection: {x: -1, y: 0, z: 0}
   _velocityCmPerSecond: 25
   _inputPoint: {fileID: 1716884410}
@@ -14703,3 +15572,6 @@ SceneRoots:
   - {fileID: 2014676536}
   - {fileID: 2023370106}
   - {fileID: 435148285}
+  - {fileID: 290481241}
+  - {fileID: 1503710953}
+  - {fileID: 1740373756}

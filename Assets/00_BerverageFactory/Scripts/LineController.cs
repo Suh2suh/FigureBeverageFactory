@@ -52,6 +52,8 @@ namespace FBFactory
     {
         [SerializeField] private List<UnitBase> _units = new();
         [SerializeField] private List<GroupConveyerBelt> _conveyerGroup = new();
+        [SerializeField] private ProductionPath _normalProductionPath;
+        [SerializeField] private ProductionPath _figureProductionPath;
 
         /// <summary>
         /// conveyer belt is not included (∵ get conveyerbelt through unit, linked upstream/downstream belt)
@@ -75,6 +77,7 @@ namespace FBFactory
                 UnitType.Packager, UnitType.Palletizer, UnitType.Stretcher,
             };
             public OrderMaterialSetup MaterialSetup { get; private set; }
+            public ProductionPath ProductionPath { get; set; }
 
             public void Configure(BOMScriptableObject bom)
             {
@@ -114,6 +117,7 @@ namespace FBFactory
                     continue;
 
                 unit.SetChangeOverCompleteCallback(OnEndChangeOver);
+                unit.SetLineController(this);
 
                 _typeToUnitData[unit.UnitType] = new()
                 {
@@ -124,7 +128,27 @@ namespace FBFactory
         }
 
 
-        public void InitOrders(IReadOnlyList<OrderData> orders)
+        private void Update()
+        {
+            MonitorUnits();
+        }
+
+        private void MonitorUnits()
+        {
+            foreach (UnitData unitData in _typeToUnitData.Values)
+            {
+                if (CanChangeover(unitData.Unit))
+                    ChangeOverToNextOrder(unitData.Unit.UnitType);
+            }
+        }
+
+        private void MonitorConveyers()
+        {
+
+        }
+
+
+        public void ConfigureOrders(IReadOnlyList<OrderData> orders)
         {
             if (orders.Count == 0)
             {
@@ -156,6 +180,7 @@ namespace FBFactory
 
                 var unitData = _typeToUnitData[type];
                 unitData.ProcessingOrder = firstOrderIndex;
+                unitData.Unit.SetMode(PackMLMode.Production);
                 unitData.Unit.SetupMaterial(firstOrderData.MaterialSetup);
             }
             // 1-b. ConveyerBelt 작동
@@ -171,7 +196,79 @@ namespace FBFactory
         {
             ParsedOrderData parsedOrderData = new ParsedOrderData();
             parsedOrderData.Configure(order.BOM);
+            parsedOrderData.ProductionPath = parsedOrderData.MaterialSetup.TryGetMaterials(MaterialType.Figure, out _)
+                ? _figureProductionPath
+                : _normalProductionPath;
             _orders[order] = parsedOrderData;
+        }
+
+        public ProductionPath GetProductionPath(OrderData order)
+        {
+            return _orders.TryGetValue(order, out ParsedOrderData parsedOrderData)
+                ? parsedOrderData.ProductionPath
+                : null;
+        }
+
+        public bool TryGetPrevUnit(UnitBase unit, OrderData order, out UnitBase prevUnit)
+        {
+            return TryGetConnection(unit, order, ConnectionType.Production, true, out prevUnit);
+        }
+
+        public bool TryGetNextUnit(UnitBase unit, OrderData order, out UnitBase nextUnit)
+        {
+            return TryGetConnection(unit, order, ConnectionType.Production, false, out nextUnit);
+        }
+
+        public bool TryInsertMaterial(UnitBase unit, FactoryMaterial material, ConnectionType type)
+        {
+            LineConnection connection = FindOutgoingConnection(unit, type);
+
+            if (connection?.Conveyor == null ||
+                connection.Conveyor.GetCapacityStatus() == CapacityState.Full)
+                return false;
+
+            return connection.Conveyor.InsertMaterial(material);
+        }
+
+        public IReadOnlyList<LineConnection> GetIncomingConnections(UnitBase unit, OrderData order = null)
+        {
+            return GetConnections(unit, true, order);
+        }
+
+        public IReadOnlyList<LineConnection> GetOutgoingConnections(UnitBase unit, OrderData order = null)
+        {
+            return GetConnections(unit, false, order);
+        }
+
+        private bool TryGetConnection(UnitBase unit, OrderData order, ConnectionType type, bool incoming, out UnitBase connectedUnit)
+        {
+            ProductionPath path = GetProductionPath(order);
+            LineConnection connection = path?.Connections.Find(item =>
+                item.Type == type && (incoming ? item.NextUnit == unit : item.PrevUnit == unit));
+
+            connectedUnit = connection == null
+                ? null
+                : incoming ? connection.PrevUnit : connection.NextUnit;
+            return connectedUnit != null;
+        }
+
+        private LineConnection FindOutgoingConnection(UnitBase unit, ConnectionType type)
+        {
+            if (!_typeToUnitData.TryGetValue(unit.UnitType, out UnitData unitData))
+                return null;
+
+            ProductionPath path = GetProductionPath(unitData.ProcessingOrder);
+            return path?.Connections.Find(item =>
+                item.Type == type && item.PrevUnit == unit);
+        }
+
+        private IReadOnlyList<LineConnection> GetConnections(UnitBase unit, bool incoming, OrderData order)
+        {
+            ProductionPath path = order == null ? null : GetProductionPath(order);
+            List<LineConnection> connections = path == null
+                ? new List<LineConnection>()
+                : path.Connections.FindAll(item => incoming ? item.NextUnit == unit : item.PrevUnit == unit);
+            return connections;
         }
 
 
@@ -186,9 +283,9 @@ namespace FBFactory
         }
 
 
-        public void OnLastBottleProcessed(Beverage beverage, UnitType unitType)
+        public void ChangeOverToNextOrder(UnitType targetUnit)
         {
-            if (!_typeToUnitData.TryGetValue(unitType, out UnitData unitData) ||
+            if (!_typeToUnitData.TryGetValue(targetUnit, out UnitData unitData) ||
                 unitData.ProcessingOrder == null)
                 return;
 
@@ -203,6 +300,57 @@ namespace FBFactory
 
             unitData.Unit.Stop_PackML();
             unitData.Unit.SetupMaterial(_orders[nextOrder].MaterialSetup);
+        }
+
+        public OrderData GetCurrentOrder(UnitBase unit)
+        {
+            return _typeToUnitData.TryGetValue(unit.UnitType, out UnitData unitData)
+                ? unitData.ProcessingOrder
+                : null;
+        }
+
+        public bool IsStarved(UnitBase unit)
+        {
+            OrderData currentOrder = GetCurrentOrder(unit);
+
+            if (currentOrder == null)
+                return true;
+
+            foreach (LineConnection connection in GetIncomingConnections(unit, currentOrder))
+            {
+                if (connection.Conveyor != null &&
+                    connection.Conveyor.GetCapacityStatus() != CapacityState.Empty)
+                    return false;
+            }
+
+            return true;
+        }
+
+        public bool IsPreviousOrderFlowCompleted(UnitBase unit)
+        {
+            OrderData currentOrder = GetCurrentOrder(unit);
+
+            if (currentOrder == null ||
+                !TryGetPrevUnit(unit, currentOrder, out UnitBase prevUnit))
+                return true;
+
+            return GetCurrentOrder(prevUnit) != currentOrder;
+        }
+
+        public bool CanChangeover(UnitBase unit)
+        {
+            if (!_typeToUnitData.TryGetValue(unit.UnitType, out UnitData unitData) ||
+                unitData.ProcessingOrder == null ||
+                unit.State != PackMLState.Execute ||
+                unit.IsProcessing ||
+                !IsStarved(unit))
+                return false;
+
+            if (!IsPreviousOrderFlowCompleted(unit))
+                return false;
+
+            int currentOrderIndex = _orderSequence.IndexOf(unitData.ProcessingOrder);
+            return currentOrderIndex >= 0 && currentOrderIndex + 1 < _orderSequence.Count;
         }
 
         public void OnEndChangeOver(UnitBase unit)

@@ -1,4 +1,3 @@
-using Unity.Collections;
 using UnityEngine;
 using System;
 
@@ -10,18 +9,21 @@ namespace FBFactory
         protected virtual float ChangeoverTime => 0f;
 
         public abstract UnitType UnitType { get; }
+        public virtual bool IsProcessing => false;
 
         [SerializeField, ReadOnly] protected PackMLMode _mode = PackMLMode.Production;
         [SerializeField, ReadOnly] protected PackMLState _state = PackMLState.Stopped;
         [SerializeField, ReadOnly] protected UnitIssueType _issue = UnitIssueType.None;
-        [SerializeField] protected GroupConveyerBelt _upstreamBelt;
-        [SerializeField] protected GroupConveyerBelt _downstreamBelt;
-
         private Action<UnitBase> _onChangeOverComplete;
+        private LineController _lineController;
 
         public PackMLState State => _state;
-        public GroupConveyerBelt UpstreamBelt => _upstreamBelt;
-        public GroupConveyerBelt DownstreamBelt => _downstreamBelt;
+        protected LineController LineController => _lineController;
+
+        public void SetLineController(LineController lineController)
+        {
+            _lineController = lineController;
+        }
 
 
         private void Awake()

@@ -11,6 +11,7 @@ namespace FBFactory
     public class Unit_Inspector_FillingCapping : UnitBase
     {
         public override UnitType UnitType => UnitType.Inspector_FillingCapping;
+        public override bool IsProcessing => _isProcessing;
 
         protected override float ProcessTime => 0.97f;
         protected override float ChangeoverTime => 5f;
@@ -45,13 +46,12 @@ namespace FBFactory
             {
                 if (_inspection.pass)
                 {
-                    if (_downstreamBelt.GetCapacityStatus() == CapacityState.Full)
+                    if (!LineController.TryInsertMaterial(this, _inspection.bottle, ConnectionType.Production))
                     {
                         AddIssue(UnitIssueType.DownstreamUnavailable);
                         return;
                     }
                     RemoveIssue(UnitIssueType.DownstreamUnavailable);
-                    _downstreamBelt.InsertMaterial(_inspection.bottle);
                 }
                 else
                 {

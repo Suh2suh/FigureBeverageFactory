@@ -7,6 +7,7 @@ namespace FBFactory
     public class Unit_FigureInserter : UnitBase
     {
         public override UnitType UnitType => UnitType.FigureInserter;
+        public override bool IsProcessing => _isProcessing;
 
         protected override float ProcessTime => 1.20f;
         protected override float ChangeoverTime => 30f;
@@ -38,14 +39,12 @@ namespace FBFactory
             // 완제품 출하 시도
             if (_producedProduct != null)
             {
-                if (_downstreamBelt.GetCapacityStatus() == CapacityState.Full)
+                if (!LineController.TryInsertMaterial(this, _producedProduct, ConnectionType.Production))
                 {
                     AddIssue(UnitIssueType.DownstreamUnavailable);
                     return;
                 }
                 RemoveIssue(UnitIssueType.DownstreamUnavailable);
-
-                _downstreamBelt.InsertMaterial(_producedProduct);
                 _producedProduct = null;
             }
 

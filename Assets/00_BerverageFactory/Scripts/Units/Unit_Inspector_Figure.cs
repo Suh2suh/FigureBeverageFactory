@@ -7,6 +7,7 @@ namespace FBFactory
     public class Unit_Inspector_Figure : UnitBase
     {
         public override UnitType UnitType => UnitType.Inspector_Figure;
+        public override bool IsProcessing => _isProcessing;
 
         enum FigureInspectionResult
         {
@@ -26,7 +27,6 @@ namespace FBFactory
         }
         [SerializeField, ReadOnly] private bool _isProcessing;
         [SerializeField] private Transform _point_bottleDiscard;
-        [SerializeField] private GroupConveyerBelt _rollbackConveyer;
 
         private List<Beverage> _infeedMaterials = new();
         private float _processCompleteTime = 0f;
@@ -51,24 +51,22 @@ namespace FBFactory
                 {
                     case FigureInspectionResult.Pass:
                     {
-                        if (_downstreamBelt.GetCapacityStatus() == CapacityState.Full)
+                        if (!LineController.TryInsertMaterial(this, _inspection.bottle, ConnectionType.Production))
                         {
                             AddIssue(UnitIssueType.DownstreamUnavailable);
                             return;
                         }
                         RemoveIssue(UnitIssueType.DownstreamUnavailable);
-                        _downstreamBelt.InsertMaterial(_inspection.bottle);
                     }
                     break;
                     case FigureInspectionResult.Fail_NoFigure:
                     {
-                        if (_rollbackConveyer.GetCapacityStatus() == CapacityState.Full)
+                        if (!LineController.TryInsertMaterial(this, _inspection.bottle, ConnectionType.Reject))
                         {
                             AddIssue(UnitIssueType.DownstreamUnavailable);
                             return;
                         }
                         RemoveIssue(UnitIssueType.DownstreamUnavailable);
-                        _rollbackConveyer.InsertMaterial(_inspection.bottle);
                     }
                     break;
                     case FigureInspectionResult.Fail_Incorrect:

@@ -33,7 +33,7 @@ namespace FBFactory
                 });
             }
 
-            _lineController.InitOrders(_orders);
+            _lineController.ConfigureOrders(_orders);
 
             _isInit = true;
         }

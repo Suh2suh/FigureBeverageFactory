@@ -6,6 +6,7 @@ namespace FBFactory
     public class Unit_Stretcher : UnitBase
     {
         public override UnitType UnitType => UnitType.Stretcher;
+        public override bool IsProcessing => _isProcessing;
 
         protected override float ProcessTime => 8.0f;
         protected override float ChangeoverTime => 10f;
@@ -35,14 +36,12 @@ namespace FBFactory
             // 완제품 출하 시도
             if (_producedProduct != null)
             {
-                if (_downstreamBelt.GetCapacityStatus() == CapacityState.Full)
+                if (!LineController.TryInsertMaterial(this, _producedProduct, ConnectionType.Production))
                 {
                     AddIssue(UnitIssueType.DownstreamUnavailable);
                     return;
                 }
                 RemoveIssue(UnitIssueType.DownstreamUnavailable);
-
-                _downstreamBelt.InsertMaterial(_producedProduct);
                 _producedProduct = null;
             }
 
