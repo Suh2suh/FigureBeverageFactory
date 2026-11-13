@@ -51,13 +51,9 @@ namespace FBFactory
     public class LineController : MonoBehaviour
     {
         [SerializeField] private List<UnitBase> _units = new();
-        [SerializeField] private List<GroupConveyerBelt> _conveyerGroup = new();
         [SerializeField] private ProductionPath _normalProductionPath;
         [SerializeField] private ProductionPath _figureProductionPath;
 
-        /// <summary>
-        /// conveyer belt is not included (∵ get conveyerbelt through unit, linked upstream/downstream belt)
-        /// </summary>
         private Dictionary<UnitType, UnitData> _typeToUnitData = new();
         private class UnitData
         {
@@ -142,12 +138,6 @@ namespace FBFactory
             }
         }
 
-        private void MonitorConveyers()
-        {
-
-        }
-
-
         public void ConfigureOrders(IReadOnlyList<OrderData> orders)
         {
             if (orders.Count == 0)
@@ -185,11 +175,8 @@ namespace FBFactory
             }
             // 1-b. ConveyerBelt 작동
             Debug.Log($"[LineController] Starting all ConveyerBelts...".Color(Color.blue));
-            foreach (var conveyerGroup in _conveyerGroup)
-            {
-                conveyerGroup.Reset_PackML();
-                conveyerGroup.Start_PackML();
-            }
+            StartConveyers(_normalProductionPath);
+            StartConveyers(_figureProductionPath);
         }
 
         private void SetupOrder(OrderData order)
@@ -223,11 +210,17 @@ namespace FBFactory
         {
             LineConnection connection = FindOutgoingConnection(unit, type);
 
-            if (connection?.Conveyor == null ||
-                connection.Conveyor.GetCapacityStatus() == CapacityState.Full)
+            if (connection == null)
                 return false;
 
-            return connection.Conveyor.InsertMaterial(material);
+            foreach (Unit_ConveyerBelt conveyer in connection.Conveyers)
+            {
+                if (conveyer.GetCapacityStatus() != CapacityState.Full &&
+                    conveyer.InsertMaterial(material))
+                    return true;
+            }
+
+            return false;
         }
 
         public IReadOnlyList<LineConnection> GetIncomingConnections(UnitBase unit, OrderData order = null)
@@ -318,8 +311,8 @@ namespace FBFactory
 
             foreach (LineConnection connection in GetIncomingConnections(unit, currentOrder))
             {
-                if (connection.Conveyor != null &&
-                    connection.Conveyor.GetCapacityStatus() != CapacityState.Empty)
+                if (connection.Conveyers.Exists(conveyer =>
+                    conveyer.GetCapacityStatus() != CapacityState.Empty))
                     return false;
             }
 
@@ -375,6 +368,26 @@ namespace FBFactory
             return hasUnit;
         }
 
+        private void StartConveyers(ProductionPath path)
+        {
+            if (path == null)
+                return;
+
+            HashSet<Unit_ConveyerBelt> startedConveyers = new();
+
+            foreach (LineConnection connection in path.Connections)
+            {
+                foreach (Unit_ConveyerBelt conveyer in connection.Conveyers)
+                {
+                    if (!startedConveyers.Add(conveyer))
+                        continue;
+
+                    conveyer.Reset_PackML();
+                    conveyer.Start_PackML();
+                }
+            }
+        }
+
 
         #region Utility
             public void CollectAllUnits()
@@ -388,12 +401,6 @@ namespace FBFactory
 
                     _units.Add(unit);
                 }
-            }
-
-            public void CollectAllConveyerGroup()
-            {
-                _conveyerGroup.Clear();
-                _conveyerGroup.AddRange(FindObjectsOfType<GroupConveyerBelt>(true));
             }
 
         #endregion

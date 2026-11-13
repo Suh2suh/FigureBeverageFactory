@@ -15,8 +15,6 @@ namespace FBFactory.Editor
             if (GUILayout.Button("CollectAllUnits"))
                 lineController.CollectAllUnits();
 
-            if (GUILayout.Button("CollectAllConveyers"))
-                lineController.CollectAllConveyerGroup();
         }
     }
 }

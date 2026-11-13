@@ -13,7 +13,7 @@ namespace FBFactory
     public class LineConnection
     {
         public UnitBase PrevUnit;
-        public GroupConveyerBelt Conveyor;
+        public List<Unit_ConveyerBelt> Conveyers = new();
         public UnitBase NextUnit;
         public ConnectionType Type;
     }
