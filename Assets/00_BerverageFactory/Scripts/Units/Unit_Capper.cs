@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FBFactory
 {
-    public class Unit_Capper : UnitBase
+    public class Unit_Capper : ProcessingUnit
     {
         public override UnitType UnitType => UnitType.Capper;
         public override bool IsProcessing => _isProcessing;

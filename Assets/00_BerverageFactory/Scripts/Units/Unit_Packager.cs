@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FBFactory
 {
-    public class Unit_Packager : UnitBase
+    public class Unit_Packager : ProcessingUnit
     {
         public override UnitType UnitType => UnitType.Packager;
         public override bool IsProcessing => _isProcessing;

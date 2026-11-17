@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace FBFactory
 {
-    public class Unit_ConveyerBelt : UnitBase
+    public class Unit_ConveyerBelt : LogisticsUnit
     {
-        public override UnitType UnitType => UnitType.ConveyerBelt;
-
         [SerializeField] private Vector3 _moveDirection = Vector3.right;
         [SerializeField] private float _velocityCmPerSecond = 1f;
         [SerializeField] private Transform _inputPoint;
@@ -22,6 +20,11 @@ namespace FBFactory
 
         public float Capacity => _capacity;
         public float BeltArea => _beltArea;
+
+        protected void SetLocalMoveDirection(Vector3 localDirection)
+        {
+            _moveDirection = localDirection.normalized;
+        }
 
 
         protected override void OnResetting_PackML()
@@ -48,11 +51,6 @@ namespace FBFactory
         protected override void OnClearing_PackML()
         {
             StateComplete();
-        }
-
-        protected override void ExecuteProduction()
-        {
-            //
         }
 
         private void FixedUpdate()

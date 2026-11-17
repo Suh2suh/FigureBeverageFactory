@@ -9,7 +9,7 @@ namespace FBFactory
     /// - 유통기한/제조일자/생산시간 => Time 기반 설정
     /// - LOT (하나의 production order 이하 만들어진 품목들 - sprint 느낌)
     /// </summary>
-    public class Unit_Coder : UnitBase
+    public class Unit_Coder : ProcessingUnit
     {
         public override UnitType UnitType => UnitType.Coder;
         public override bool IsProcessing => _isProcessing;

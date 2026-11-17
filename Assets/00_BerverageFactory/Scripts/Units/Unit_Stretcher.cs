@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FBFactory
 {
-    public class Unit_Stretcher : UnitBase
+    public class Unit_Stretcher : ProcessingUnit
     {
         public override UnitType UnitType => UnitType.Stretcher;
         public override bool IsProcessing => _isProcessing;

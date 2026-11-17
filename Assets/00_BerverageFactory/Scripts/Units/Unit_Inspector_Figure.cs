@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FBFactory
 {
-    public class Unit_Inspector_Figure : UnitBase
+    public class Unit_Inspector_Figure : ProcessingUnit
     {
         public override UnitType UnitType => UnitType.Inspector_Figure;
         public override bool IsProcessing => _isProcessing;

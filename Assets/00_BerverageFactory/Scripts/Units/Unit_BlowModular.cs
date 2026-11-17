@@ -6,7 +6,7 @@ namespace FBFactory
     /// <summary>
     /// PET Material -> Bottle
     /// </summary>
-    public class Unit_BlowModular : UnitBase
+    public class Unit_BlowModular : ProcessingUnit
     {
         public override UnitType UnitType => UnitType.BlowModular;
         public override bool IsProcessing => _isProcessing;

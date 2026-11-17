@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FBFactory
 {
-    public class Unit_Filler : UnitBase
+    public class Unit_Filler : ProcessingUnit
     {
         public override UnitType UnitType => UnitType.Filler;
         public override bool IsProcessing => _isProcessing;

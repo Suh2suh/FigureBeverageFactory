@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace FBFactory
 {
@@ -12,10 +13,18 @@ namespace FBFactory
     [Serializable]
     public class LineConnection
     {
-        public UnitBase PrevUnit;
+        public ProcessingUnit PrevUnit;
         public List<Unit_ConveyerBelt> Conveyers = new();
-        public UnitBase NextUnit;
+        public List<ConverterDirectionSetting> ConverterDirections = new();
+        public ProcessingUnit NextUnit;
         public ConnectionType Type;
+    }
+
+    [Serializable]
+    public class ConverterDirectionSetting
+    {
+        public ConverterConveyer Converter;
+        public Vector3 LocalDirection = Vector3.right;
     }
 
     [Serializable]

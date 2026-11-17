@@ -8,7 +8,7 @@ namespace FBFactory
     /// Filling - 채워진 양만 확인
     /// Capping - 뚜껑 존재 여부만 확인
     /// </summary>
-    public class Unit_Inspector_FillingCapping : UnitBase
+    public class Unit_Inspector_FillingCapping : ProcessingUnit
     {
         public override UnitType UnitType => UnitType.Inspector_FillingCapping;
         public override bool IsProcessing => _isProcessing;

@@ -8,7 +8,7 @@ namespace FBFactory
     /// Label - material id 확인
     /// Code - 생산일자/유통기한 확인
     /// </summary>
-    public class Unit_Inspector_LabelingCoding : UnitBase
+    public class Unit_Inspector_LabelingCoding : ProcessingUnit
     {
         public override UnitType UnitType => UnitType.Inspector_LabelingCoding;
         public override bool IsProcessing => _isProcessing;

@@ -50,14 +50,14 @@ namespace FBFactory
 
     public class LineController : MonoBehaviour
     {
-        [SerializeField] private List<UnitBase> _units = new();
+        [SerializeField] private List<ProcessingUnit> _units = new();
         [SerializeField] private ProductionPath _normalProductionPath;
         [SerializeField] private ProductionPath _figureProductionPath;
 
         private Dictionary<UnitType, UnitData> _typeToUnitData = new();
         private class UnitData
         {
-            public UnitBase Unit;
+            public ProcessingUnit Unit;
             public OrderData ProcessingOrder;
             public PackMLState State => Unit.State;
         }
@@ -97,11 +97,6 @@ namespace FBFactory
 
         private void OnValidate()
         {
-            for (int i = _units.Count - 1; i >= 0; i--)
-            {
-                if (_units[i] is Unit_ConveyerBelt)
-                    _units.RemoveAt(i);
-            }
         }
 
         private void InitAllUnits()
@@ -109,9 +104,6 @@ namespace FBFactory
             _typeToUnitData = new();
             foreach (var unit in _units)
             {
-                if (unit is Unit_ConveyerBelt)
-                    continue;
-
                 unit.SetChangeOverCompleteCallback(OnEndChangeOver);
                 unit.SetLineController(this);
 
@@ -196,17 +188,17 @@ namespace FBFactory
                 : null;
         }
 
-        public bool TryGetPrevUnit(UnitBase unit, OrderData order, out UnitBase prevUnit)
+        public bool TryGetPrevUnit(ProcessingUnit unit, OrderData order, out ProcessingUnit prevUnit)
         {
             return TryGetConnection(unit, order, ConnectionType.Production, true, out prevUnit);
         }
 
-        public bool TryGetNextUnit(UnitBase unit, OrderData order, out UnitBase nextUnit)
+        public bool TryGetNextUnit(ProcessingUnit unit, OrderData order, out ProcessingUnit nextUnit)
         {
             return TryGetConnection(unit, order, ConnectionType.Production, false, out nextUnit);
         }
 
-        public bool TryInsertMaterial(UnitBase unit, FactoryMaterial material, ConnectionType type)
+        public bool TryInsertMaterial(ProcessingUnit unit, FactoryMaterial material, ConnectionType type)
         {
             LineConnection connection = FindOutgoingConnection(unit, type);
 
@@ -223,17 +215,17 @@ namespace FBFactory
             return false;
         }
 
-        public IReadOnlyList<LineConnection> GetIncomingConnections(UnitBase unit, OrderData order = null)
+        public IReadOnlyList<LineConnection> GetIncomingConnections(ProcessingUnit unit, OrderData order = null)
         {
             return GetConnections(unit, true, order);
         }
 
-        public IReadOnlyList<LineConnection> GetOutgoingConnections(UnitBase unit, OrderData order = null)
+        public IReadOnlyList<LineConnection> GetOutgoingConnections(ProcessingUnit unit, OrderData order = null)
         {
             return GetConnections(unit, false, order);
         }
 
-        private bool TryGetConnection(UnitBase unit, OrderData order, ConnectionType type, bool incoming, out UnitBase connectedUnit)
+        private bool TryGetConnection(ProcessingUnit unit, OrderData order, ConnectionType type, bool incoming, out ProcessingUnit connectedUnit)
         {
             ProductionPath path = GetProductionPath(order);
             LineConnection connection = path?.Connections.Find(item =>
@@ -245,7 +237,7 @@ namespace FBFactory
             return connectedUnit != null;
         }
 
-        private LineConnection FindOutgoingConnection(UnitBase unit, ConnectionType type)
+        private LineConnection FindOutgoingConnection(ProcessingUnit unit, ConnectionType type)
         {
             if (!_typeToUnitData.TryGetValue(unit.UnitType, out UnitData unitData))
                 return null;
@@ -255,7 +247,7 @@ namespace FBFactory
                 item.Type == type && item.PrevUnit == unit);
         }
 
-        private IReadOnlyList<LineConnection> GetConnections(UnitBase unit, bool incoming, OrderData order)
+        private IReadOnlyList<LineConnection> GetConnections(ProcessingUnit unit, bool incoming, OrderData order)
         {
             ProductionPath path = order == null ? null : GetProductionPath(order);
             List<LineConnection> connections = path == null
@@ -295,14 +287,14 @@ namespace FBFactory
             unitData.Unit.SetupMaterial(_orders[nextOrder].MaterialSetup);
         }
 
-        public OrderData GetCurrentOrder(UnitBase unit)
+        public OrderData GetCurrentOrder(ProcessingUnit unit)
         {
             return _typeToUnitData.TryGetValue(unit.UnitType, out UnitData unitData)
                 ? unitData.ProcessingOrder
                 : null;
         }
 
-        public bool IsStarved(UnitBase unit)
+        public bool IsStarved(ProcessingUnit unit)
         {
             OrderData currentOrder = GetCurrentOrder(unit);
 
@@ -319,18 +311,18 @@ namespace FBFactory
             return true;
         }
 
-        public bool IsPreviousOrderFlowCompleted(UnitBase unit)
+        public bool IsPreviousOrderFlowCompleted(ProcessingUnit unit)
         {
             OrderData currentOrder = GetCurrentOrder(unit);
 
             if (currentOrder == null ||
-                !TryGetPrevUnit(unit, currentOrder, out UnitBase prevUnit))
+                !TryGetPrevUnit(unit, currentOrder, out ProcessingUnit prevUnit))
                 return true;
 
             return GetCurrentOrder(prevUnit) != currentOrder;
         }
 
-        public bool CanChangeover(UnitBase unit)
+        public bool CanChangeover(ProcessingUnit unit)
         {
             if (!_typeToUnitData.TryGetValue(unit.UnitType, out UnitData unitData) ||
                 unitData.ProcessingOrder == null ||
@@ -346,7 +338,7 @@ namespace FBFactory
             return currentOrderIndex >= 0 && currentOrderIndex + 1 < _orderSequence.Count;
         }
 
-        public void OnEndChangeOver(UnitBase unit)
+        public void OnEndChangeOver(ProcessingUnit unit)
         {
             Debug.Log($"[LineController] {unit.name} ended changeOver for Order ID : {_typeToUnitData[unit.UnitType].ProcessingOrder.ID}");
             unit.Reset_PackML();
@@ -354,14 +346,14 @@ namespace FBFactory
         }
 
 
-        private bool TryGetUnit(UnitType unitType, out UnitBase unit)
+        private bool TryGetUnit(UnitType unitType, out ProcessingUnit unit)
         {
             bool hasUnit = _typeToUnitData.TryGetValue(unitType, out var unitData);
             unit = hasUnit ? unitData.Unit : null;
             return hasUnit;
         }
 
-        private bool TryGetUnit<T>(UnitType unitType, out T unit) where T : UnitBase
+        private bool TryGetUnit<T>(UnitType unitType, out T unit) where T : ProcessingUnit
         {
             bool hasUnit = _typeToUnitData.TryGetValue(unitType, out var unitData);
             unit = hasUnit ? unitData.Unit as T : null;
@@ -385,6 +377,11 @@ namespace FBFactory
                     conveyer.Reset_PackML();
                     conveyer.Start_PackML();
                 }
+
+                foreach (ConverterDirectionSetting setting in connection.ConverterDirections)
+                {
+                    setting.Converter.SetMoveDirection(setting.LocalDirection);
+                }
             }
         }
 
@@ -394,11 +391,8 @@ namespace FBFactory
             {
                 _units.Clear();
 
-                foreach (UnitBase unit in FindObjectsOfType<UnitBase>(true))
+                foreach (ProcessingUnit unit in FindObjectsOfType<ProcessingUnit>(true))
                 {
-                    if (unit is Unit_ConveyerBelt)
-                        continue;
-
                     _units.Add(unit);
                 }
             }

@@ -5,15 +5,15 @@ namespace FBFactory
     public class FactoryMaterial : MonoBehaviour
     {
         [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField, ReadOnly] private UnitBase _owner;
+        [SerializeField, ReadOnly] private EquipmentBase _owner;
 
         public Rigidbody Rigidbody => _rigidbody;
 
 
-        public UnitBase Owner => _owner;
+        public EquipmentBase Owner => _owner;
 
 
-        public void Own(UnitBase owner)
+        public void Own(EquipmentBase owner)
         {
             _owner = owner;
         }

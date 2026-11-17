@@ -6,7 +6,7 @@ namespace FBFactory
     /// <summary>
     /// Bottle에 라벨 부착
     /// </summary>
-    public class Unit_Labeler : UnitBase
+    public class Unit_Labeler : ProcessingUnit
     {
         public override UnitType UnitType => UnitType.Labeler;
         public override bool IsProcessing => _isProcessing;
