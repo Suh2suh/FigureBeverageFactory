@@ -1970,6 +1970,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6885623919234138185, guid: 707ec94fb9617874a9034268febf718d, type: 3}
   m_PrefabInstance: {fileID: 250107070}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &250107072 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 250107070}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1 &251562368
 GameObject:
   m_ObjectHideFlags: 0
@@ -2108,6 +2119,17 @@ PrefabInstance:
       addedObject: {fileID: 1016455431}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+--- !u!114 &261027561 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 261027560}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1 &277097768
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,6 +2340,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6885623919234138185, guid: 707ec94fb9617874a9034268febf718d, type: 3}
   m_PrefabInstance: {fileID: 294635376}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &294635378 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 294635376}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1 &301171099
 GameObject:
   m_ObjectHideFlags: 0
@@ -6278,6 +6311,17 @@ PrefabInstance:
       addedObject: {fileID: 1068395905}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+--- !u!114 &778556577 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 778556576}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1 &780034899
 GameObject:
   m_ObjectHideFlags: 0
@@ -8613,6 +8657,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6885623919234138185, guid: 707ec94fb9617874a9034268febf718d, type: 3}
   m_PrefabInstance: {fileID: 1150829066}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1150829068 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1150829066}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1 &1165625647
 GameObject:
   m_ObjectHideFlags: 0
@@ -8974,6 +9029,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6885623919234138185, guid: 707ec94fb9617874a9034268febf718d, type: 3}
   m_PrefabInstance: {fileID: 1187396705}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1187396707 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1187396705}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1 &1189965768
 GameObject:
   m_ObjectHideFlags: 0
@@ -9571,6 +9637,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6885623919234138185, guid: 707ec94fb9617874a9034268febf718d, type: 3}
   m_PrefabInstance: {fileID: 1242207432}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1242207434 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1242207432}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1 &1242844043
 GameObject:
   m_ObjectHideFlags: 0
@@ -9745,98 +9822,170 @@ MonoBehaviour:
     Name: Normal Production
     Connections:
     - PrevUnit: {fileID: 2085133059}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1676446442463536142}
+      ConverterDirections: []
       NextUnit: {fileID: 922954431}
       Type: 0
     - PrevUnit: {fileID: 922954431}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1485514582}
+      ConverterDirections: []
       NextUnit: {fileID: 1026410128}
       Type: 0
     - PrevUnit: {fileID: 1026410128}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1746614294}
+      - {fileID: 1187396707}
+      - {fileID: 1455066566}
+      ConverterDirections: []
       NextUnit: {fileID: 1640799416}
       Type: 0
     - PrevUnit: {fileID: 1310662228}
       Conveyers: []
+      ConverterDirections: []
       NextUnit: {fileID: 698632457}
       Type: 0
     - PrevUnit: {fileID: 698632457}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1634428617}
+      ConverterDirections: []
       NextUnit: {fileID: 1899001343}
       Type: 0
     - PrevUnit: {fileID: 1899001343}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1709117761}
+      - {fileID: 778556577}
+      - {fileID: 1150829068}
+      ConverterDirections: []
       NextUnit: {fileID: 633835886}
       Type: 0
     - PrevUnit: {fileID: 633835886}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 8373849970597904060}
+      ConverterDirections: []
       NextUnit: {fileID: 2065919201}
       Type: 0
     - PrevUnit: {fileID: 2065919201}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 2020810209}
+      ConverterDirections: []
       NextUnit: {fileID: 1928308710}
       Type: 0
     - PrevUnit: {fileID: 1640799416}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1838119994}
+      - {fileID: 314256242}
+      - {fileID: 1523491750}
+      - {fileID: 1347902120}
+      - {fileID: 569794537}
+      - {fileID: 455108287}
+      - {fileID: 1634428617}
+      ConverterDirections:
+      - Converter: {fileID: 1599700654}
+        LocalDirection: {x: 1, y: 0, z: -1}
+      - Converter: {fileID: 1922357926}
+        LocalDirection: {x: 1, y: 0, z: 1}
       NextUnit: {fileID: 1310662228}
       Type: 0
     - PrevUnit: {fileID: 1928308710}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1341925380}
+      ConverterDirections: []
       NextUnit: {fileID: 0}
       Type: 0
   _figureProductionPath:
     Name: Figure Production
     Connections:
     - PrevUnit: {fileID: 2085133059}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1676446442463536142}
+      ConverterDirections: []
       NextUnit: {fileID: 922954431}
       Type: 0
     - PrevUnit: {fileID: 922954431}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1485514582}
+      ConverterDirections: []
       NextUnit: {fileID: 1026410128}
       Type: 0
     - PrevUnit: {fileID: 1026410128}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1746614294}
+      - {fileID: 1187396707}
+      - {fileID: 1455066566}
+      ConverterDirections: []
       NextUnit: {fileID: 1640799416}
       Type: 0
     - PrevUnit: {fileID: 1310662228}
       Conveyers: []
+      ConverterDirections: []
       NextUnit: {fileID: 698632457}
       Type: 0
     - PrevUnit: {fileID: 698632457}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1634428617}
+      ConverterDirections: []
       NextUnit: {fileID: 1899001343}
       Type: 0
     - PrevUnit: {fileID: 1899001343}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1709117761}
+      - {fileID: 778556577}
+      - {fileID: 1150829068}
+      ConverterDirections: []
       NextUnit: {fileID: 633835886}
       Type: 0
     - PrevUnit: {fileID: 633835886}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 8373849970597904060}
+      ConverterDirections: []
       NextUnit: {fileID: 2065919201}
       Type: 0
     - PrevUnit: {fileID: 2065919201}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 2020810209}
+      ConverterDirections: []
       NextUnit: {fileID: 1928308710}
       Type: 0
     - PrevUnit: {fileID: 1640799416}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1838119994}
+      - {fileID: 1242207434}
+      ConverterDirections:
+      - Converter: {fileID: 1599700654}
+        LocalDirection: {x: 0, y: 0, z: -1}
       NextUnit: {fileID: 903201676}
       Type: 0
     - PrevUnit: {fileID: 903201676}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1945455928}
+      - {fileID: 250107072}
+      - {fileID: 1903457812}
+      ConverterDirections: []
       NextUnit: {fileID: 980455973}
       Type: 0
     - PrevUnit: {fileID: 980455973}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 2143481633}
+      ConverterDirections: []
       NextUnit: {fileID: 1310662228}
       Type: 0
     - PrevUnit: {fileID: 980455973}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 261027561}
+      - {fileID: 1294352596}
+      - {fileID: 294635378}
+      - {fileID: 1634428617}
+      ConverterDirections:
+      - Converter: {fileID: 1922357926}
+        LocalDirection: {x: 0, y: 0, z: 1}
       NextUnit: {fileID: 903201676}
       Type: 1
     - PrevUnit: {fileID: 1928308710}
-      Conveyers: []
+      Conveyers:
+      - {fileID: 1341925380}
+      ConverterDirections: []
       NextUnit: {fileID: 0}
       Type: 0
 --- !u!1 &1254702774
@@ -10225,6 +10374,17 @@ PrefabInstance:
       addedObject: {fileID: 962207711}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+--- !u!114 &1294352596 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1294352595}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1 &1304408997
 GameObject:
   m_ObjectHideFlags: 0
@@ -11090,7 +11250,7 @@ Transform:
   m_GameObject: {fileID: 1358938857}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: -0.02, y: -1, z: 0.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11812,6 +11972,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6885623919234138185, guid: 707ec94fb9617874a9034268febf718d, type: 3}
   m_PrefabInstance: {fileID: 1455066564}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1455066566 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1455066564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1 &1460841934
 GameObject:
   m_ObjectHideFlags: 0
@@ -12235,6 +12406,17 @@ PrefabInstance:
       addedObject: {fileID: 231415879}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+--- !u!114 &1485514582 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1485514581}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!4 &1485514583 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6885623919234138185, guid: 707ec94fb9617874a9034268febf718d, type: 3}
@@ -12986,7 +13168,7 @@ GameObject:
   - component: {fileID: 1599700650}
   - component: {fileID: 1599700653}
   - component: {fileID: 1599700652}
-  - component: {fileID: 1599700651}
+  - component: {fileID: 1599700654}
   m_Layer: 7
   m_Name: Converter_Bypass_Lower
   m_TagString: Untagged
@@ -13012,28 +13194,6 @@ Transform:
   - {fileID: 684319289}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &1599700651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599700649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
-  _mode: 1
-  _state: 0
-  _issue: 0
-  _moveDirection: {x: 0, y: 0, z: -1}
-  _velocityCmPerSecond: 50
-  _inputPoint: {fileID: 2029832965}
-  _outputPoint: {fileID: 684319289}
-  _capacity: 0
-  _beltArea: 0
-  _status: 0
 --- !u!54 &1599700652
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13082,6 +13242,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99826545, y: 1, z: 1}
   m_Center: {x: 0.0008673142, y: 0, z: 1.9918817e-17}
+--- !u!114 &1599700654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599700649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa17f6c5a93ac4341b7859521cdbf254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ConverterConveyer
+  _mode: 1
+  _state: 0
+  _issue: 0
+  _moveDirection: {x: 1, y: 0, z: -1}
+  _velocityCmPerSecond: 50
+  _inputPoint: {fileID: 0}
+  _outputPoint: {fileID: 0}
+  _capacity: 0
+  _beltArea: 0
+  _status: 0
 --- !u!1001 &1634428616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13192,6 +13374,17 @@ PrefabInstance:
       addedObject: {fileID: 1575272286}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+--- !u!114 &1634428617 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1634428616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!4 &1634428618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6885623919234138185, guid: 707ec94fb9617874a9034268febf718d, type: 3}
@@ -13491,6 +13684,17 @@ PrefabInstance:
       addedObject: {fileID: 1908152706}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+--- !u!114 &1709117761 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1709117760}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!4 &1709117762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6885623919234138185, guid: 707ec94fb9617874a9034268febf718d, type: 3}
@@ -13699,6 +13903,17 @@ PrefabInstance:
       addedObject: {fileID: 1304408998}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+--- !u!114 &1746614294 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1746614293}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1 &1746843212
 GameObject:
   m_ObjectHideFlags: 0
@@ -14644,6 +14859,17 @@ PrefabInstance:
       addedObject: {fileID: 365500990}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+--- !u!114 &1838119994 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1838119993}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1 &1848484071
 GameObject:
   m_ObjectHideFlags: 0
@@ -15274,6 +15500,17 @@ PrefabInstance:
       addedObject: {fileID: 1804478870}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+--- !u!114 &1903457812 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1903457811}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1001 &1905540229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15390,7 +15627,7 @@ GameObject:
   - component: {fileID: 1922357925}
   - component: {fileID: 1922357924}
   - component: {fileID: 1922357923}
-  - component: {fileID: 1922357922}
+  - component: {fileID: 1922357926}
   m_Layer: 7
   m_Name: Converter_Bypass_Lower (1)
   m_TagString: Untagged
@@ -15398,28 +15635,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1922357922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1922357921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
-  _mode: 1
-  _state: 0
-  _issue: 0
-  _moveDirection: {x: 0, y: 0, z: 1}
-  _velocityCmPerSecond: 50
-  _inputPoint: {fileID: 650163715}
-  _outputPoint: {fileID: 457467202}
-  _capacity: 0
-  _beltArea: 0
-  _status: 0
 --- !u!54 &1922357923
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15486,6 +15701,28 @@ Transform:
   - {fileID: 457467202}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1922357926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922357921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa17f6c5a93ac4341b7859521cdbf254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ConverterConveyer
+  _mode: 1
+  _state: 0
+  _issue: 0
+  _moveDirection: {x: 1, y: 0, z: 1}
+  _velocityCmPerSecond: 50
+  _inputPoint: {fileID: 0}
+  _outputPoint: {fileID: 0}
+  _capacity: 0
+  _beltArea: 0
+  _status: 0
 --- !u!1 &1924183345 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2607955538009112685, guid: 15fb2378e89d24c4c83a6b8b0b42aa71, type: 3}
@@ -15709,6 +15946,17 @@ PrefabInstance:
       addedObject: {fileID: 1999721322}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+--- !u!114 &1945455928 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1945455927}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!1 &1948566826
 GameObject:
   m_ObjectHideFlags: 0
@@ -17053,6 +17301,17 @@ PrefabInstance:
       addedObject: {fileID: 587611811}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+--- !u!114 &2143481633 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 2143481632}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!4 &2143481634 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6885623919234138185, guid: 707ec94fb9617874a9034268febf718d, type: 3}
@@ -17206,6 +17465,17 @@ PrefabInstance:
       addedObject: {fileID: 601892178}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+--- !u!114 &1676446442463536142 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373849972471133821, guid: 707ec94fb9617874a9034268febf718d, type: 3}
+  m_PrefabInstance: {fileID: 1676446442463536141}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a8e3797ebdc347bf87bce083ae02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FBFactory.ContainerBelt
 --- !u!4 &3436563028456632585
 Transform:
   m_ObjectHideFlags: 0
