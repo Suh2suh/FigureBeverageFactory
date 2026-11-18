@@ -8,12 +8,23 @@ namespace FBFactory
         protected virtual float ProcessTime => 0f;
         protected virtual float ChangeoverTime => 0f;
 
+        [SerializeField, ReadOnly] private float _processTime;
+        [SerializeField, ReadOnly] private float _changeoverTime;
+        [SerializeField, ReadOnly] private bool _isChangingOver;
+
         private Action<ProcessingUnit> _onChangeOverComplete;
         private LineController _lineController;
 
         public abstract UnitType UnitType { get; }
         public virtual bool IsProcessing => false;
+        public bool IsChangingOver => _isChangingOver;
         protected LineController LineController => _lineController;
+
+        private void OnValidate()
+        {
+            _processTime = ProcessTime;
+            _changeoverTime = ChangeoverTime;
+        }
 
         private void Update()
         {
@@ -31,12 +42,14 @@ namespace FBFactory
             if (_state != PackMLState.Stopped)
                 return;
 
+            _isChangingOver = true;
             OnSetupMaterial(materialSetup);
             Invoke(nameof(CompleteChangeOver), ChangeoverTime);
         }
 
         private void CompleteChangeOver()
         {
+            _isChangingOver = false;
             _onChangeOverComplete?.Invoke(this);
         }
 
