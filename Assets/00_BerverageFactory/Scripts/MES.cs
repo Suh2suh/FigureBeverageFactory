@@ -1,13 +1,17 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FBFactory
 {
     public class MES : SingletonBase<MES>
     {
         [SerializeField] private LineController _lineController;
-        [SerializeField] private List<OrderData> _orders;
+        [FormerlySerializedAs("_orders")]
+        [SerializeField] private List<MESOrderData> _mesOrderDataList;
         [SerializeField, ReadOnly] private List<OrderProductionStatus> _orderStatus;
+        private Dictionary<string, OrderProductionStatus> _orderStatusById = new();
         private bool _isInit = false;
 
 
@@ -21,32 +25,40 @@ namespace FBFactory
             if (_isInit)
                 return;
 
-            for (int id = 0; id < _orders.Count; id++) 
+            _orderStatusById.Clear();
+
+            for (int sequence = 0; sequence < _mesOrderDataList.Count; sequence++)
             {
-                var order = _orders[id];
-                order.ID = id;
-                _orderStatus.Add(new()
+                MESOrderData orderData = _mesOrderDataList[sequence];
+
+                if (string.IsNullOrEmpty(orderData.OrderId))
+                    orderData.OrderId = Guid.NewGuid().ToString("N");
+
+                OrderProductionStatus orderStatus = new()
                 {
-                    Order = order,
+                    Order = orderData,
                     Yield = 0,
                     Scrap = 0,
-                });
+                };
+
+                _orderStatus.Add(orderStatus);
+                _orderStatusById.Add(orderData.OrderId, orderStatus);
             }
 
-            _lineController.ConfigureOrders(_orders);
+            _lineController.ConfigureOrders(_mesOrderDataList);
 
             _isInit = true;
         }
 
 
-        public void OnProduced(int orderID)
+        public void OnProduced(string orderId)
         {
-            _orderStatus[orderID].Yield++;
+            _orderStatusById[orderId].Yield++;
         }
 
-        public void OnRejected(int orderID)
+        public void OnRejected(string orderId)
         {
-            _orderStatus[orderID].Scrap++;
+            _orderStatusById[orderId].Scrap++;
         }
     }
 
@@ -54,15 +66,16 @@ namespace FBFactory
     [System.Serializable]
     class OrderProductionStatus
     {
-        public OrderData Order;
+        public MESOrderData Order;
         public int Yield;
         public int Scrap;
     }
 
     [System.Serializable]
-    public class OrderData
+    public class MESOrderData
     {
-        public int ID;
+        [ReadOnly] public string OrderId;
+        [ReadOnly] public int ProductionSequence;
         [field: SerializeField] public BOMScriptableObject BOM { get; private set; }
         [field: SerializeField] public int TargetQuantity { get; private set; }
     }

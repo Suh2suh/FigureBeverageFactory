@@ -6,41 +6,41 @@ namespace FBFactory
 {
     public class OrderMaterialSetup
     {
-        private Dictionary<MaterialType, List<MaterialScriptableObject>> _materialSetup;
-        private Dictionary<MaterialType, float> _beverageQuantities;
-        private Dictionary<MaterialType, string> _beverageUnits;
+        private Dictionary<MaterialType, List<MaterialScriptableObject>> _materialTypeToMaterials;
+        private Dictionary<MaterialType, float> _materialTypeToBeverageQuantity;
+        private Dictionary<MaterialType, string> _materialTypeToBeverageUnit;
 
         public void Configure(BOMScriptableObject bom)
         {
-            _materialSetup = new();
-            _beverageQuantities = new();
-            _beverageUnits = new();
-            foreach (var component in bom.Components)
+            _materialTypeToMaterials = new();
+            _materialTypeToBeverageQuantity = new();
+            _materialTypeToBeverageUnit = new();
+            foreach (var bomComponent in bom.Components)
             {
-                var materialType = component.Material.MaterialType;
-                if (!_materialSetup.ContainsKey(materialType))
+                MaterialType materialType = bomComponent.Material.MaterialType;
+                if (!_materialTypeToMaterials.ContainsKey(materialType))
                 {
-                    _materialSetup[materialType] = new();
+                    _materialTypeToMaterials[materialType] = new();
                 }
-                _materialSetup[materialType].Add(component.Material);
-                _beverageQuantities[materialType] = component.Quantity;
-                _beverageUnits[materialType] = component.Unit;
+                _materialTypeToMaterials[materialType].Add(bomComponent.Material);
+                _materialTypeToBeverageQuantity[materialType] = bomComponent.Quantity;
+                _materialTypeToBeverageUnit[materialType] = bomComponent.Unit;
             }
         }
 
-        public bool TryGetMaterials(MaterialType type, out IReadOnlyList<MaterialScriptableObject> materials)
+        public bool TryGetMaterials(MaterialType materialType, out IReadOnlyList<MaterialScriptableObject> materials)
         {
-            bool hasMaterials = _materialSetup.ContainsKey(type);
-            materials = (hasMaterials ? _materialSetup[type] : null);
+            bool hasMaterials = _materialTypeToMaterials.ContainsKey(materialType);
+            materials = (hasMaterials ? _materialTypeToMaterials[materialType] : null);
             return hasMaterials;
         }
 
-        public float GetBeverageQuantity(MaterialType type)
+        public float GetBeverageQuantity(MaterialType materialType)
         {
-            float quantity = _beverageQuantities[type];
-            string unit = _beverageUnits[type];
+            float quantity = _materialTypeToBeverageQuantity[materialType];
+            string beverageUnit = _materialTypeToBeverageUnit[materialType];
 
-            if (unit == "L")
+            if (beverageUnit == "L")
                 return quantity * 1000f;
 
             return quantity;
@@ -54,24 +54,29 @@ namespace FBFactory
         [SerializeField] private ProductionPath _normalProductionPath;
         [SerializeField] private ProductionPath _figureProductionPath;
 
-        private Dictionary<UnitType, UnitData> _typeToUnitData = new();
-        private class UnitData
+        private Dictionary<UnitType, ProcessingUnitData> _unitTypeToProcessingUnitData = new();
+        private class ProcessingUnitData
         {
             public ProcessingUnit Unit;
-            public OrderData ProcessingOrder;
+            public ProductionOrderData ProcessingOrder;
             public PackMLState State => Unit.State;
         }
 
-        private List<OrderData> _orderSequence = new();
-        private Dictionary<OrderData, ParsedOrderData> _orders = new();
-        private class ParsedOrderData
+        private List<ProductionOrderData> _orderSequence = new();
+        private Dictionary<string, ProductionOrderData> _orderIdToProductionOrderData = new();
+        public class ProductionOrderData
         {
-            public HashSet<UnitType> _usedUnits = new()
+            public string OrderId;
+            public MESOrderData SourceOrder;
+            private HashSet<UnitType> _usedUnits = new()
             {   // common route for Figure Beverage Factory
                 UnitType.BlowModular, UnitType.Filler, UnitType.Capper, UnitType.Inspector_FillingCapping,
                 UnitType.Labeler, UnitType.Coder, UnitType.Inspector_LabelingCoding,
                 UnitType.Packager, UnitType.Palletizer, UnitType.Stretcher,
             };
+
+            public bool UsesUnit(UnitType unitType)
+                => _usedUnits.Contains(unitType);
             public OrderMaterialSetup MaterialSetup { get; private set; }
             public ProductionPath ProductionPath { get; set; }
 
@@ -101,15 +106,15 @@ namespace FBFactory
 
         private void InitAllUnits()
         {
-            _typeToUnitData = new();
-            foreach (var unit in _units)
+            _unitTypeToProcessingUnitData = new();
+            foreach (ProcessingUnit processingUnit in _units)
             {
-                unit.SetChangeOverCompleteCallback(OnEndChangeOver);
-                unit.SetLineController(this);
+                processingUnit.SetChangeOverCompleteCallback(OnEndChangeOver);
+                processingUnit.SetLineController(this);
 
-                _typeToUnitData[unit.UnitType] = new()
+                _unitTypeToProcessingUnitData[processingUnit.UnitType] = new()
                 {
-                    Unit = unit,
+                    Unit = processingUnit,
                     ProcessingOrder = null
                 };
             }
@@ -123,84 +128,86 @@ namespace FBFactory
 
         private void MonitorUnits()
         {
-            foreach (UnitData unitData in _typeToUnitData.Values)
+            foreach (ProcessingUnitData processingUnitData in _unitTypeToProcessingUnitData.Values)
             {
-                if (CanChangeover(unitData.Unit))
-                    ChangeOverToNextOrder(unitData.Unit.UnitType);
+                if (CanChangeover(processingUnitData.Unit))
+                    ChangeOverToNextOrder(processingUnitData.Unit.UnitType);
             }
         }
 
-        public void ConfigureOrders(IReadOnlyList<OrderData> orders)
+        public void ConfigureOrders(IReadOnlyList<MESOrderData> mesOrderDataList)
         {
-            if (orders.Count == 0)
+            if (mesOrderDataList.Count == 0)
             {
                 Debug.Log("[LineController] orders from MES is empty".Color(Color.red));
                 return;
             }
             Debug.Log("[LineController] Start Parsing Orders from MES...".Color(Color.blue));
+            AssignProductionSequence(mesOrderDataList);
 
             // MES에서 내려온 order데이터를 미리 parsing (unit order 상태를 바로 전환할 수 있게)
             _orderSequence = new();
-            foreach (OrderData order in orders)
+            foreach (MESOrderData orderData in mesOrderDataList)
             {
-                SetupOrder(order);
-                _orderSequence.Add(order);
-                Debug.Log($"[LineController] Parsed : Order #{order.ID} - '{order.BOM.SkuName}' / {order.TargetQuantity} EA");
+                SetupOrder(orderData);
+                _orderSequence.Add(_orderIdToProductionOrderData[orderData.OrderId]);
+                Debug.Log($"[LineController] Parsed : Order #{orderData.OrderId} - '{orderData.BOM.SkuName}' / {orderData.TargetQuantity} EA");
             }
 
             // TODO: v4 - 시작 로직 구체화 (order 간 gap 유동적으로 등)
             // 1. Order Production 시작
             // 1-a. first order에 사용되는 unit들에 대하여, material setup(changeOver)
             Debug.Log($"[LineController] Changing-Over all Units' setting...".Color(Color.blue));
-            var firstOrderIndex = _orderSequence[0];
-            var firstOrderData = _orders[firstOrderIndex];
-            foreach (UnitType type in Enum.GetValues(typeof(UnitType)))
+            ProductionOrderData firstProductionOrderData = _orderSequence[0];
+            foreach (UnitType unitType in Enum.GetValues(typeof(UnitType)))
             {
-                if (type is UnitType.ConveyerBelt ||
-                    !firstOrderData._usedUnits.Contains(type))
+                if (unitType is UnitType.ConveyerBelt ||
+                    !firstProductionOrderData.UsesUnit(unitType))
                     continue;
 
-                var unitData = _typeToUnitData[type];
-                unitData.ProcessingOrder = firstOrderIndex;
-                unitData.Unit.SetMode(PackMLMode.Production);
-                unitData.Unit.SetupMaterial(firstOrderData.MaterialSetup);
+                ProcessingUnitData processingUnitData = _unitTypeToProcessingUnitData[unitType];
+                processingUnitData.ProcessingOrder = firstProductionOrderData;
+                processingUnitData.Unit.SetMode(PackMLMode.Production);
+                processingUnitData.Unit.SetupMaterial(firstProductionOrderData.MaterialSetup);
             }
-            // 1-b. ConveyerBelt 작동
-            Debug.Log($"[LineController] Starting all ConveyerBelts...".Color(Color.blue));
-            StartConveyers(_normalProductionPath);
-            StartConveyers(_figureProductionPath);
+
+            // 1-b. 첫 Order가 사용하는 ProductionPath만 작동
+            Debug.Log($"[LineController] Starting first Order ProductionPath...".Color(Color.blue));
+            StartConveyersForOrder(firstProductionOrderData);
         }
 
-        private void SetupOrder(OrderData order)
+        private void SetupOrder(MESOrderData orderData)
         {
-            ParsedOrderData parsedOrderData = new ParsedOrderData();
-            parsedOrderData.Configure(order.BOM);
-            parsedOrderData.ProductionPath = parsedOrderData.MaterialSetup.TryGetMaterials(MaterialType.Figure, out _)
+            ProductionOrderData productionOrderData = new ProductionOrderData
+            {
+                OrderId = orderData.OrderId,
+                SourceOrder = orderData
+            };
+            productionOrderData.Configure(orderData.BOM);
+            productionOrderData.ProductionPath = productionOrderData.MaterialSetup.TryGetMaterials(MaterialType.Figure, out _)
                 ? _figureProductionPath
                 : _normalProductionPath;
-            _orders[order] = parsedOrderData;
+            _orderIdToProductionOrderData[orderData.OrderId] = productionOrderData;
         }
 
-        public ProductionPath GetProductionPath(OrderData order)
+        public ProductionPath GetProductionPath(ProductionOrderData productionOrderData)
         {
-            return _orders.TryGetValue(order, out ParsedOrderData parsedOrderData)
-                ? parsedOrderData.ProductionPath
-                : null;
+            return productionOrderData?.ProductionPath;
         }
 
-        public bool TryGetPrevUnit(ProcessingUnit unit, OrderData order, out ProcessingUnit prevUnit)
+        public bool TryGetPrevUnit(ProcessingUnit processingUnit, ProductionOrderData productionOrderData, out ProcessingUnit previousUnit)
         {
-            return TryGetConnection(unit, order, ConnectionType.Production, true, out prevUnit);
+            return TryGetConnection(processingUnit, productionOrderData, ConnectionType.Production, true, out previousUnit);
         }
 
-        public bool TryGetNextUnit(ProcessingUnit unit, OrderData order, out ProcessingUnit nextUnit)
+        public bool TryGetNextUnit(ProcessingUnit processingUnit, ProductionOrderData productionOrderData, out ProcessingUnit nextUnit)
         {
-            return TryGetConnection(unit, order, ConnectionType.Production, false, out nextUnit);
+            return TryGetConnection(processingUnit, productionOrderData, ConnectionType.Production, false, out nextUnit);
         }
 
-        public bool TryInsertMaterial(ProcessingUnit unit, FactoryMaterial material, ConnectionType type)
+        public bool TryInsertMaterial(ProcessingUnit processingUnit, FactoryMaterial material, ConnectionType connectionType)
         {
-            LineConnection connection = FindOutgoingConnection(unit, type);
+            LineConnection connection = FindOutgoingConnection(processingUnit, connectionType);
 
             if (connection == null)
                 return false;
@@ -215,93 +222,104 @@ namespace FBFactory
             return false;
         }
 
-        public IReadOnlyList<LineConnection> GetIncomingConnections(ProcessingUnit unit, OrderData order = null)
+        public IReadOnlyList<LineConnection> GetIncomingConnections(ProcessingUnit processingUnit, ProductionOrderData productionOrderData = null)
         {
-            return GetConnections(unit, true, order);
+            return GetConnections(processingUnit, true, productionOrderData);
         }
 
-        public IReadOnlyList<LineConnection> GetOutgoingConnections(ProcessingUnit unit, OrderData order = null)
+        public IReadOnlyList<LineConnection> GetOutgoingConnections(ProcessingUnit processingUnit, ProductionOrderData productionOrderData = null)
         {
-            return GetConnections(unit, false, order);
+            return GetConnections(processingUnit, false, productionOrderData);
         }
 
-        private bool TryGetConnection(ProcessingUnit unit, OrderData order, ConnectionType type, bool incoming, out ProcessingUnit connectedUnit)
+        private bool TryGetConnection(ProcessingUnit processingUnit, ProductionOrderData productionOrderData, ConnectionType connectionType, bool isIncoming, out ProcessingUnit connectedUnit)
         {
-            ProductionPath path = GetProductionPath(order);
-            LineConnection connection = path?.Connections.Find(item =>
-                item.Type == type && (incoming ? item.NextUnit == unit : item.PrevUnit == unit));
+            ProductionPath productionPath = GetProductionPath(productionOrderData);
+            LineConnection lineConnection = productionPath?.Connections.Find(connection =>
+                connection.Type == connectionType && (isIncoming ? connection.NextUnit == processingUnit : connection.PrevUnit == processingUnit));
 
-            connectedUnit = connection == null
+            connectedUnit = lineConnection == null
                 ? null
-                : incoming ? connection.PrevUnit : connection.NextUnit;
+                : isIncoming ? lineConnection.PrevUnit : lineConnection.NextUnit;
             return connectedUnit != null;
         }
 
-        private LineConnection FindOutgoingConnection(ProcessingUnit unit, ConnectionType type)
+        private LineConnection FindOutgoingConnection(ProcessingUnit processingUnit, ConnectionType connectionType)
         {
-            if (!_typeToUnitData.TryGetValue(unit.UnitType, out UnitData unitData))
+            if (!_unitTypeToProcessingUnitData.TryGetValue(processingUnit.UnitType, out ProcessingUnitData processingUnitData))
                 return null;
 
-            ProductionPath path = GetProductionPath(unitData.ProcessingOrder);
-            return path?.Connections.Find(item =>
-                item.Type == type && item.PrevUnit == unit);
+            ProductionPath productionPath = GetProductionPath(processingUnitData.ProcessingOrder);
+            return productionPath?.Connections.Find(connection =>
+                connection.Type == connectionType && connection.PrevUnit == processingUnit);
         }
 
-        private IReadOnlyList<LineConnection> GetConnections(ProcessingUnit unit, bool incoming, OrderData order)
+        private IReadOnlyList<LineConnection> GetConnections(ProcessingUnit processingUnit, bool isIncoming, ProductionOrderData productionOrderData)
         {
-            ProductionPath path = order == null ? null : GetProductionPath(order);
-            List<LineConnection> connections = path == null
+            ProductionPath productionPath = productionOrderData == null ? null : GetProductionPath(productionOrderData);
+            List<LineConnection> connections = productionPath == null
                 ? new List<LineConnection>()
-                : path.Connections.FindAll(item => incoming ? item.NextUnit == unit : item.PrevUnit == unit);
+                : productionPath.Connections.FindAll(connection => isIncoming ? connection.NextUnit == processingUnit : connection.PrevUnit == processingUnit);
             return connections;
         }
 
 
-        public void OnProductProduced(OrderData order)
+        public void OnProductProduced(ProductionOrderData productionOrderData)
         {
-            MES.Instance.OnProduced(order.ID);
+            MES.Instance.OnProduced(productionOrderData.OrderId);
         }
 
-        public void OnProductReject(OrderData order)
+        public void OnProductReject(ProductionOrderData productionOrderData)
         {
-            MES.Instance.OnRejected(order.ID);
+            MES.Instance.OnRejected(productionOrderData.OrderId);
         }
 
 
-        public void ChangeOverToNextOrder(UnitType targetUnit)
+        public void ChangeOverToNextOrder(UnitType targetUnitType)
         {
-            if (!_typeToUnitData.TryGetValue(targetUnit, out UnitData unitData) ||
-                unitData.ProcessingOrder == null)
+            if (!_unitTypeToProcessingUnitData.TryGetValue(targetUnitType, out ProcessingUnitData processingUnitData) ||
+                processingUnitData.ProcessingOrder == null)
                 return;
 
-            int currentOrderIndex = _orderSequence.IndexOf(unitData.ProcessingOrder);
+            int currentOrderIndex = _orderSequence.IndexOf(processingUnitData.ProcessingOrder);
             int nextOrderIndex = currentOrderIndex + 1;
 
             if (nextOrderIndex >= _orderSequence.Count)
                 return;
 
-            OrderData nextOrder = _orderSequence[nextOrderIndex];
-            unitData.ProcessingOrder = nextOrder;
+            ProductionOrderData nextProductionOrder = _orderSequence[nextOrderIndex];
+            ProcessingUnit processingUnit = processingUnitData.Unit;
 
-            unitData.Unit.Stop_PackML();
-            unitData.Unit.SetupMaterial(_orders[nextOrder].MaterialSetup);
+            ApplyConveyersForChangeOver(processingUnit, processingUnitData.ProcessingOrder, nextProductionOrder);
+
+            if (!nextProductionOrder.UsesUnit(targetUnitType))
+            {
+                processingUnit.Stop_PackML();
+                processingUnitData.ProcessingOrder = nextProductionOrder;
+                return;
+            }
+
+            processingUnitData.ProcessingOrder = nextProductionOrder;
+
+            processingUnit.Stop_PackML();
+            processingUnit.SetupMaterial(nextProductionOrder.MaterialSetup);
         }
 
-        public OrderData GetCurrentOrder(ProcessingUnit unit)
+        public ProductionOrderData GetCurrentOrder(ProcessingUnit processingUnit)
         {
-            return _typeToUnitData.TryGetValue(unit.UnitType, out UnitData unitData)
-                ? unitData.ProcessingOrder
+            return _unitTypeToProcessingUnitData.TryGetValue(processingUnit.UnitType, out ProcessingUnitData processingUnitData)
+                ? processingUnitData.ProcessingOrder
                 : null;
         }
 
-        public bool IsStarved(ProcessingUnit unit)
+        public bool IsStarved(ProcessingUnit processingUnit)
         {
-            OrderData currentOrder = GetCurrentOrder(unit);
+            ProductionOrderData currentProductionOrder = GetCurrentOrder(processingUnit);
 
-            if (currentOrder == null)
+            if (currentProductionOrder == null)
                 return true;
 
-            foreach (LineConnection connection in GetIncomingConnections(unit, currentOrder))
+            foreach (LineConnection connection in GetIncomingConnections(processingUnit, currentProductionOrder))
             {
                 if (connection.Conveyers.Exists(conveyer =>
                     conveyer.GetCapacityStatus() != CapacityState.Empty))
@@ -311,63 +329,65 @@ namespace FBFactory
             return true;
         }
 
-        public bool IsPreviousOrderFlowCompleted(ProcessingUnit unit)
+        public bool IsPreviousOrderFlowCompleted(ProcessingUnit processingUnit)
         {
-            OrderData currentOrder = GetCurrentOrder(unit);
+            ProductionOrderData currentProductionOrder = GetCurrentOrder(processingUnit);
 
-            if (currentOrder == null ||
-                !TryGetPrevUnit(unit, currentOrder, out ProcessingUnit prevUnit))
+            if (currentProductionOrder == null ||
+                !TryGetPrevUnit(processingUnit, currentProductionOrder, out ProcessingUnit previousUnit))
                 return true;
 
-            return GetCurrentOrder(prevUnit) != currentOrder;
+            return GetCurrentOrder(previousUnit) != currentProductionOrder;
         }
 
-        public bool CanChangeover(ProcessingUnit unit)
+        public bool CanChangeover(ProcessingUnit processingUnit)
         {
-            if (!_typeToUnitData.TryGetValue(unit.UnitType, out UnitData unitData) ||
-                unitData.ProcessingOrder == null ||
-                unit.State != PackMLState.Execute ||
-                unit.IsProcessing ||
-                !IsStarved(unit))
+            if (!_unitTypeToProcessingUnitData.TryGetValue(processingUnit.UnitType, out ProcessingUnitData processingUnitData) ||
+                processingUnitData.ProcessingOrder == null ||
+                processingUnit.State != PackMLState.Execute ||
+                processingUnit.IsProcessing ||
+                !IsStarved(processingUnit))
                 return false;
 
-            if (!IsPreviousOrderFlowCompleted(unit))
+            if (!IsPreviousOrderFlowCompleted(processingUnit))
                 return false;
 
-            int currentOrderIndex = _orderSequence.IndexOf(unitData.ProcessingOrder);
+            int currentOrderIndex = _orderSequence.IndexOf(processingUnitData.ProcessingOrder);
             return currentOrderIndex >= 0 && currentOrderIndex + 1 < _orderSequence.Count;
         }
 
-        public void OnEndChangeOver(ProcessingUnit unit)
+        public void OnEndChangeOver(ProcessingUnit processingUnit)
         {
-            Debug.Log($"[LineController] {unit.name} ended changeOver for Order ID : {_typeToUnitData[unit.UnitType].ProcessingOrder.ID}");
-            unit.Reset_PackML();
-            unit.Start_PackML();
+            Debug.Log($"[LineController] {processingUnit.name} ended changeOver for Order ID : {_unitTypeToProcessingUnitData[processingUnit.UnitType].ProcessingOrder.OrderId}");
+            processingUnit.Reset_PackML();
+            processingUnit.Start_PackML();
         }
 
 
-        private bool TryGetUnit(UnitType unitType, out ProcessingUnit unit)
+        private bool TryGetUnit(UnitType unitType, out ProcessingUnit processingUnit)
         {
-            bool hasUnit = _typeToUnitData.TryGetValue(unitType, out var unitData);
-            unit = hasUnit ? unitData.Unit : null;
+            bool hasUnit = _unitTypeToProcessingUnitData.TryGetValue(unitType, out ProcessingUnitData processingUnitData);
+            processingUnit = hasUnit ? processingUnitData.Unit : null;
             return hasUnit;
         }
 
-        private bool TryGetUnit<T>(UnitType unitType, out T unit) where T : ProcessingUnit
+        private bool TryGetUnit<T>(UnitType unitType, out T processingUnit) where T : ProcessingUnit
         {
-            bool hasUnit = _typeToUnitData.TryGetValue(unitType, out var unitData);
-            unit = hasUnit ? unitData.Unit as T : null;
+            bool hasUnit = _unitTypeToProcessingUnitData.TryGetValue(unitType, out ProcessingUnitData processingUnitData);
+            processingUnit = hasUnit ? processingUnitData.Unit as T : null;
             return hasUnit;
         }
 
-        private void StartConveyers(ProductionPath path)
+        private void StartConveyersForOrder(ProductionOrderData productionOrderData)
         {
-            if (path == null)
+            ProductionPath productionPath = GetProductionPath(productionOrderData);
+
+            if (productionPath == null)
                 return;
 
             HashSet<Unit_ConveyerBelt> startedConveyers = new();
 
-            foreach (LineConnection connection in path.Connections)
+            foreach (LineConnection connection in productionPath.Connections)
             {
                 foreach (Unit_ConveyerBelt conveyer in connection.Conveyers)
                 {
@@ -378,10 +398,84 @@ namespace FBFactory
                     conveyer.Start_PackML();
                 }
 
-                foreach (ConverterDirectionSetting setting in connection.ConverterDirections)
+                foreach (ConverterDirectionSetting converterDirectionSetting in connection.ConverterDirections)
                 {
-                    setting.Converter.SetMoveDirection(setting.LocalDirection);
+                    converterDirectionSetting.Converter.SetMoveDirection(converterDirectionSetting.LocalDirection);
                 }
+            }
+        }
+
+        protected virtual void AssignProductionSequence(IReadOnlyList<MESOrderData> orderDataList)
+        {
+            for (int sequence = 0; sequence < orderDataList.Count; sequence++)
+                orderDataList[sequence].ProductionSequence = sequence;
+        }
+
+        private void ApplyConveyersForChangeOver(
+            ProcessingUnit processingUnit,
+            ProductionOrderData currentProductionOrder,
+            ProductionOrderData nextProductionOrder)
+        {
+            StopOutgoingConveyersForOrder(processingUnit, currentProductionOrder);
+            StartOutgoingConveyersForOrder(processingUnit, nextProductionOrder);
+        }
+
+        private void StartOutgoingConveyersForOrder(
+            ProcessingUnit upstreamProcessingUnit,
+            ProductionOrderData productionOrderData)
+        {
+            ProductionPath productionPath = GetProductionPath(productionOrderData);
+
+            if (productionPath == null)
+                return;
+
+            foreach (LineConnection connection in productionPath.Connections)
+            {
+                if (connection.Type != ConnectionType.Production ||
+                    connection.PrevUnit != upstreamProcessingUnit)
+                    continue;
+
+                StartConveyersInConnection(connection);
+            }
+        }
+
+        private void StopOutgoingConveyersForOrder(
+            ProcessingUnit upstreamProcessingUnit,
+            ProductionOrderData productionOrderData)
+        {
+            ProductionPath productionPath = GetProductionPath(productionOrderData);
+
+            if (productionPath == null)
+                return;
+
+            HashSet<Unit_ConveyerBelt> stoppedConveyers = new();
+
+            foreach (LineConnection connection in productionPath.Connections)
+            {
+                if (connection.PrevUnit != upstreamProcessingUnit)
+                    continue;
+
+                foreach (Unit_ConveyerBelt conveyer in connection.Conveyers)
+                {
+                    if (!stoppedConveyers.Add(conveyer))
+                        continue;
+
+                    conveyer.Stop_PackML();
+                }
+            }
+        }
+
+        private void StartConveyersInConnection(LineConnection connection)
+        {
+            foreach (Unit_ConveyerBelt conveyer in connection.Conveyers)
+            {
+                conveyer.Reset_PackML();
+                conveyer.Start_PackML();
+            }
+
+            foreach (ConverterDirectionSetting converterDirectionSetting in connection.ConverterDirections)
+            {
+                converterDirectionSetting.Converter.SetMoveDirection(converterDirectionSetting.LocalDirection);
             }
         }
 
@@ -391,9 +485,9 @@ namespace FBFactory
             {
                 _units.Clear();
 
-                foreach (ProcessingUnit unit in FindObjectsOfType<ProcessingUnit>(true))
+                foreach (ProcessingUnit processingUnit in FindObjectsByType<ProcessingUnit>(FindObjectsInactive.Include))
                 {
-                    _units.Add(unit);
+                    _units.Add(processingUnit);
                 }
             }
 
