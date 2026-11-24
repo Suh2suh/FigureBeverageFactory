@@ -371,7 +371,7 @@ namespace FBFactory
             if (arrowSide == Vector3.zero)
                 arrowSide = Vector3.Cross(direction, Vector3.right).normalized;
 
-            Gizmos.color = Color.white;
+            Gizmos.color = _state == PackMLState.Execute ? Color.green : Color.red;
             Gizmos.DrawLine(startPosition, endPosition);
             Gizmos.DrawLine(endPosition, arrowBack + arrowSide * 0.1f);
             Gizmos.DrawLine(endPosition, arrowBack - arrowSide * 0.1f);
