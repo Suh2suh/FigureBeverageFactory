@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FBFactory
 {
@@ -50,7 +51,8 @@ namespace FBFactory
 
     public class LineController : MonoBehaviour
     {
-        [SerializeField] private List<ProcessingUnit> _units = new();
+        [FormerlySerializedAs("_units")]
+        [SerializeField] private List<ProcessingUnit> _processingUnits = new();
         [SerializeField] private ProductionPath _normalProductionPath;
         [SerializeField] private ProductionPath _figureProductionPath;
 
@@ -107,8 +109,15 @@ namespace FBFactory
         private void InitAllUnits()
         {
             _unitTypeToProcessingUnitData = new();
-            foreach (ProcessingUnit processingUnit in _units)
+            foreach (ProcessingUnit processingUnit in _processingUnits)
             {
+                if (_unitTypeToProcessingUnitData.TryGetValue(processingUnit.UnitType, out ProcessingUnitData existingProcessingUnitData))
+                {
+                    Debug.Log(($"[LineController] Duplicate UnitType detected: {processingUnit.UnitType}\n" +
+                               $"Existing Unit: {existingProcessingUnitData.Unit.name}\n" +
+                               $"New Unit: {processingUnit.name}").Color(Color.red));
+                }
+
                 processingUnit.SetChangeOverCompleteCallback(OnEndChangeOver);
                 processingUnit.SetLineController(this);
 
@@ -159,13 +168,12 @@ namespace FBFactory
             // 1-a. first order에 사용되는 unit들에 대하여, material setup(changeOver)
             Debug.Log($"[LineController] Changing-Over all Units' setting...".Color(Color.blue));
             ProductionOrderData firstProductionOrderData = _orderSequence[0];
-            foreach (UnitType unitType in Enum.GetValues(typeof(UnitType)))
+            foreach (ProcessingUnit processingUnit in _processingUnits)
             {
-                if (unitType is UnitType.ConveyerBelt ||
-                    !firstProductionOrderData.UsesUnit(unitType))
+                if (!firstProductionOrderData.UsesUnit(processingUnit.UnitType))
                     continue;
 
-                ProcessingUnitData processingUnitData = _unitTypeToProcessingUnitData[unitType];
+                ProcessingUnitData processingUnitData = _unitTypeToProcessingUnitData[processingUnit.UnitType];
                 processingUnitData.ProcessingOrder = firstProductionOrderData;
                 processingUnitData.Unit.SetMode(PackMLMode.Production);
                 processingUnitData.Unit.SetupMaterial(firstProductionOrderData.MaterialSetup);
@@ -290,16 +298,15 @@ namespace FBFactory
             ProductionOrderData nextProductionOrder = _orderSequence[nextOrderIndex];
             ProcessingUnit processingUnit = processingUnitData.Unit;
 
-            ApplyConveyersForChangeOver(processingUnit, processingUnitData.ProcessingOrder, nextProductionOrder);
+            StopOutgoingConveyersForOrder(processingUnit, processingUnitData.ProcessingOrder);
+            processingUnitData.ProcessingOrder = nextProductionOrder;
+            StartOutgoingConveyersForOrder(processingUnit, processingUnitData.ProcessingOrder);
 
             if (!nextProductionOrder.UsesUnit(targetUnitType))
             {
                 processingUnit.Stop_PackML();
-                processingUnitData.ProcessingOrder = nextProductionOrder;
                 return;
             }
-
-            processingUnitData.ProcessingOrder = nextProductionOrder;
 
             processingUnit.Stop_PackML();
             processingUnit.SetupMaterial(nextProductionOrder.MaterialSetup);
@@ -337,7 +344,9 @@ namespace FBFactory
                 !TryGetPrevUnit(processingUnit, currentProductionOrder, out ProcessingUnit previousUnit))
                 return true;
 
-            return GetCurrentOrder(previousUnit) != currentProductionOrder;
+            ProductionOrderData previousUnitOrder = GetCurrentOrder(previousUnit);
+            return previousUnitOrder != null &&
+                previousUnitOrder.SourceOrder.ProductionSequence > currentProductionOrder.SourceOrder.ProductionSequence;
         }
 
         public bool CanChangeover(ProcessingUnit processingUnit)
@@ -411,15 +420,6 @@ namespace FBFactory
                 orderDataList[sequence].ProductionSequence = sequence;
         }
 
-        private void ApplyConveyersForChangeOver(
-            ProcessingUnit processingUnit,
-            ProductionOrderData currentProductionOrder,
-            ProductionOrderData nextProductionOrder)
-        {
-            StopOutgoingConveyersForOrder(processingUnit, currentProductionOrder);
-            StartOutgoingConveyersForOrder(processingUnit, nextProductionOrder);
-        }
-
         private void StartOutgoingConveyersForOrder(
             ProcessingUnit upstreamProcessingUnit,
             ProductionOrderData productionOrderData)
@@ -481,13 +481,13 @@ namespace FBFactory
 
 
         #region Utility
-            public void CollectAllUnits()
+            public void CollectAllProcessingUnits()
             {
-                _units.Clear();
+                _processingUnits.Clear();
 
-                foreach (ProcessingUnit processingUnit in FindObjectsByType<ProcessingUnit>(FindObjectsInactive.Include))
+                foreach (ProcessingUnit processingUnit in FindObjectsByType<ProcessingUnit>(FindObjectsInactive.Exclude))
                 {
-                    _units.Add(processingUnit);
+                    _processingUnits.Add(processingUnit);
                 }
             }
 
